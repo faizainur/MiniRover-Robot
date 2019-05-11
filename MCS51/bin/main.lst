@@ -327,7 +327,7 @@
                                     327 	.globl __mcs51_genXINIT
                                     328 	.globl __mcs51_genXRAMCLEAR
                                     329 	.globl __mcs51_genRAMCLEAR
-                                    330 ;	src/libs/lcd.h:72: uint16_t LCDLineAddress[] = {0x80, 0xC0, 0x90, 0xD0};
+                                    330 ;	src/libs/lcd.h:75: uint16_t LCDLineAddress[] = {0x80, 0xC0, 0x90, 0xD0};
       000000 75*00 80         [24]  331 	mov	(_LCDLineAddress + 0),#0x80
       000003 75*01 00         [24]  332 	mov	(_LCDLineAddress + 1),#0x00
       000006 75*02 C0         [24]  333 	mov	((_LCDLineAddress + 0x0002) + 0),#0xc0

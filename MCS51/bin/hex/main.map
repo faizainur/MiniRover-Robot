@@ -80,9 +80,9 @@ C:   0000008F  s_GSFINAL
 C:   00000092  s_CSEG                          
 C:   000000CF  l_SSEG                          
 C:   00000100  l_IRAM                          
-C:   000003A6  l_CSEG                          
-C:   00000438  s_CONST                         
-C:   00000442  s_XINIT                         
+C:   000003C4  l_CSEG                          
+C:   00000456  s_CONST                         
+C:   00000460  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -166,13 +166,10 @@ Area                                    Addr        Size        Decimal Bytes (A
      0000009F  _SM0                               lcd
      000000A0  _P2                                lcd
      000000A0  _P2_0                              lcd
-     000000A0  _RS                                lcd
      000000A0  _RS_P2                             lcd
      000000A0  __XPAGE                            
      000000A1  _P2_1                              lcd
-     000000A1  _RW                                lcd
      000000A1  _RW_P2                             lcd
-     000000A2  _EN                                lcd
      000000A2  _EN_P2                             lcd
      000000A2  _P2_2                              lcd
      000000A3  _P2_3                              lcd
@@ -212,6 +209,9 @@ Area                                    Addr        Size        Decimal Bytes (A
      000000B9  _PT0                               lcd
      000000BA  _PX1                               lcd
      000000BB  _PT1                               lcd
+     000000BC  _PS                                lcd
+     000000D0  _P                                 lcd
+     000000D0  _PSW                               lcd
 ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
 Hexadecimal  [32-Bits]
 
@@ -221,9 +221,6 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     000000BC  _PS                                lcd
-     000000D0  _P                                 lcd
-     000000D0  _PSW                               lcd
      000000D1  _FL                                lcd
      000000D2  _OV                                lcd
      000000D3  _RS0                               lcd
@@ -360,7 +357,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00000092    000003A6 =         934. bytes (REL,CON,CODE)
+CSEG                                00000092    000003C4 =         964. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -373,15 +370,15 @@ C:   00000159  _LCDInit                           lcd
 C:   00000181  _LCDCmdWrite                       lcd
 C:   000002A1  _LCDDataWrite                      lcd
 C:   000003C1  _printString                       lcd
-C:   00000418  __gptrget                          _gptrget
-C:   00000434  __sdcc_external_startup            _startup
+C:   00000436  __gptrget                          _gptrget
+C:   00000452  __sdcc_external_startup            _startup
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00000438    0000000A =          10. bytes (REL,CON,CODE)
+CONST                               00000456    0000000A =          10. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

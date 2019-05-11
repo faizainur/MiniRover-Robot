@@ -6,9 +6,10 @@
 #define BUS8 0
 #define BUS4 1
 
-/* LCD Command Modes Code in Hexademical
+/*******************************************
+    LCD Command Modes Code in Hexademical
     source : LCD Display Datasheet
- */
+ *******************************************/
 #define CLEAR_SCREEN                0x01u
 #define RETURN_HOME                 0x02u
 #define SHIFT_CURSOR_LEFT           0x04u
@@ -34,13 +35,14 @@
 #define CMD_LCD_TAB                 0xt
 #define CMD_LCD_ENTER               0xr
 
+
 /* ************************
           LCD Types
 *  ********************** */
 #define LCD_16x1 0
 #define LCD_16x2 1
 #define LCD_16x3 2
-#define LCD_15x4 3
+#define LCD_16x4 3
 
 /* ***********************
     LCD Data Bus
@@ -50,6 +52,11 @@
 #define DATABUS_P2 2
 #define DATABUS_P3 3
 
+#define LcdDatabus_P0 P0
+#define LcdDatabus_P1 P1
+#define LcdDatabus_P2 P2  
+#define LcdDatabus_P3 P3
+
 /* **********************
     Lines Identifier
    ********************* */
@@ -58,21 +65,17 @@
 #define THIRD_LINE 2
 #define FORTH_LINE 3
 
-#define LcdDatabus_P0 P0
-#define LcdDatabus_P1 P1
-#define LcdDatabus_P2 P2  
-#define LcdDatabus_P3 P3
-
-/* References of LCD Line Address 
-   Line 0  ==>   0x80
-   Line 1  ==>   0xC0
-   Line 2  ==>   0x90
-   Line 3  ==>   0xD0             
-*/
+/**************************************
+    References of LCD Line Address 
+        Line 0  ==>   0x80
+        Line 1  ==>   0xC0
+        Line 2  ==>   0x90
+        Line 3  ==>   0xD0             
+***************************************/
 uint16_t LCDLineAddress[] = {0x80, 0xC0, 0x90, 0xD0};
 
 /* LCD Control Pin Setup */
-// case DATABUS_P0:
+
         __sbit __at 0x80 RS_P0       ;
         __sbit __at 0x81 RW_P0       ;
         __sbit __at 0x82 EN_P0       ;

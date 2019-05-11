@@ -327,7 +327,7 @@
                                     327 	.globl __mcs51_genXINIT
                                     328 	.globl __mcs51_genXRAMCLEAR
                                     329 	.globl __mcs51_genRAMCLEAR
-                                    330 ;	src/libs/lcd.h:72: uint16_t LCDLineAddress[] = {0x80, 0xC0, 0x90, 0xD0};
+                                    330 ;	src/libs/lcd.h:75: uint16_t LCDLineAddress[] = {0x80, 0xC0, 0x90, 0xD0};
       00005F 75 08 80         [24]  331 	mov	(_LCDLineAddress + 0),#0x80
       000062 75 09 00         [24]  332 	mov	(_LCDLineAddress + 1),#0x00
       000065 75 0A C0         [24]  333 	mov	((_LCDLineAddress + 0x0002) + 0),#0xc0
@@ -421,7 +421,7 @@
       0000F3 80 EC            [24]  421 	sjmp	00106$
       0000F5                        422 00101$:
                                     423 ;	src/main.c:25: printString(SECOND_LINE, "Jurnal IT");
-      0000F5 75 2C 38         [24]  424 	mov	_printString_PARM_2,#___str_1
+      0000F5 75 2C 56         [24]  424 	mov	_printString_PARM_2,#___str_1
       0000F8 75 2D 04         [24]  425 	mov	(_printString_PARM_2 + 1),#(___str_1 >> 8)
       0000FB 75 2E 80         [24]  426 	mov	(_printString_PARM_2 + 2),#0x80
       0000FE 75 82 01         [24]  427 	mov	dpl,#0x01
@@ -445,10 +445,10 @@
                                     445 	.area CSEG    (CODE)
                                     446 	.area CONST   (CODE)
                                     447 	.area CONST   (CODE)
-      000438                        448 ___str_1:
-      000438 4A 75 72 6E 61 6C 20   449 	.ascii "Jurnal IT"
+      000456                        448 ___str_1:
+      000456 4A 75 72 6E 61 6C 20   449 	.ascii "Jurnal IT"
              49 54
-      000441 00                     450 	.db 0x00
+      00045F 00                     450 	.db 0x00
                                     451 	.area CSEG    (CODE)
                                     452 	.area XINIT   (CODE)
                                     453 	.area CABS    (ABS,CODE)

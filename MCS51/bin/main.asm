@@ -327,7 +327,7 @@ __interrupt_vect:
 	.globl __mcs51_genXINIT
 	.globl __mcs51_genXRAMCLEAR
 	.globl __mcs51_genRAMCLEAR
-;	src/libs/lcd.h:72: uint16_t LCDLineAddress[] = {0x80, 0xC0, 0x90, 0xD0};
+;	src/libs/lcd.h:75: uint16_t LCDLineAddress[] = {0x80, 0xC0, 0x90, 0xD0};
 	mov	(_LCDLineAddress + 0),#0x80
 	mov	(_LCDLineAddress + 1),#0x00
 	mov	((_LCDLineAddress + 0x0002) + 0),#0xc0

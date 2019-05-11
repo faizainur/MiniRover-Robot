@@ -1,10 +1,7 @@
 #include "lcd.h"
-#define LcdDatabus P2
 
 LCDConfig __config;
-    __sbit __at 0xA0 RS       ;
-    __sbit __at 0xA1 RW       ;
-    __sbit __at 0xA2 EN       ;
+
 int LCDSetup(uint8_t lcdType, uint8_t lcdDatabusType, uint8_t lcdBusModes)
 {
     __config.LCDType = lcdType;
@@ -19,13 +16,6 @@ void pinSetup(__sbit pin, uint8_t modes){
 }
 
 void LCDInit(){
-    // pinSetup(RS, OUTPUT);
-    // pinSetup(RW, OUTPUT);
-    // pinSetup(EN, OUTPUT);
-
-    // RS = OUTPUT;
-    // RW = OUTPUT;
-    // EN = OUTPUT;
 
     LCDCmdWrite(RETURN_HOME);
 
@@ -41,7 +31,7 @@ void LCDInit(){
 }
 
 int LCDCmdWrite(char cmd){
-    // char buff = cmd;
+
     switch (__config.LCDDatabusType)
     {
         case DATABUS_P0:
@@ -84,7 +74,6 @@ int LCDCmdWrite(char cmd){
             return -1;
     }
     
-    // LcdDatabus = (cmd & 0xF0);
     DELAY_us(10000);
 
     switch (__config.LCDDatabusType)
@@ -125,16 +114,11 @@ int LCDCmdWrite(char cmd){
             return -1;
     }
     
-
-            // LcdDatabus = ((cmd<<4) & 0xF0);
-
-    
     DELAY_us(10000);
     return 0;
 }
 
 int LCDDataWrite(char data){
-    // char buff = data;
 
     switch (__config.LCDDatabusType)
     {
@@ -226,13 +210,16 @@ void printString(uint8_t line, char* string){
     if (line == FIRST_LINE){
         LCDCmdWrite(CURSOR_TO_FIRST_LINE);
     }
-    else if (line == SECOND_LINE){
+    else if (line == SECOND_LINE && (__config.LCDType == LCD_16x2 
+                                     || __config.LCDType == LCD_16x3
+                                     || __config.LCDType == LCD_16x4)){
         LCDCmdWrite(CURSOR_TO_SECOND_LINE);
     }
-    else if (line == THIRD_LINE){
+    else if (line == THIRD_LINE && (__config.LCDType == LCD_16x3
+                                     || __config.LCDType == LCD_16x4)){
         LCDCmdWrite(CURSOR_TO_THIRD_LINE);
     }
-    else if (line == FORTH_LINE){
+    else if (line == FORTH_LINE && __config.LCDType == LCD_16x4){
         LCDCmdWrite(CURSOR_TO_FORTH_LINE);
     }
     
