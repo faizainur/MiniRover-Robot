@@ -272,13 +272,13 @@
                                     272 ; overlayable items in internal ram 
                                     273 ;--------------------------------------------------------
                                     274 	.area	OSEG    (OVR,DATA)
-      00002F                        275 _LCDSetup_PARM_2:
-      00002F                        276 	.ds 1
-      000030                        277 _LCDSetup_PARM_3:
-      000030                        278 	.ds 1
+      000042                        275 _LCDSetup_PARM_2:
+      000042                        276 	.ds 1
+      000043                        277 _LCDSetup_PARM_3:
+      000043                        278 	.ds 1
                                     279 	.area	OSEG    (OVR,DATA)
-      00002F                        280 _pinSetup_PARM_2:
-      00002F                        281 	.ds 1
+      000042                        280 _pinSetup_PARM_2:
+      000042                        281 	.ds 1
                                     282 ;--------------------------------------------------------
                                     283 ; indirectly addressable internal ram data
                                     284 ;--------------------------------------------------------
@@ -367,9 +367,9 @@
                                     367 ;	src/libs/lcd.c:7: __config.LCDType = lcdType;
       000146 8F 29            [24]  368 	mov	___config,r7
                                     369 ;	src/libs/lcd.c:8: __config.__LCDBusModes = lcdBusModes;
-      000148 85 30 2A         [24]  370 	mov	(___config + 0x0001),_LCDSetup_PARM_3
+      000148 85 43 2A         [24]  370 	mov	(___config + 0x0001),_LCDSetup_PARM_3
                                     371 ;	src/libs/lcd.c:9: __config.LCDDatabusType = lcdDatabusType;
-      00014B 85 2F 2B         [24]  372 	mov	(___config + 0x0002),_LCDSetup_PARM_2
+      00014B 85 42 2B         [24]  372 	mov	(___config + 0x0002),_LCDSetup_PARM_2
                                     373 ;	src/libs/lcd.c:10: return 0;
       00014E 90 00 00         [24]  374 	mov	dptr,#0x0000
                                     375 ;	src/libs/lcd.c:11: }
@@ -387,7 +387,7 @@
       000152                        387 _pinSetup:
                                     388 ;	src/libs/lcd.c:15: pin = modes;
                                     389 ;	assignBit
-      000152 E5 2F            [12]  390 	mov	a,_pinSetup_PARM_2
+      000152 E5 42            [12]  390 	mov	a,_pinSetup_PARM_2
       000154 24 FF            [12]  391 	add	a,#0xff
       000156 92 00            [24]  392 	mov	_pinSetup_pin_65536_11,c
                                     393 ;	src/libs/lcd.c:16: }
@@ -1053,7 +1053,7 @@
       000411 8D 82            [24] 1053 	mov	dpl,r5
       000413 8E 83            [24] 1054 	mov	dph,r6
       000415 8F F0            [24] 1055 	mov	b,r7
-      000417 12 04 36         [24] 1056 	lcall	__gptrget
+      000417 12 0A BC         [24] 1056 	lcall	__gptrget
       00041A FC               [12] 1057 	mov	r4,a
       00041B 60 18            [24] 1058 	jz	00121$
                                    1059 ;	src/libs/lcd.c:227: LCDDataWrite(*string++);

@@ -266,8 +266,8 @@
                                     266 ; Stack segment in internal ram 
                                     267 ;--------------------------------------------------------
                                     268 	.area	SSEG
-      000031                        269 __start__stack:
-      000031                        270 	.ds	1
+      000046                        269 __start__stack:
+      000046                        270 	.ds	1
                                     271 
                                     272 ;--------------------------------------------------------
                                     273 ; indirectly addressable internal ram data
@@ -393,8 +393,8 @@
                                     393 ;	src/main.c:10: P2 = 0x00;
       0000C7 75 A0 00         [24]  394 	mov	_P2,#0x00
                                     395 ;	src/main.c:14: LCDSetup(LCD_16x2, DATABUS_P2, BUS4);
-      0000CA 75 2F 02         [24]  396 	mov	_LCDSetup_PARM_2,#0x02
-      0000CD 75 30 01         [24]  397 	mov	_LCDSetup_PARM_3,#0x01
+      0000CA 75 42 02         [24]  396 	mov	_LCDSetup_PARM_2,#0x02
+      0000CD 75 43 01         [24]  397 	mov	_LCDSetup_PARM_3,#0x01
       0000D0 75 82 01         [24]  398 	mov	dpl,#0x01
       0000D3 12 01 44         [24]  399 	lcall	_LCDSetup
                                     400 ;	src/main.c:15: LCDInit();
@@ -421,8 +421,8 @@
       0000F3 80 EC            [24]  421 	sjmp	00106$
       0000F5                        422 00101$:
                                     423 ;	src/main.c:25: printString(SECOND_LINE, "Jurnal IT");
-      0000F5 75 2C 56         [24]  424 	mov	_printString_PARM_2,#___str_1
-      0000F8 75 2D 04         [24]  425 	mov	(_printString_PARM_2 + 1),#(___str_1 >> 8)
+      0000F5 75 2C DC         [24]  424 	mov	_printString_PARM_2,#___str_1
+      0000F8 75 2D 0A         [24]  425 	mov	(_printString_PARM_2 + 1),#(___str_1 >> 8)
       0000FB 75 2E 80         [24]  426 	mov	(_printString_PARM_2 + 2),#0x80
       0000FE 75 82 01         [24]  427 	mov	dpl,#0x01
       000101 12 03 C1         [24]  428 	lcall	_printString
@@ -445,10 +445,10 @@
                                     445 	.area CSEG    (CODE)
                                     446 	.area CONST   (CODE)
                                     447 	.area CONST   (CODE)
-      000456                        448 ___str_1:
-      000456 4A 75 72 6E 61 6C 20   449 	.ascii "Jurnal IT"
+      000ADC                        448 ___str_1:
+      000ADC 4A 75 72 6E 61 6C 20   449 	.ascii "Jurnal IT"
              49 54
-      00045F 00                     450 	.db 0x00
+      000AE5 00                     450 	.db 0x00
                                     451 	.area CSEG    (CODE)
                                     452 	.area XINIT   (CODE)
                                     453 	.area CABS    (ABS,CODE)

@@ -17,5 +17,6 @@
 bin/main.rel
 bin/delay.rel
 bin/lcd.rel
+bin/uart.rel
 
 -e
