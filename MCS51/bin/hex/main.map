@@ -80,9 +80,9 @@ C:   00000062  s_CSEG
 C:   00000080  l_DSEG                          
 C:   000000A8  l_SSEG                          
 C:   00000100  l_IRAM                          
-C:   00000C21  l_CSEG                          
-C:   00000C83  s_CONST                         
-C:   00000CAA  s_XINIT                         
+C:   00000BF5  l_CSEG                          
+C:   00000C57  s_CONST                         
+C:   00000C7E  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -94,55 +94,55 @@ Area                                    Addr        Size        Decimal Bytes (A
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      00000000  .__.ABS.                           _fsreturnval
-     00000080  _P0                                hcsr04
-     00000080  _P0_0                              hcsr04
-     00000081  _P0_1                              hcsr04
-     00000081  _SP                                hcsr04
-     00000082  _DPL                               hcsr04
-     00000082  _P0_2                              hcsr04
-     00000083  _DPH                               hcsr04
-     00000083  _P0_3                              hcsr04
-     00000084  _P0_4                              hcsr04
-     00000085  _P0_5                              hcsr04
-     00000086  _P0_6                              hcsr04
-     00000087  _P0_7                              hcsr04
-     00000087  _PCON                              hcsr04
-     00000088  _IT0                               hcsr04
-     00000088  _TCON                              hcsr04
-     00000089  _IE0                               hcsr04
-     00000089  _TMOD                              hcsr04
-     0000008A  _IT1                               hcsr04
-     0000008A  _TL0                               hcsr04
-     0000008B  _IE1                               hcsr04
-     0000008B  _TL1                               hcsr04
-     0000008C  _TH0                               hcsr04
-     0000008C  _TR0                               hcsr04
-     0000008D  _TF0                               hcsr04
-     0000008D  _TH1                               hcsr04
-     0000008E  _TR1                               hcsr04
-     0000008F  _TF1                               hcsr04
-     00000090  _P1                                hcsr04
-     00000090  _P1_0                              hcsr04
-     00000090  _T2                                hcsr04
-     00000091  _P1_1                              hcsr04
-     00000091  _T2EX                              hcsr04
-     00000092  _P1_2                              hcsr04
-     00000093  _P1_3                              hcsr04
-     00000094  _P1_4                              hcsr04
-     00000095  _P1_5                              hcsr04
-     00000096  _P1_6                              hcsr04
-     00000097  _P1_7                              hcsr04
-     00000098  _RI                                hcsr04
-     00000098  _SCON                              hcsr04
-     00000099  _SBUF                              hcsr04
-     00000099  _TI                                hcsr04
-     0000009A  _RB8                               hcsr04
-     0000009B  _TB8                               hcsr04
-     0000009C  _REN                               hcsr04
-     0000009D  _SM2                               hcsr04
-     0000009E  _SM1                               hcsr04
-     0000009F  _SM0                               hcsr04
-     000000A0  _P2                                hcsr04
+     00000080  _P0                                stdutils
+     00000080  _P0_0                              stdutils
+     00000081  _P0_1                              stdutils
+     00000081  _SP                                stdutils
+     00000082  _DPL                               stdutils
+     00000082  _P0_2                              stdutils
+     00000083  _DPH                               stdutils
+     00000083  _P0_3                              stdutils
+     00000084  _P0_4                              stdutils
+     00000085  _P0_5                              stdutils
+     00000086  _P0_6                              stdutils
+     00000087  _P0_7                              stdutils
+     00000087  _PCON                              stdutils
+     00000088  _IT0                               stdutils
+     00000088  _TCON                              stdutils
+     00000089  _IE0                               stdutils
+     00000089  _TMOD                              stdutils
+     0000008A  _IT1                               stdutils
+     0000008A  _TL0                               stdutils
+     0000008B  _IE1                               stdutils
+     0000008B  _TL1                               stdutils
+     0000008C  _TH0                               stdutils
+     0000008C  _TR0                               stdutils
+     0000008D  _TF0                               stdutils
+     0000008D  _TH1                               stdutils
+     0000008E  _TR1                               stdutils
+     0000008F  _TF1                               stdutils
+     00000090  _P1                                stdutils
+     00000090  _P1_0                              stdutils
+     00000090  _T2                                stdutils
+     00000091  _P1_1                              stdutils
+     00000091  _T2EX                              stdutils
+     00000092  _P1_2                              stdutils
+     00000093  _P1_3                              stdutils
+     00000094  _P1_4                              stdutils
+     00000095  _P1_5                              stdutils
+     00000096  _P1_6                              stdutils
+     00000097  _P1_7                              stdutils
+     00000098  _RI                                stdutils
+     00000098  _SCON                              stdutils
+     00000099  _SBUF                              stdutils
+     00000099  _TI                                stdutils
+     0000009A  _RB8                               stdutils
+     0000009B  _TB8                               stdutils
+     0000009C  _REN                               stdutils
+     0000009D  _SM2                               stdutils
+     0000009E  _SM1                               stdutils
+     0000009F  _SM0                               stdutils
+     000000A0  _P2                                stdutils
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 Hexadecimal  [32-Bits]
 
@@ -152,57 +152,57 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     000000A0  _P2_0                              hcsr04
+     000000A0  _P2_0                              stdutils
      000000A0  _RS                                lcd
      000000A0  __XPAGE                            
-     000000A1  _P2_1                              hcsr04
+     000000A1  _P2_1                              stdutils
      000000A1  _RW                                lcd
      000000A2  _EN                                lcd
-     000000A2  _P2_2                              hcsr04
-     000000A3  _P2_3                              hcsr04
-     000000A4  _P2_4                              hcsr04
-     000000A5  _P2_5                              hcsr04
-     000000A6  _P2_6                              hcsr04
-     000000A7  _P2_7                              hcsr04
-     000000A8  _EX0                               hcsr04
-     000000A8  _IE                                hcsr04
-     000000A9  _ET0                               hcsr04
-     000000AA  _EX1                               hcsr04
-     000000AB  _ET1                               hcsr04
-     000000AC  _ES                                hcsr04
-     000000AD  _ET2                               hcsr04
-     000000AF  _EA                                hcsr04
-     000000B0  _P3                                hcsr04
-     000000B0  _P3_0                              hcsr04
-     000000B0  _RXD                               hcsr04
-     000000B1  _P3_1                              hcsr04
-     000000B1  _TXD                               hcsr04
-     000000B2  _INT0                              hcsr04
-     000000B2  _P3_2                              hcsr04
+     000000A2  _P2_2                              stdutils
+     000000A3  _P2_3                              stdutils
+     000000A4  _P2_4                              stdutils
+     000000A5  _P2_5                              stdutils
+     000000A6  _P2_6                              stdutils
+     000000A7  _P2_7                              stdutils
+     000000A8  _EX0                               stdutils
+     000000A8  _IE                                stdutils
+     000000A9  _ET0                               stdutils
+     000000AA  _EX1                               stdutils
+     000000AB  _ET1                               stdutils
+     000000AC  _ES                                stdutils
+     000000AD  _ET2                               stdutils
+     000000AF  _EA                                stdutils
+     000000B0  _P3                                stdutils
+     000000B0  _P3_0                              stdutils
+     000000B0  _RXD                               stdutils
+     000000B1  _P3_1                              stdutils
+     000000B1  _TXD                               stdutils
+     000000B2  _INT0                              stdutils
+     000000B2  _P3_2                              stdutils
      000000B2  _echoPin1                          hcsr04
-     000000B3  _INT1                              hcsr04
-     000000B3  _P3_3                              hcsr04
+     000000B3  _INT1                              stdutils
+     000000B3  _P3_3                              stdutils
      000000B3  _echoPin2                          hcsr04
-     000000B4  _P3_4                              hcsr04
-     000000B4  _T0                                hcsr04
+     000000B4  _P3_4                              stdutils
+     000000B4  _T0                                stdutils
      000000B4  _echoPin3                          hcsr04
-     000000B5  _P3_5                              hcsr04
-     000000B5  _T1                                hcsr04
+     000000B5  _P3_5                              stdutils
+     000000B5  _T1                                stdutils
      000000B5  _echoPin4                          hcsr04
-     000000B6  _P3_6                              hcsr04
-     000000B6  _WR                                hcsr04
+     000000B6  _P3_6                              stdutils
+     000000B6  _WR                                stdutils
      000000B6  _triggerPin                        hcsr04
-     000000B7  _P3_7                              hcsr04
-     000000B7  _RD                                hcsr04
-     000000B8  _IP                                hcsr04
-     000000B8  _PX0                               hcsr04
-     000000B9  _PT0                               hcsr04
-     000000BA  _PX1                               hcsr04
-     000000BB  _PT1                               hcsr04
-     000000BC  _PS                                hcsr04
-     000000BD  _PT2                               hcsr04
-     000000C8  _CP_RL2                            hcsr04
-     000000C8  _T2CON                             hcsr04
+     000000B7  _P3_7                              stdutils
+     000000B7  _RD                                stdutils
+     000000B8  _IP                                stdutils
+     000000B8  _PX0                               stdutils
+     000000B9  _PT0                               stdutils
+     000000BA  _PX1                               stdutils
+     000000BB  _PT1                               stdutils
+     000000BC  _PS                                stdutils
+     000000BD  _PT2                               stdutils
+     000000C8  _CP_RL2                            stdutils
+     000000C8  _T2CON                             stdutils
 ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
 Hexadecimal  [32-Bits]
 
@@ -212,38 +212,38 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     000000C8  _T2CON_0                           hcsr04
-     000000C9  _C_T2                              hcsr04
-     000000C9  _T2CON_1                           hcsr04
-     000000C9  _T2MOD                             hcsr04
-     000000CA  _RCAP2L                            hcsr04
-     000000CA  _T2CON_2                           hcsr04
-     000000CA  _TR2                               hcsr04
-     000000CB  _EXEN2                             hcsr04
-     000000CB  _RCAP2H                            hcsr04
-     000000CB  _T2CON_3                           hcsr04
-     000000CC  _T2CON_4                           hcsr04
-     000000CC  _TCLK                              hcsr04
-     000000CC  _TL2                               hcsr04
-     000000CD  _RCLK                              hcsr04
-     000000CD  _T2CON_5                           hcsr04
-     000000CD  _TH2                               hcsr04
-     000000CE  _EXF2                              hcsr04
-     000000CE  _T2CON_6                           hcsr04
-     000000CF  _T2CON_7                           hcsr04
-     000000CF  _TF2                               hcsr04
-     000000D0  _P                                 hcsr04
-     000000D0  _PSW                               hcsr04
-     000000D1  _FL                                hcsr04
-     000000D2  _OV                                hcsr04
-     000000D3  _RS0                               hcsr04
-     000000D4  _RS1                               hcsr04
-     000000D5  _F0                                hcsr04
-     000000D6  _AC                                hcsr04
-     000000D7  _CY                                hcsr04
-     000000E0  _A                                 hcsr04
-     000000E0  _ACC                               hcsr04
-     000000F0  _B                                 hcsr04
+     000000C8  _T2CON_0                           stdutils
+     000000C9  _C_T2                              stdutils
+     000000C9  _T2CON_1                           stdutils
+     000000C9  _T2MOD                             stdutils
+     000000CA  _RCAP2L                            stdutils
+     000000CA  _T2CON_2                           stdutils
+     000000CA  _TR2                               stdutils
+     000000CB  _EXEN2                             stdutils
+     000000CB  _RCAP2H                            stdutils
+     000000CB  _T2CON_3                           stdutils
+     000000CC  _T2CON_4                           stdutils
+     000000CC  _TCLK                              stdutils
+     000000CC  _TL2                               stdutils
+     000000CD  _RCLK                              stdutils
+     000000CD  _T2CON_5                           stdutils
+     000000CD  _TH2                               stdutils
+     000000CE  _EXF2                              stdutils
+     000000CE  _T2CON_6                           stdutils
+     000000CF  _T2CON_7                           stdutils
+     000000CF  _TF2                               stdutils
+     000000D0  _P                                 stdutils
+     000000D0  _PSW                               stdutils
+     000000D1  _FL                                stdutils
+     000000D2  _OV                                stdutils
+     000000D3  _RS0                               stdutils
+     000000D4  _RS1                               stdutils
+     000000D5  _F0                                stdutils
+     000000D6  _AC                                stdutils
+     000000D7  _CY                                stdutils
+     000000E0  _A                                 stdutils
+     000000E0  _ACC                               stdutils
+     000000F0  _B                                 stdutils
      000000F5  _B_5                               _gptrget
      000000F6  _B_6                               _gptrget
      000000F7  _B_7                               _gptrget
@@ -270,10 +270,10 @@ DSEG                                00000000    00000080 =         128. bytes (R
      0000000A  _LCDPrintString_PARM_2             lcd
      0000000D  _LCDDisplayNumber_PARM_2           lcd
      0000000F  _LCDDisplayNumber_PARM_3           lcd
-     00000031  _itoa_PARM_2                       lcd
-     00000034  _itoa_PARM_3                       lcd
-     0000003A  _UART_TxNumber_PARM_2              uart
-     0000003E  _UART_TxNumber_PARM_3              uart
+     00000031  _UART_TxNumber_PARM_2              uart
+     00000035  _UART_TxNumber_PARM_3              uart
+     00000043  _itoa_PARM_2                       stdutils
+     00000046  _itoa_PARM_3                       stdutils
      0000004C  _bp                                _bp
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
@@ -293,9 +293,8 @@ OSEG                                0000004D    0000000B =          11. bytes (R
      0000004D  __modsint_PARM_2                   _moduint
      0000004D  __moduint_PARM_2                   _moduint
      0000004D  __mullong_PARM_2                   _mullong
-     0000004D  _reverse_PARM_2                    lcd
-     0000004D  _swap_PARM_2                       lcd
-     0000004F  _reverse_PARM_3                    lcd
+     0000004D  _reverse_PARM_2                    stdutils
+     0000004F  _reverse_PARM_3                    stdutils
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
 Hexadecimal  [32-Bits]
@@ -376,7 +375,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00000062    00000C21 =        3105. bytes (REL,CON,CODE)
+CSEG                                00000062    00000BF5 =        3061. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -391,46 +390,46 @@ C:   00000125  _LCDCmdWrite                       lcd
 C:   00000166  _LCDDataWrite                      lcd
 C:   000001A7  _LCDPrintString                    lcd
 C:   00000205  _LCDDisplayNumber                  lcd
-C:   00000231  _swap                              lcd
-C:   0000025D  _reverse                           lcd
-C:   000002D6  _itoa                              lcd
-C:   0000042E  _UART_Init                         uart
-C:   00000447  _UART_SetBaudRate                  uart
-C:   000004A0  _UART_RxChar                       uart
-C:   000004A9  _UART_TxChar                       uart
-C:   000004B2  _UART_TxString                     uart
-C:   000004DD  _UART_RxString                     uart
-C:   0000053E  _UART_TxNumber                     uart
-C:   00000670  _UART_Printf                       uart
-C:   000009C6  _sendTriggerPulse                  hcsr04
-C:   000009D1  _measureDistance                   hcsr04
-C:   000009E3  __divulong                         _divulong
-C:   00000A48  __gptrput                          _gptrput
-C:   00000A63  _abs                               abs
-C:   00000A70  __mullong                          _mullong
-C:   00000A70  __mullong_dummy                    _mullong
-C:   00000ADE  __moduint                          _moduint
-C:   00000B2B  __divuint                          _divuint
-C:   00000B54  ___uint2fs                         _uint2fs
-C:   00000B60  __gptrget                          _gptrget
-C:   00000B7C  __modsint                          _modsint
-C:   00000BB2  ___ulong2fs                        _ulong2fs
-C:   00000BBB  ulong2fs_doit                      _ulong2fs
-C:   00000BC5  __divsint                          _divsint
-C:   00000BFD  fs_normalize_a                     _fsnormalize
-C:   00000C30  __sdcc_external_startup            _startup
-C:   00000C34  fs_round_and_return                _fsreturnval
-C:   00000C4C  fs_zerocheck_return                _fsreturnval
-C:   00000C55  fs_return_zero                     _fsreturnval
-C:   00000C5D  fs_direct_return                   _fsreturnval
-C:   00000C6B  fs_return_inf                      _fsreturnval
-C:   00000C78  fs_return_nan                      _fsreturnval
+C:   00000231  _UART_Init                         uart
+C:   0000024A  _UART_SetBaudRate                  uart
+C:   000002A3  _UART_RxChar                       uart
+C:   000002AC  _UART_TxChar                       uart
+C:   000002B5  _UART_TxString                     uart
+C:   000002E0  _UART_RxString                     uart
+C:   00000341  _UART_TxNumber                     uart
+C:   00000473  _UART_Printf                       uart
+C:   000007C9  _sendTriggerPulse                  hcsr04
+C:   000007D4  _measureDistance                   hcsr04
+C:   000007E6  _reverse                           stdutils
+C:   0000085F  _itoa                              stdutils
+C:   000009B7  __divulong                         _divulong
+C:   00000A1C  __gptrput                          _gptrput
+C:   00000A37  _abs                               abs
+C:   00000A44  __moduint                          _moduint
+C:   00000A91  __mullong                          _mullong
+C:   00000A91  __mullong_dummy                    _mullong
+C:   00000AFF  __divuint                          _divuint
+C:   00000B28  ___uint2fs                         _uint2fs
+C:   00000B34  __gptrget                          _gptrget
+C:   00000B50  __modsint                          _modsint
+C:   00000B86  ___ulong2fs                        _ulong2fs
+C:   00000B8F  ulong2fs_doit                      _ulong2fs
+C:   00000B99  __divsint                          _divsint
+C:   00000BD1  fs_normalize_a                     _fsnormalize
+C:   00000C04  __sdcc_external_startup            _startup
+C:   00000C08  fs_round_and_return                _fsreturnval
+C:   00000C20  fs_zerocheck_return                _fsreturnval
+C:   00000C29  fs_return_zero                     _fsreturnval
+C:   00000C31  fs_direct_return                   _fsreturnval
+C:   00000C3F  fs_return_inf                      _fsreturnval
+C:   00000C4C  fs_return_nan                      _fsreturnval
+
 ASxxxx Linker V03.00 + NoICE + sdld,  page 17.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00000C83    00000027 =          39. bytes (REL,CON,CODE)
+CONST                               00000C57    00000027 =          39. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -443,6 +442,7 @@ bin/delay.rel                             [  ]
 bin/lcd.rel                               [  ]
 bin/uart.rel                              [  ]
 bin/hcsr04.rel                            [  ]
+bin/stdutils.rel                          [  ]
 
 
 Libraries Linked                          [ object file ]
@@ -457,10 +457,10 @@ Libraries Linked                          [ object file ]
                                           [ _gptrput.rel ]
 /usr/local/bin/../share/sdcc/lib/small/libsdcc.lib
                                           [ abs.rel ]
-/usr/local/bin/../share/sdcc/lib/small/liblong.lib
-                                          [ _mullong.rel ]
 /usr/local/bin/../share/sdcc/lib/small/libint.lib
                                           [ _moduint.rel ]
+/usr/local/bin/../share/sdcc/lib/small/liblong.lib
+                                          [ _mullong.rel ]
 /usr/local/bin/../share/sdcc/lib/small/libint.lib
                                           [ _divuint.rel ]
 /usr/local/bin/../share/sdcc/lib/small/mcs51.lib

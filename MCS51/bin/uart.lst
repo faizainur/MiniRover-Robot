@@ -289,11 +289,11 @@
       000000                        289 	.ds 4
       000004                        290 _UART_TxNumber_PARM_3:
       000004                        291 	.ds 1
-      000005                        292 _UART_TxNumber_v_numericSystem_u8_65536_28:
+      000005                        292 _UART_TxNumber_v_numericSystem_u8_65536_72:
       000005                        293 	.ds 1
-      000006                        294 _UART_TxNumber_i_65536_29:
+      000006                        294 _UART_TxNumber_i_65536_73:
       000006                        295 	.ds 1
-      000007                        296 _UART_TxNumber_a_65536_29:
+      000007                        296 _UART_TxNumber_a_65536_73:
       000007                        297 	.ds 10
       000011                        298 _UART_TxNumber_sloc0_1_0:
       000011                        299 	.ds 1
@@ -627,9 +627,9 @@
                                     627 ;------------------------------------------------------------
                                     628 ;v_number_u32              Allocated with name '_UART_TxNumber_PARM_2'
                                     629 ;v_numOfDigitsToTransmit_u8 Allocated with name '_UART_TxNumber_PARM_3'
-                                    630 ;v_numericSystem_u8        Allocated with name '_UART_TxNumber_v_numericSystem_u8_65536_28'
-                                    631 ;i                         Allocated with name '_UART_TxNumber_i_65536_29'
-                                    632 ;a                         Allocated with name '_UART_TxNumber_a_65536_29'
+                                    630 ;v_numericSystem_u8        Allocated with name '_UART_TxNumber_v_numericSystem_u8_65536_72'
+                                    631 ;i                         Allocated with name '_UART_TxNumber_i_65536_73'
+                                    632 ;a                         Allocated with name '_UART_TxNumber_a_65536_73'
                                     633 ;sloc0                     Allocated with name '_UART_TxNumber_sloc0_1_0'
                                     634 ;------------------------------------------------------------
                                     635 ;	src/libs/uart.c:249: void UART_TxNumber(uint8_t v_numericSystem_u8, uint32_t v_number_u32, uint8_t v_numOfDigitsToTransmit_u8)
@@ -637,10 +637,10 @@
                                     637 ;	 function UART_TxNumber
                                     638 ;	-----------------------------------------
       000110                        639 _UART_TxNumber:
-      000110 85 82*05         [24]  640 	mov	_UART_TxNumber_v_numericSystem_u8_65536_28,dpl
+      000110 85 82*05         [24]  640 	mov	_UART_TxNumber_v_numericSystem_u8_65536_72,dpl
                                     641 ;	src/libs/uart.c:253: if(C_BINARY_U8 == v_numericSystem_u8)
       000113 74 02            [12]  642 	mov	a,#0x02
-      000115 B5*05 4B         [24]  643 	cjne	a,_UART_TxNumber_v_numericSystem_u8_65536_28,00120$
+      000115 B5*05 4B         [24]  643 	cjne	a,_UART_TxNumber_v_numericSystem_u8_65536_72,00120$
                                     644 ;	src/libs/uart.c:255: while(v_numOfDigitsToTransmit_u8!=0)
       000118                        645 00101$:
       000118 E5*04            [12]  646 	mov	a,_UART_TxNumber_PARM_3
@@ -741,10 +741,10 @@
       000199 E4               [12]  741 	clr	a
       00019A 33               [12]  742 	rlc	a
       00019B FD               [12]  743 	mov	r5,a
-      00019C 75*06 00         [24]  744 	mov	_UART_TxNumber_i_65536_29,#0x00
+      00019C 75*06 00         [24]  744 	mov	_UART_TxNumber_i_65536_73,#0x00
       00019F                        745 00127$:
       00019F C3               [12]  746 	clr	c
-      0001A0 E5*06            [12]  747 	mov	a,_UART_TxNumber_i_65536_29
+      0001A0 E5*06            [12]  747 	mov	a,_UART_TxNumber_i_65536_73
       0001A2 95*04            [12]  748 	subb	a,_UART_TxNumber_PARM_3
       0001A4 50 66            [24]  749 	jnc	00146$
                                     750 ;	src/libs/uart.c:276: if(v_number_u32!=0)
@@ -755,10 +755,10 @@
       0001AE 60 4A            [24]  755 	jz	00110$
                                     756 ;	src/libs/uart.c:284: a[i]=util_GetMod32(v_number_u32,v_numericSystem_u8);
       0001B0 C0 05            [24]  757 	push	ar5
-      0001B2 E5*06            [12]  758 	mov	a,_UART_TxNumber_i_65536_29
-      0001B4 24r07            [12]  759 	add	a,#_UART_TxNumber_a_65536_29
+      0001B2 E5*06            [12]  758 	mov	a,_UART_TxNumber_i_65536_73
+      0001B4 24r07            [12]  759 	add	a,#_UART_TxNumber_a_65536_73
       0001B6 F9               [12]  760 	mov	r1,a
-      0001B7 85*05*00         [24]  761 	mov	__divulong_PARM_2,_UART_TxNumber_v_numericSystem_u8_65536_28
+      0001B7 85*05*00         [24]  761 	mov	__divulong_PARM_2,_UART_TxNumber_v_numericSystem_u8_65536_72
       0001BA 75*01 00         [24]  762 	mov	(__divulong_PARM_2 + 1),#0x00
       0001BD 75*02 00         [24]  763 	mov	(__divulong_PARM_2 + 2),#0x00
       0001C0 75*03 00         [24]  764 	mov	(__divulong_PARM_2 + 3),#0x00
@@ -776,7 +776,7 @@
       0001DC D0 01            [24]  776 	pop	ar1
       0001DE D0 05            [24]  777 	pop	ar5
       0001E0 8A 05            [24]  778 	mov	ar5,r2
-      0001E2 85*05 F0         [24]  779 	mov	b,_UART_TxNumber_v_numericSystem_u8_65536_28
+      0001E2 85*05 F0         [24]  779 	mov	b,_UART_TxNumber_v_numericSystem_u8_65536_72
       0001E5 ED               [12]  780 	mov	a,r5
       0001E6 A4               [48]  781 	mul	ab
       0001E7 FD               [12]  782 	mov	r5,a
@@ -800,17 +800,17 @@
       0001FE ED               [12]  800 	mov	a,r5
       0001FF 70 0B            [24]  801 	jnz	00146$
                                     802 ;	src/libs/uart.c:299: a[i]=0;
-      000201 E5*06            [12]  803 	mov	a,_UART_TxNumber_i_65536_29
-      000203 24r07            [12]  804 	add	a,#_UART_TxNumber_a_65536_29
+      000201 E5*06            [12]  803 	mov	a,_UART_TxNumber_i_65536_73
+      000203 24r07            [12]  804 	add	a,#_UART_TxNumber_a_65536_73
       000205 F8               [12]  805 	mov	r0,a
       000206 76 00            [12]  806 	mov	@r0,#0x00
       000208                        807 00128$:
                                     808 ;	src/libs/uart.c:272: for(i=0;i<v_numOfDigitsToTransmit_u8;i++)
-      000208 05*06            [12]  809 	inc	_UART_TxNumber_i_65536_29
+      000208 05*06            [12]  809 	inc	_UART_TxNumber_i_65536_73
                                     810 ;	src/libs/uart.c:303: while(i)
       00020A 80 93            [24]  811 	sjmp	00127$
       00020C                        812 00146$:
-      00020C AF*06            [24]  813 	mov	r7,_UART_TxNumber_i_65536_29
+      00020C AF*06            [24]  813 	mov	r7,_UART_TxNumber_i_65536_73
       00020E                        814 00113$:
       00020E EF               [12]  815 	mov	a,r7
       00020F 60 30            [24]  816 	jz	00129$
@@ -818,14 +818,14 @@
       000211 8F 06            [24]  818 	mov	ar6,r7
       000213 EE               [12]  819 	mov	a,r6
       000214 14               [12]  820 	dec	a
-      000215 24r07            [12]  821 	add	a,#_UART_TxNumber_a_65536_29
+      000215 24r07            [12]  821 	add	a,#_UART_TxNumber_a_65536_73
       000217 F9               [12]  822 	mov	r1,a
       000218 E7               [12]  823 	mov	a,@r1
       000219 24 F6            [12]  824 	add	a,#0xff - 0x09
       00021B 50 0D            [24]  825 	jnc	00131$
       00021D EE               [12]  826 	mov	a,r6
       00021E 14               [12]  827 	dec	a
-      00021F 24r07            [12]  828 	add	a,#_UART_TxNumber_a_65536_29
+      00021F 24r07            [12]  828 	add	a,#_UART_TxNumber_a_65536_73
       000221 F9               [12]  829 	mov	r1,a
       000222 87 05            [24]  830 	mov	ar5,@r1
       000224 74 37            [12]  831 	mov	a,#0x37
@@ -835,7 +835,7 @@
       00022A                        835 00131$:
       00022A EE               [12]  836 	mov	a,r6
       00022B 14               [12]  837 	dec	a
-      00022C 24r07            [12]  838 	add	a,#_UART_TxNumber_a_65536_29
+      00022C 24r07            [12]  838 	add	a,#_UART_TxNumber_a_65536_73
       00022E F9               [12]  839 	mov	r1,a
       00022F 87 06            [24]  840 	mov	ar6,@r1
       000231 74 30            [12]  841 	mov	a,#0x30

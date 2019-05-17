@@ -300,7 +300,7 @@
                                     300 ; internal ram data
                                     301 ;--------------------------------------------------------
                                     302 	.area DSEG    (DATA)
-      000008                        303 _main_result_distance_65536_98:
+      000008                        303 _main_result_distance_65536_101:
       000008                        304 	.ds 2
                                     305 ;--------------------------------------------------------
                                     306 ; overlayable items in internal ram 
@@ -387,9 +387,9 @@
                                     387 ;------------------------------------------------------------
                                     388 ;Allocation info for local variables in function 'main'
                                     389 ;------------------------------------------------------------
-                                    390 ;result_distance           Allocated with name '_main_result_distance_65536_98'
+                                    390 ;result_distance           Allocated with name '_main_result_distance_65536_101'
                                     391 ;------------------------------------------------------------
-                                    392 ;	src/main.c:13: int main(){
+                                    392 ;	src/main.c:12: int main(){
                                     393 ;	-----------------------------------------
                                     394 ;	 function main
                                     395 ;	-----------------------------------------
@@ -402,123 +402,123 @@
                            000002   402 	ar2 = 0x02
                            000001   403 	ar1 = 0x01
                            000000   404 	ar0 = 0x00
-                                    405 ;	src/main.c:17: initPortPin();
+                                    405 ;	src/main.c:16: initPortPin();
       000062 12 00 B2         [24]  406 	lcall	_initPortPin
-                                    407 ;	src/main.c:19: LCDInit();
+                                    407 ;	src/main.c:18: LCDInit();
       000065 12 01 0D         [24]  408 	lcall	_LCDInit
-                                    409 ;	src/main.c:20: LCDCmdWrite(CURSOR_TO_FIRST_LINE);
+                                    409 ;	src/main.c:19: LCDCmdWrite(CURSOR_TO_FIRST_LINE);
       000068 75 82 80         [24]  410 	mov	dpl,#0x80
       00006B 12 01 25         [24]  411 	lcall	_LCDCmdWrite
-                                    412 ;	src/main.c:22: welcomeScreen();
+                                    412 ;	src/main.c:21: welcomeScreen();
       00006E 12 00 B8         [24]  413 	lcall	_welcomeScreen
-                                    414 ;	src/main.c:23: DELAY_ms(1000);
+                                    414 ;	src/main.c:22: DELAY_ms(1000);
       000071 90 03 E8         [24]  415 	mov	dptr,#0x03e8
       000074 12 00 EF         [24]  416 	lcall	_DELAY_ms
-                                    417 ;	src/main.c:25: while(1){
+                                    417 ;	src/main.c:24: while(1){
       000077                        418 00102$:
-                                    419 ;	src/main.c:26: sendTriggerPulse();
-      000077 12 09 C6         [24]  420 	lcall	_sendTriggerPulse
-                                    421 ;	src/main.c:27: measureDistance(result_distance);
-      00007A 85 08 82         [24]  422 	mov	dpl,_main_result_distance_65536_98
-      00007D 85 09 83         [24]  423 	mov	dph,(_main_result_distance_65536_98 + 1)
-      000080 12 0B 54         [24]  424 	lcall	___uint2fs
-      000083 12 09 D1         [24]  425 	lcall	_measureDistance
-                                    426 ;	src/main.c:28: LCDCmdWrite(CLEAR_SCREEN);
+                                    419 ;	src/main.c:25: sendTriggerPulse();
+      000077 12 07 C9         [24]  420 	lcall	_sendTriggerPulse
+                                    421 ;	src/main.c:26: measureDistance(result_distance);
+      00007A 85 08 82         [24]  422 	mov	dpl,_main_result_distance_65536_101
+      00007D 85 09 83         [24]  423 	mov	dph,(_main_result_distance_65536_101 + 1)
+      000080 12 0B 28         [24]  424 	lcall	___uint2fs
+      000083 12 07 D4         [24]  425 	lcall	_measureDistance
+                                    426 ;	src/main.c:27: LCDCmdWrite(CLEAR_SCREEN);
       000086 75 82 01         [24]  427 	mov	dpl,#0x01
       000089 12 01 25         [24]  428 	lcall	_LCDCmdWrite
-                                    429 ;	src/main.c:29: LCDPrintString(FIRST_LINE, "Distance : ");
-      00008C 75 0A 83         [24]  430 	mov	_LCDPrintString_PARM_2,#___str_0
+                                    429 ;	src/main.c:28: LCDPrintString(FIRST_LINE, "Distance : ");
+      00008C 75 0A 57         [24]  430 	mov	_LCDPrintString_PARM_2,#___str_0
       00008F 75 0B 0C         [24]  431 	mov	(_LCDPrintString_PARM_2 + 1),#(___str_0 >> 8)
       000092 75 0C 80         [24]  432 	mov	(_LCDPrintString_PARM_2 + 2),#0x80
       000095 75 82 00         [24]  433 	mov	dpl,#0x00
       000098 12 01 A7         [24]  434 	lcall	_LCDPrintString
-                                    435 ;	src/main.c:30: LCDDisplayNumber(SECOND_LINE, result_distance, 10);
-      00009B 85 08 0D         [24]  436 	mov	_LCDDisplayNumber_PARM_2,_main_result_distance_65536_98
-      00009E 85 09 0E         [24]  437 	mov	(_LCDDisplayNumber_PARM_2 + 1),(_main_result_distance_65536_98 + 1)
+                                    435 ;	src/main.c:29: LCDDisplayNumber(SECOND_LINE, result_distance, 10);
+      00009B 85 08 0D         [24]  436 	mov	_LCDDisplayNumber_PARM_2,_main_result_distance_65536_101
+      00009E 85 09 0E         [24]  437 	mov	(_LCDDisplayNumber_PARM_2 + 1),(_main_result_distance_65536_101 + 1)
       0000A1 75 0F 0A         [24]  438 	mov	_LCDDisplayNumber_PARM_3,#0x0a
       0000A4 75 82 01         [24]  439 	mov	dpl,#0x01
       0000A7 12 02 05         [24]  440 	lcall	_LCDDisplayNumber
-                                    441 ;	src/main.c:32: DELAY_ms(500);
+                                    441 ;	src/main.c:31: DELAY_ms(500);
       0000AA 90 01 F4         [24]  442 	mov	dptr,#0x01f4
       0000AD 12 00 EF         [24]  443 	lcall	_DELAY_ms
-                                    444 ;	src/main.c:34: }
+                                    444 ;	src/main.c:33: }
       0000B0 80 C5            [24]  445 	sjmp	00102$
                                     446 ;------------------------------------------------------------
                                     447 ;Allocation info for local variables in function 'initPortPin'
                                     448 ;------------------------------------------------------------
-                                    449 ;	src/main.c:36: void initPortPin(){
+                                    449 ;	src/main.c:35: void initPortPin(){
                                     450 ;	-----------------------------------------
                                     451 ;	 function initPortPin
                                     452 ;	-----------------------------------------
       0000B2                        453 _initPortPin:
-                                    454 ;	src/main.c:37: P0_0 = LOW;
+                                    454 ;	src/main.c:36: P0_0 = LOW;
                                     455 ;	assignBit
       0000B2 C2 80            [12]  456 	clr	_P0_0
-                                    457 ;	src/main.c:38: P2 = 0x00;
+                                    457 ;	src/main.c:37: P2 = 0x00;
       0000B4 75 A0 00         [24]  458 	mov	_P2,#0x00
-                                    459 ;	src/main.c:39: }
+                                    459 ;	src/main.c:38: }
       0000B7 22               [24]  460 	ret
                                     461 ;------------------------------------------------------------
                                     462 ;Allocation info for local variables in function 'welcomeScreen'
                                     463 ;------------------------------------------------------------
-                                    464 ;	src/main.c:41: void welcomeScreen(){
+                                    464 ;	src/main.c:40: void welcomeScreen(){
                                     465 ;	-----------------------------------------
                                     466 ;	 function welcomeScreen
                                     467 ;	-----------------------------------------
       0000B8                        468 _welcomeScreen:
-                                    469 ;	src/main.c:42: LCDPrintString(FIRST_LINE, "Faiz Ainur Rofiq");
-      0000B8 75 0A 8F         [24]  470 	mov	_LCDPrintString_PARM_2,#___str_1
+                                    469 ;	src/main.c:41: LCDPrintString(FIRST_LINE, "Faiz Ainur Rofiq");
+      0000B8 75 0A 63         [24]  470 	mov	_LCDPrintString_PARM_2,#___str_1
       0000BB 75 0B 0C         [24]  471 	mov	(_LCDPrintString_PARM_2 + 1),#(___str_1 >> 8)
       0000BE 75 0C 80         [24]  472 	mov	(_LCDPrintString_PARM_2 + 2),#0x80
       0000C1 75 82 00         [24]  473 	mov	dpl,#0x00
       0000C4 12 01 A7         [24]  474 	lcall	_LCDPrintString
-                                    475 ;	src/main.c:43: LCDPrintString(SECOND_LINE, "Jurnal IT");
-      0000C7 75 0A A0         [24]  476 	mov	_LCDPrintString_PARM_2,#___str_2
+                                    475 ;	src/main.c:42: LCDPrintString(SECOND_LINE, "Jurnal IT");
+      0000C7 75 0A 74         [24]  476 	mov	_LCDPrintString_PARM_2,#___str_2
       0000CA 75 0B 0C         [24]  477 	mov	(_LCDPrintString_PARM_2 + 1),#(___str_2 >> 8)
       0000CD 75 0C 80         [24]  478 	mov	(_LCDPrintString_PARM_2 + 2),#0x80
       0000D0 75 82 01         [24]  479 	mov	dpl,#0x01
-                                    480 ;	src/main.c:44: }
+                                    480 ;	src/main.c:43: }
       0000D3 02 01 A7         [24]  481 	ljmp	_LCDPrintString
                                     482 ;------------------------------------------------------------
                                     483 ;Allocation info for local variables in function 'toggleLed'
                                     484 ;------------------------------------------------------------
-                                    485 ;	src/main.c:46: void toggleLed(){
+                                    485 ;	src/main.c:45: void toggleLed(){
                                     486 ;	-----------------------------------------
                                     487 ;	 function toggleLed
                                     488 ;	-----------------------------------------
       0000D6                        489 _toggleLed:
-                                    490 ;	src/main.c:47: if (!P0_0){
+                                    490 ;	src/main.c:46: if (!P0_0){
       0000D6 20 80 03         [24]  491 	jb	_P0_0,00102$
-                                    492 ;	src/main.c:48: P0_0 = 1;
+                                    492 ;	src/main.c:47: P0_0 = 1;
                                     493 ;	assignBit
       0000D9 D2 80            [12]  494 	setb	_P0_0
       0000DB 22               [24]  495 	ret
       0000DC                        496 00102$:
-                                    497 ;	src/main.c:50: P0_0 = 0;
+                                    497 ;	src/main.c:49: P0_0 = 0;
                                     498 ;	assignBit
       0000DC C2 80            [12]  499 	clr	_P0_0
-                                    500 ;	src/main.c:52: }
+                                    500 ;	src/main.c:51: }
       0000DE 22               [24]  501 	ret
                                     502 	.area CSEG    (CODE)
                                     503 	.area CONST   (CODE)
                                     504 	.area CONST   (CODE)
-      000C83                        505 ___str_0:
-      000C83 44 69 73 74 61 6E 63   506 	.ascii "Distance : "
+      000C57                        505 ___str_0:
+      000C57 44 69 73 74 61 6E 63   506 	.ascii "Distance : "
              65 20 3A 20
-      000C8E 00                     507 	.db 0x00
+      000C62 00                     507 	.db 0x00
                                     508 	.area CSEG    (CODE)
                                     509 	.area CONST   (CODE)
-      000C8F                        510 ___str_1:
-      000C8F 46 61 69 7A 20 41 69   511 	.ascii "Faiz Ainur Rofiq"
+      000C63                        510 ___str_1:
+      000C63 46 61 69 7A 20 41 69   511 	.ascii "Faiz Ainur Rofiq"
              6E 75 72 20 52 6F 66
              69 71
-      000C9F 00                     512 	.db 0x00
+      000C73 00                     512 	.db 0x00
                                     513 	.area CSEG    (CODE)
                                     514 	.area CONST   (CODE)
-      000CA0                        515 ___str_2:
-      000CA0 4A 75 72 6E 61 6C 20   516 	.ascii "Jurnal IT"
+      000C74                        515 ___str_2:
+      000C74 4A 75 72 6E 61 6C 20   516 	.ascii "Jurnal IT"
              49 54
-      000CA9 00                     517 	.db 0x00
+      000C7D 00                     517 	.db 0x00
                                     518 	.area CSEG    (CODE)
                                     519 	.area XINIT   (CODE)
                                     520 	.area CABS    (ABS,CODE)

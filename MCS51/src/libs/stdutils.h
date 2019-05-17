@@ -43,7 +43,8 @@ and that both those copyright notices and this permission notice appear in suppo
 #define _STD_UTIL_H_
 
 #include <at89x52.h>
-
+#include <stdio.h>
+#include <stdlib.h>
 
 /***************************************************************************************************
     Basic data types for 8051/PIC/AVR 8bit controllers
@@ -321,6 +322,13 @@ typedef enum
 #define util_GetAbsolute(x)        (((x) < 0) ? -(x) : (x))
 /**************************************************************************************************/
 
+
+/* ***********************************************************************************************
+                    Function Prototpes
+************************************************************************************************** */
+inline void wap(char *x, char *y);
+char *reverse(char *buffer, int i, int j);
+char* itoa(int value, char* buffer, int base);
 
 #endif    
 

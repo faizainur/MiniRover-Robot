@@ -289,11 +289,11 @@ _UART_TxNumber_PARM_2:
 	.ds 4
 _UART_TxNumber_PARM_3:
 	.ds 1
-_UART_TxNumber_v_numericSystem_u8_65536_28:
+_UART_TxNumber_v_numericSystem_u8_65536_72:
 	.ds 1
-_UART_TxNumber_i_65536_29:
+_UART_TxNumber_i_65536_73:
 	.ds 1
-_UART_TxNumber_a_65536_29:
+_UART_TxNumber_a_65536_73:
 	.ds 10
 _UART_TxNumber_sloc0_1_0:
 	.ds 1
@@ -627,9 +627,9 @@ _UART_RxString:
 ;------------------------------------------------------------
 ;v_number_u32              Allocated with name '_UART_TxNumber_PARM_2'
 ;v_numOfDigitsToTransmit_u8 Allocated with name '_UART_TxNumber_PARM_3'
-;v_numericSystem_u8        Allocated with name '_UART_TxNumber_v_numericSystem_u8_65536_28'
-;i                         Allocated with name '_UART_TxNumber_i_65536_29'
-;a                         Allocated with name '_UART_TxNumber_a_65536_29'
+;v_numericSystem_u8        Allocated with name '_UART_TxNumber_v_numericSystem_u8_65536_72'
+;i                         Allocated with name '_UART_TxNumber_i_65536_73'
+;a                         Allocated with name '_UART_TxNumber_a_65536_73'
 ;sloc0                     Allocated with name '_UART_TxNumber_sloc0_1_0'
 ;------------------------------------------------------------
 ;	src/libs/uart.c:249: void UART_TxNumber(uint8_t v_numericSystem_u8, uint32_t v_number_u32, uint8_t v_numOfDigitsToTransmit_u8)
@@ -637,10 +637,10 @@ _UART_RxString:
 ;	 function UART_TxNumber
 ;	-----------------------------------------
 _UART_TxNumber:
-	mov	_UART_TxNumber_v_numericSystem_u8_65536_28,dpl
+	mov	_UART_TxNumber_v_numericSystem_u8_65536_72,dpl
 ;	src/libs/uart.c:253: if(C_BINARY_U8 == v_numericSystem_u8)
 	mov	a,#0x02
-	cjne	a,_UART_TxNumber_v_numericSystem_u8_65536_28,00120$
+	cjne	a,_UART_TxNumber_v_numericSystem_u8_65536_72,00120$
 ;	src/libs/uart.c:255: while(v_numOfDigitsToTransmit_u8!=0)
 00101$:
 	mov	a,_UART_TxNumber_PARM_3
@@ -741,10 +741,10 @@ _UART_TxNumber:
 	clr	a
 	rlc	a
 	mov	r5,a
-	mov	_UART_TxNumber_i_65536_29,#0x00
+	mov	_UART_TxNumber_i_65536_73,#0x00
 00127$:
 	clr	c
-	mov	a,_UART_TxNumber_i_65536_29
+	mov	a,_UART_TxNumber_i_65536_73
 	subb	a,_UART_TxNumber_PARM_3
 	jnc	00146$
 ;	src/libs/uart.c:276: if(v_number_u32!=0)
@@ -755,10 +755,10 @@ _UART_TxNumber:
 	jz	00110$
 ;	src/libs/uart.c:284: a[i]=util_GetMod32(v_number_u32,v_numericSystem_u8);
 	push	ar5
-	mov	a,_UART_TxNumber_i_65536_29
-	add	a,#_UART_TxNumber_a_65536_29
+	mov	a,_UART_TxNumber_i_65536_73
+	add	a,#_UART_TxNumber_a_65536_73
 	mov	r1,a
-	mov	__divulong_PARM_2,_UART_TxNumber_v_numericSystem_u8_65536_28
+	mov	__divulong_PARM_2,_UART_TxNumber_v_numericSystem_u8_65536_72
 	mov	(__divulong_PARM_2 + 1),#0x00
 	mov	(__divulong_PARM_2 + 2),#0x00
 	mov	(__divulong_PARM_2 + 3),#0x00
@@ -776,7 +776,7 @@ _UART_TxNumber:
 	pop	ar1
 	pop	ar5
 	mov	ar5,r2
-	mov	b,_UART_TxNumber_v_numericSystem_u8_65536_28
+	mov	b,_UART_TxNumber_v_numericSystem_u8_65536_72
 	mov	a,r5
 	mul	ab
 	mov	r5,a
@@ -800,17 +800,17 @@ _UART_TxNumber:
 	mov	a,r5
 	jnz	00146$
 ;	src/libs/uart.c:299: a[i]=0;
-	mov	a,_UART_TxNumber_i_65536_29
-	add	a,#_UART_TxNumber_a_65536_29
+	mov	a,_UART_TxNumber_i_65536_73
+	add	a,#_UART_TxNumber_a_65536_73
 	mov	r0,a
 	mov	@r0,#0x00
 00128$:
 ;	src/libs/uart.c:272: for(i=0;i<v_numOfDigitsToTransmit_u8;i++)
-	inc	_UART_TxNumber_i_65536_29
+	inc	_UART_TxNumber_i_65536_73
 ;	src/libs/uart.c:303: while(i)
 	sjmp	00127$
 00146$:
-	mov	r7,_UART_TxNumber_i_65536_29
+	mov	r7,_UART_TxNumber_i_65536_73
 00113$:
 	mov	a,r7
 	jz	00129$
@@ -818,14 +818,14 @@ _UART_TxNumber:
 	mov	ar6,r7
 	mov	a,r6
 	dec	a
-	add	a,#_UART_TxNumber_a_65536_29
+	add	a,#_UART_TxNumber_a_65536_73
 	mov	r1,a
 	mov	a,@r1
 	add	a,#0xff - 0x09
 	jnc	00131$
 	mov	a,r6
 	dec	a
-	add	a,#_UART_TxNumber_a_65536_29
+	add	a,#_UART_TxNumber_a_65536_73
 	mov	r1,a
 	mov	ar5,@r1
 	mov	a,#0x37
@@ -835,7 +835,7 @@ _UART_TxNumber:
 00131$:
 	mov	a,r6
 	dec	a
-	add	a,#_UART_TxNumber_a_65536_29
+	add	a,#_UART_TxNumber_a_65536_73
 	mov	r1,a
 	mov	ar6,@r1
 	mov	a,#0x30

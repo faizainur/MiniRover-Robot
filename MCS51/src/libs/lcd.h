@@ -11,6 +11,7 @@
 #define BUS8 0
 #define BUS4 1
 
+
 /*******************************************
     LCD Command Modes Code in Hexademical
     source : LCD Display Datasheet
@@ -56,8 +57,7 @@
 #define LCD_16x3 2
 #define LCD_16x4 3
 
-#define LCD_TYPE_CONFIG 2            // LCD Type config
-                                            // Note : Set the type based on your LCD Type
+
 
 /* ***********************
     LCD Data Bus
@@ -66,11 +66,6 @@
 #define DATABUS_P1 1
 #define DATABUS_P2 2
 #define DATABUS_P3 3
-
-#define LcdDatabus_P0 P0
-#define LcdDatabus_P1 P1
-#define LcdDatabus_P2 P2  
-#define LcdDatabus_P3 P3
 
 /* **********************
     Lines Identifier
@@ -81,6 +76,27 @@
 #define FORTH_LINE 3
 
 
+/* *****************************************
+    LCD Configuration
+
+    Note :
+
+    Port Configuration Guide
+    ==============================
+
+    Please configure the port used for LCD based on the rules below
+        > LCD Control pin connected to pin 0 to 2 in each port.
+            example : if LCD configure to use PORT 1, then
+                        RS  ==>> P1.0
+                        RW  ==>> P1.1
+                        EN  ==>> P1.2
+        
+        > Depends on what type of bus you use, the rest of the pin in each port
+            besides pin 0 to 2 is connected to LCD Data pin (DB0 to DB7)
+****************************************** */
+        #define LCD_TYPE_CONFIG 2               // LCD Type config
+                                                // Note : Set the type based on your LCD Type
+#define LCD_BUS_PORT_CONFIG DATABUS_P2
 
 /* LCD Control Pin Setup */
 
@@ -88,18 +104,22 @@
     __sbit __at 0x80 RS       ;
     __sbit __at 0x81 RW       ;
     __sbit __at 0x82 EN       ;
+    #define LCDDatabus P0
 #elif LCD_TYPE_CONFIG == 1
     __sbit __at 0x90 RS       ;
     __sbit __at 0x91 RW       ;
     __sbit __at 0x92 EN       ;
+    #define LCDDatabus P1
 #elif LCD_TYPE_CONFIG == 2
     __sbit __at 0xA0 RS       ;
     __sbit __at 0xA1 RW       ;
     __sbit __at 0xA2 EN       ;
+    #define LCDDatabus P2
 #elif LCD_TYPE_CONFIG == 3
     __sbit __at 0xB0 RS       ;
     __sbit __at 0xB1 RW       ;
     __sbit __at 0xB2 EN       ;
+    #define LCDDatabus P3
 #endif
 
 
@@ -108,6 +128,3 @@ int LCDDataWrite(char data);
 void LCDInit();
 void LCDPrintString(uint8_t line, char* string);
 void LCDDisplayNumber(uint8_t line, int number,unsigned char radix);
-char* itoa(int value, char* buffer, int base);
-char* reverse(char *buffer, int i, int j);
-inline void swap(char *x, char *y);

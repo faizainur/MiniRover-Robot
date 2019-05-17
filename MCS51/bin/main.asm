@@ -300,7 +300,7 @@ _echoPin4	=	0x00b5
 ; internal ram data
 ;--------------------------------------------------------
 	.area DSEG    (DATA)
-_main_result_distance_65536_98:
+_main_result_distance_65536_101:
 	.ds 2
 ;--------------------------------------------------------
 ; overlayable items in internal ram 
@@ -387,9 +387,9 @@ __sdcc_program_startup:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;result_distance           Allocated with name '_main_result_distance_65536_98'
+;result_distance           Allocated with name '_main_result_distance_65536_101'
 ;------------------------------------------------------------
-;	src/main.c:13: int main(){
+;	src/main.c:12: int main(){
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
@@ -402,102 +402,102 @@ _main:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-;	src/main.c:17: initPortPin();
+;	src/main.c:16: initPortPin();
 	lcall	_initPortPin
-;	src/main.c:19: LCDInit();
+;	src/main.c:18: LCDInit();
 	lcall	_LCDInit
-;	src/main.c:20: LCDCmdWrite(CURSOR_TO_FIRST_LINE);
+;	src/main.c:19: LCDCmdWrite(CURSOR_TO_FIRST_LINE);
 	mov	dpl,#0x80
 	lcall	_LCDCmdWrite
-;	src/main.c:22: welcomeScreen();
+;	src/main.c:21: welcomeScreen();
 	lcall	_welcomeScreen
-;	src/main.c:23: DELAY_ms(1000);
+;	src/main.c:22: DELAY_ms(1000);
 	mov	dptr,#0x03e8
 	lcall	_DELAY_ms
-;	src/main.c:25: while(1){
+;	src/main.c:24: while(1){
 00102$:
-;	src/main.c:26: sendTriggerPulse();
+;	src/main.c:25: sendTriggerPulse();
 	lcall	_sendTriggerPulse
-;	src/main.c:27: measureDistance(result_distance);
-	mov	dpl,_main_result_distance_65536_98
-	mov	dph,(_main_result_distance_65536_98 + 1)
+;	src/main.c:26: measureDistance(result_distance);
+	mov	dpl,_main_result_distance_65536_101
+	mov	dph,(_main_result_distance_65536_101 + 1)
 	lcall	___uint2fs
 	lcall	_measureDistance
-;	src/main.c:28: LCDCmdWrite(CLEAR_SCREEN);
+;	src/main.c:27: LCDCmdWrite(CLEAR_SCREEN);
 	mov	dpl,#0x01
 	lcall	_LCDCmdWrite
-;	src/main.c:29: LCDPrintString(FIRST_LINE, "Distance : ");
+;	src/main.c:28: LCDPrintString(FIRST_LINE, "Distance : ");
 	mov	_LCDPrintString_PARM_2,#___str_0
 	mov	(_LCDPrintString_PARM_2 + 1),#(___str_0 >> 8)
 	mov	(_LCDPrintString_PARM_2 + 2),#0x80
 	mov	dpl,#0x00
 	lcall	_LCDPrintString
-;	src/main.c:30: LCDDisplayNumber(SECOND_LINE, result_distance, 10);
-	mov	_LCDDisplayNumber_PARM_2,_main_result_distance_65536_98
-	mov	(_LCDDisplayNumber_PARM_2 + 1),(_main_result_distance_65536_98 + 1)
+;	src/main.c:29: LCDDisplayNumber(SECOND_LINE, result_distance, 10);
+	mov	_LCDDisplayNumber_PARM_2,_main_result_distance_65536_101
+	mov	(_LCDDisplayNumber_PARM_2 + 1),(_main_result_distance_65536_101 + 1)
 	mov	_LCDDisplayNumber_PARM_3,#0x0a
 	mov	dpl,#0x01
 	lcall	_LCDDisplayNumber
-;	src/main.c:32: DELAY_ms(500);
+;	src/main.c:31: DELAY_ms(500);
 	mov	dptr,#0x01f4
 	lcall	_DELAY_ms
-;	src/main.c:34: }
+;	src/main.c:33: }
 	sjmp	00102$
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'initPortPin'
 ;------------------------------------------------------------
-;	src/main.c:36: void initPortPin(){
+;	src/main.c:35: void initPortPin(){
 ;	-----------------------------------------
 ;	 function initPortPin
 ;	-----------------------------------------
 _initPortPin:
-;	src/main.c:37: P0_0 = LOW;
+;	src/main.c:36: P0_0 = LOW;
 ;	assignBit
 	clr	_P0_0
-;	src/main.c:38: P2 = 0x00;
+;	src/main.c:37: P2 = 0x00;
 	mov	_P2,#0x00
-;	src/main.c:39: }
+;	src/main.c:38: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'welcomeScreen'
 ;------------------------------------------------------------
-;	src/main.c:41: void welcomeScreen(){
+;	src/main.c:40: void welcomeScreen(){
 ;	-----------------------------------------
 ;	 function welcomeScreen
 ;	-----------------------------------------
 _welcomeScreen:
-;	src/main.c:42: LCDPrintString(FIRST_LINE, "Faiz Ainur Rofiq");
+;	src/main.c:41: LCDPrintString(FIRST_LINE, "Faiz Ainur Rofiq");
 	mov	_LCDPrintString_PARM_2,#___str_1
 	mov	(_LCDPrintString_PARM_2 + 1),#(___str_1 >> 8)
 	mov	(_LCDPrintString_PARM_2 + 2),#0x80
 	mov	dpl,#0x00
 	lcall	_LCDPrintString
-;	src/main.c:43: LCDPrintString(SECOND_LINE, "Jurnal IT");
+;	src/main.c:42: LCDPrintString(SECOND_LINE, "Jurnal IT");
 	mov	_LCDPrintString_PARM_2,#___str_2
 	mov	(_LCDPrintString_PARM_2 + 1),#(___str_2 >> 8)
 	mov	(_LCDPrintString_PARM_2 + 2),#0x80
 	mov	dpl,#0x01
-;	src/main.c:44: }
+;	src/main.c:43: }
 	ljmp	_LCDPrintString
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'toggleLed'
 ;------------------------------------------------------------
-;	src/main.c:46: void toggleLed(){
+;	src/main.c:45: void toggleLed(){
 ;	-----------------------------------------
 ;	 function toggleLed
 ;	-----------------------------------------
 _toggleLed:
-;	src/main.c:47: if (!P0_0){
+;	src/main.c:46: if (!P0_0){
 	jb	_P0_0,00102$
-;	src/main.c:48: P0_0 = 1;
+;	src/main.c:47: P0_0 = 1;
 ;	assignBit
 	setb	_P0_0
 	ret
 00102$:
-;	src/main.c:50: P0_0 = 0;
+;	src/main.c:49: P0_0 = 0;
 ;	assignBit
 	clr	_P0_0
-;	src/main.c:52: }
+;	src/main.c:51: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

@@ -47,7 +47,7 @@ and that both those copyright notices and this permission notice appear in suppo
 #define M_GetBaudRateGeneratorValue(baudrate)  -(F_CPU / (C_ControllerPrescalar_U16 *baudrate))
 /**************************************************************************************************/
 
-
+3686400
 
 
 

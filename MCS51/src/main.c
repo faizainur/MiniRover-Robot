@@ -2,7 +2,6 @@
 #include "libs/lcd.h"
 #include "libs/delay.h"
 #include "libs/hcsr04.h"
-#include <stdio.h>
 
 #define MAX 10
 

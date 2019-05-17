@@ -340,10 +340,10 @@ Symbol Table
  17 _UART_TxNumber                                                 000110 GR
   5 _UART_TxNumber_PARM_2                                          000000 GR
   5 _UART_TxNumber_PARM_3                                          000004 GR
-  5 _UART_TxNumber_a_65536_29                                      000007 R
-  5 _UART_TxNumber_i_65536_29                                      000006 R
+  5 _UART_TxNumber_a_65536_73                                      000007 R
+  5 _UART_TxNumber_i_65536_73                                      000006 R
   5 _UART_TxNumber_sloc0_1_0                                       000011 R
-  5 _UART_TxNumber_v_numericSystem_u8_65536_28                     000005 R
+  5 _UART_TxNumber_v_numericSystem_u8_65536_72                     000005 R
  17 _UART_TxString                                                 000084 GR
     _WR                                                         =  0000B6 G
     __divulong                                                     ****** GX
