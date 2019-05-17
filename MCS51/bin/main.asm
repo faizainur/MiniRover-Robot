@@ -9,25 +9,21 @@
 ; Public variables in this module
 ;--------------------------------------------------------
 	.globl _main
-	.globl _printString
+	.globl _measureDistance
+	.globl _sendTriggerPulse
+	.globl _LCDDisplayNumber
+	.globl _LCDPrintString
 	.globl _LCDInit
-	.globl _LCDSetup
-	.globl _LCDDataWrite
 	.globl _LCDCmdWrite
 	.globl _DELAY_ms
-	.globl _EN_P3
-	.globl _RW_P3
-	.globl _RS_P3
-	.globl _EN_P2
-	.globl _RW_P2
-	.globl _RS_P2
-	.globl _EN_P1
-	.globl _RW_P1
-	.globl _RS_P1
-	.globl _EN_P0
-	.globl _RW_P0
-	.globl _RS_P0
-	.globl _P_NC
+	.globl _echoPin4
+	.globl _echoPin3
+	.globl _echoPin2
+	.globl _echoPin1
+	.globl _triggerPin
+	.globl _EN
+	.globl _RW
+	.globl _RS
 	.globl _CY
 	.globl _AC
 	.globl _F0
@@ -36,6 +32,23 @@
 	.globl _OV
 	.globl _FL
 	.globl _P
+	.globl _TF2
+	.globl _EXF2
+	.globl _RCLK
+	.globl _TCLK
+	.globl _EXEN2
+	.globl _TR2
+	.globl _C_T2
+	.globl _CP_RL2
+	.globl _T2CON_7
+	.globl _T2CON_6
+	.globl _T2CON_5
+	.globl _T2CON_4
+	.globl _T2CON_3
+	.globl _T2CON_2
+	.globl _T2CON_1
+	.globl _T2CON_0
+	.globl _PT2
 	.globl _PS
 	.globl _PT1
 	.globl _PX1
@@ -58,6 +71,7 @@
 	.globl _P3_1
 	.globl _P3_0
 	.globl _EA
+	.globl _ET2
 	.globl _ES
 	.globl _ET1
 	.globl _EX1
@@ -79,6 +93,8 @@
 	.globl _RB8
 	.globl _TI
 	.globl _RI
+	.globl _T2EX
+	.globl _T2
 	.globl _P1_7
 	.globl _P1_6
 	.globl _P1_5
@@ -107,6 +123,12 @@
 	.globl _A
 	.globl _ACC
 	.globl _PSW
+	.globl _TH2
+	.globl _TL2
+	.globl _RCAP2H
+	.globl _RCAP2L
+	.globl _T2MOD
+	.globl _T2CON
 	.globl _IP
 	.globl _P3
 	.globl _IE
@@ -125,7 +147,9 @@
 	.globl _DPL
 	.globl _SP
 	.globl _P0
-	.globl _LCDLineAddress
+	.globl _initPortPin
+	.globl _welcomeScreen
+	.globl _toggleLed
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -149,6 +173,12 @@ _P2	=	0x00a0
 _IE	=	0x00a8
 _P3	=	0x00b0
 _IP	=	0x00b8
+_T2CON	=	0x00c8
+_T2MOD	=	0x00c9
+_RCAP2L	=	0x00ca
+_RCAP2H	=	0x00cb
+_TL2	=	0x00cc
+_TH2	=	0x00cd
 _PSW	=	0x00d0
 _ACC	=	0x00e0
 _A	=	0x00e0
@@ -182,6 +212,8 @@ _P1_4	=	0x0094
 _P1_5	=	0x0095
 _P1_6	=	0x0096
 _P1_7	=	0x0097
+_T2	=	0x0090
+_T2EX	=	0x0091
 _RI	=	0x0098
 _TI	=	0x0099
 _RB8	=	0x009a
@@ -203,6 +235,7 @@ _ET0	=	0x00a9
 _EX1	=	0x00aa
 _ET1	=	0x00ab
 _ES	=	0x00ac
+_ET2	=	0x00ad
 _EA	=	0x00af
 _P3_0	=	0x00b0
 _P3_1	=	0x00b1
@@ -225,6 +258,23 @@ _PT0	=	0x00b9
 _PX1	=	0x00ba
 _PT1	=	0x00bb
 _PS	=	0x00bc
+_PT2	=	0x00bd
+_T2CON_0	=	0x00c8
+_T2CON_1	=	0x00c9
+_T2CON_2	=	0x00ca
+_T2CON_3	=	0x00cb
+_T2CON_4	=	0x00cc
+_T2CON_5	=	0x00cd
+_T2CON_6	=	0x00ce
+_T2CON_7	=	0x00cf
+_CP_RL2	=	0x00c8
+_C_T2	=	0x00c9
+_TR2	=	0x00ca
+_EXEN2	=	0x00cb
+_TCLK	=	0x00cc
+_RCLK	=	0x00cd
+_EXF2	=	0x00ce
+_TF2	=	0x00cf
 _P	=	0x00d0
 _FL	=	0x00d1
 _OV	=	0x00d2
@@ -233,19 +283,14 @@ _RS1	=	0x00d4
 _F0	=	0x00d5
 _AC	=	0x00d6
 _CY	=	0x00d7
-_P_NC	=	0x00ff
-_RS_P0	=	0x0080
-_RW_P0	=	0x0081
-_EN_P0	=	0x0082
-_RS_P1	=	0x0090
-_RW_P1	=	0x0091
-_EN_P1	=	0x0092
-_RS_P2	=	0x00a0
-_RW_P2	=	0x00a1
-_EN_P2	=	0x00a2
-_RS_P3	=	0x00b0
-_RW_P3	=	0x00b1
-_EN_P3	=	0x00b2
+_RS	=	0x00a0
+_RW	=	0x00a1
+_EN	=	0x00a2
+_triggerPin	=	0x00b6
+_echoPin1	=	0x00b2
+_echoPin2	=	0x00b3
+_echoPin3	=	0x00b4
+_echoPin4	=	0x00b5
 ;--------------------------------------------------------
 ; overlayable register banks
 ;--------------------------------------------------------
@@ -255,10 +300,8 @@ _EN_P3	=	0x00b2
 ; internal ram data
 ;--------------------------------------------------------
 	.area DSEG    (DATA)
-_LCDLineAddress::
-	.ds 8
-_main_a_65536_9:
-	.ds 17
+_main_result_distance_65536_98:
+	.ds 2
 ;--------------------------------------------------------
 ; overlayable items in internal ram 
 ;--------------------------------------------------------
@@ -327,15 +370,6 @@ __interrupt_vect:
 	.globl __mcs51_genXINIT
 	.globl __mcs51_genXRAMCLEAR
 	.globl __mcs51_genRAMCLEAR
-;	src/libs/lcd.h:75: uint16_t LCDLineAddress[] = {0x80, 0xC0, 0x90, 0xD0};
-	mov	(_LCDLineAddress + 0),#0x80
-	mov	(_LCDLineAddress + 1),#0x00
-	mov	((_LCDLineAddress + 0x0002) + 0),#0xc0
-	mov	((_LCDLineAddress + 0x0002) + 1),#0x00
-	mov	((_LCDLineAddress + 0x0004) + 0),#0x90
-	mov	((_LCDLineAddress + 0x0004) + 1),#0x00
-	mov	((_LCDLineAddress + 0x0006) + 0),#0xd0
-	mov	((_LCDLineAddress + 0x0006) + 1),#0x00
 	.area GSFINAL (CODE)
 	ljmp	__sdcc_program_startup
 ;--------------------------------------------------------
@@ -353,10 +387,9 @@ __sdcc_program_startup:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;i                         Allocated to registers r7 
-;a                         Allocated with name '_main_a_65536_9'
+;result_distance           Allocated with name '_main_result_distance_65536_98'
 ;------------------------------------------------------------
-;	src/main.c:5: int main(){
+;	src/main.c:13: int main(){
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
@@ -369,83 +402,117 @@ _main:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-;	src/main.c:7: char i,a[]={"Faiz Ainur Rofiq"};
-	mov	_main_a_65536_9,#0x46
-	mov	(_main_a_65536_9 + 0x0001),#0x61
-	mov	(_main_a_65536_9 + 0x0002),#0x69
-	mov	(_main_a_65536_9 + 0x0003),#0x7a
-	mov	(_main_a_65536_9 + 0x0004),#0x20
-	mov	(_main_a_65536_9 + 0x0005),#0x41
-	mov	(_main_a_65536_9 + 0x0006),#0x69
-	mov	(_main_a_65536_9 + 0x0007),#0x6e
-	mov	(_main_a_65536_9 + 0x0008),#0x75
-	mov	(_main_a_65536_9 + 0x0009),#0x72
-	mov	(_main_a_65536_9 + 0x000a),#0x20
-	mov	(_main_a_65536_9 + 0x000b),#0x52
-	mov	(_main_a_65536_9 + 0x000c),#0x6f
-	mov	(_main_a_65536_9 + 0x000d),#0x66
-	mov	(_main_a_65536_9 + 0x000e),#0x69
-	mov	(_main_a_65536_9 + 0x000f),#0x71
-	mov	(_main_a_65536_9 + 0x0010),#0x00
-;	src/main.c:9: P0_0 = LOW;
-;	assignBit
-	clr	_P0_0
-;	src/main.c:10: P2 = 0x00;
-	mov	_P2,#0x00
-;	src/main.c:14: LCDSetup(LCD_16x2, DATABUS_P2, BUS4);
-	mov	_LCDSetup_PARM_2,#0x02
-	mov	_LCDSetup_PARM_3,#0x01
-	mov	dpl,#0x01
-	lcall	_LCDSetup
-;	src/main.c:15: LCDInit();
+;	src/main.c:17: initPortPin();
+	lcall	_initPortPin
+;	src/main.c:19: LCDInit();
 	lcall	_LCDInit
-;	src/main.c:16: LCDCmdWrite(CURSOR_TO_FIRST_LINE);
+;	src/main.c:20: LCDCmdWrite(CURSOR_TO_FIRST_LINE);
 	mov	dpl,#0x80
 	lcall	_LCDCmdWrite
-;	src/main.c:18: for(i=0;a[i]!=0;i++)
-	mov	r7,#0x00
-00106$:
-	mov	a,r7
-	add	a,#_main_a_65536_9
-	mov	r1,a
-	mov	a,@r1
-	mov	r6,a
-	jz	00101$
-;	src/main.c:20: LCDDataWrite(a[i]);
-	mov	dpl,r6
-	push	ar7
-	lcall	_LCDDataWrite
-	pop	ar7
-;	src/main.c:18: for(i=0;a[i]!=0;i++)
-	inc	r7
-	sjmp	00106$
-00101$:
-;	src/main.c:25: printString(SECOND_LINE, "Jurnal IT");
-	mov	_printString_PARM_2,#___str_1
-	mov	(_printString_PARM_2 + 1),#(___str_1 >> 8)
-	mov	(_printString_PARM_2 + 2),#0x80
+;	src/main.c:22: welcomeScreen();
+	lcall	_welcomeScreen
+;	src/main.c:23: DELAY_ms(1000);
+	mov	dptr,#0x03e8
+	lcall	_DELAY_ms
+;	src/main.c:25: while(1){
+00102$:
+;	src/main.c:26: sendTriggerPulse();
+	lcall	_sendTriggerPulse
+;	src/main.c:27: measureDistance(result_distance);
+	mov	dpl,_main_result_distance_65536_98
+	mov	dph,(_main_result_distance_65536_98 + 1)
+	lcall	___uint2fs
+	lcall	_measureDistance
+;	src/main.c:28: LCDCmdWrite(CLEAR_SCREEN);
 	mov	dpl,#0x01
-	lcall	_printString
-;	src/main.c:26: while (1){
-00103$:
-;	src/main.c:27: P0_0 = 0;
+	lcall	_LCDCmdWrite
+;	src/main.c:29: LCDPrintString(FIRST_LINE, "Distance : ");
+	mov	_LCDPrintString_PARM_2,#___str_0
+	mov	(_LCDPrintString_PARM_2 + 1),#(___str_0 >> 8)
+	mov	(_LCDPrintString_PARM_2 + 2),#0x80
+	mov	dpl,#0x00
+	lcall	_LCDPrintString
+;	src/main.c:30: LCDDisplayNumber(SECOND_LINE, result_distance, 10);
+	mov	_LCDDisplayNumber_PARM_2,_main_result_distance_65536_98
+	mov	(_LCDDisplayNumber_PARM_2 + 1),(_main_result_distance_65536_98 + 1)
+	mov	_LCDDisplayNumber_PARM_3,#0x0a
+	mov	dpl,#0x01
+	lcall	_LCDDisplayNumber
+;	src/main.c:32: DELAY_ms(500);
+	mov	dptr,#0x01f4
+	lcall	_DELAY_ms
+;	src/main.c:34: }
+	sjmp	00102$
+;------------------------------------------------------------
+;Allocation info for local variables in function 'initPortPin'
+;------------------------------------------------------------
+;	src/main.c:36: void initPortPin(){
+;	-----------------------------------------
+;	 function initPortPin
+;	-----------------------------------------
+_initPortPin:
+;	src/main.c:37: P0_0 = LOW;
 ;	assignBit
 	clr	_P0_0
-;	src/main.c:28: DELAY_ms(500);
-	mov	dptr,#0x01f4
-	lcall	_DELAY_ms
-;	src/main.c:29: P0_0 = 1;
+;	src/main.c:38: P2 = 0x00;
+	mov	_P2,#0x00
+;	src/main.c:39: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'welcomeScreen'
+;------------------------------------------------------------
+;	src/main.c:41: void welcomeScreen(){
+;	-----------------------------------------
+;	 function welcomeScreen
+;	-----------------------------------------
+_welcomeScreen:
+;	src/main.c:42: LCDPrintString(FIRST_LINE, "Faiz Ainur Rofiq");
+	mov	_LCDPrintString_PARM_2,#___str_1
+	mov	(_LCDPrintString_PARM_2 + 1),#(___str_1 >> 8)
+	mov	(_LCDPrintString_PARM_2 + 2),#0x80
+	mov	dpl,#0x00
+	lcall	_LCDPrintString
+;	src/main.c:43: LCDPrintString(SECOND_LINE, "Jurnal IT");
+	mov	_LCDPrintString_PARM_2,#___str_2
+	mov	(_LCDPrintString_PARM_2 + 1),#(___str_2 >> 8)
+	mov	(_LCDPrintString_PARM_2 + 2),#0x80
+	mov	dpl,#0x01
+;	src/main.c:44: }
+	ljmp	_LCDPrintString
+;------------------------------------------------------------
+;Allocation info for local variables in function 'toggleLed'
+;------------------------------------------------------------
+;	src/main.c:46: void toggleLed(){
+;	-----------------------------------------
+;	 function toggleLed
+;	-----------------------------------------
+_toggleLed:
+;	src/main.c:47: if (!P0_0){
+	jb	_P0_0,00102$
+;	src/main.c:48: P0_0 = 1;
 ;	assignBit
 	setb	_P0_0
-;	src/main.c:30: DELAY_ms(500);
-	mov	dptr,#0x01f4
-	lcall	_DELAY_ms
-;	src/main.c:33: }
-	sjmp	00103$
+	ret
+00102$:
+;	src/main.c:50: P0_0 = 0;
+;	assignBit
+	clr	_P0_0
+;	src/main.c:52: }
+	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 	.area CONST   (CODE)
+___str_0:
+	.ascii "Distance : "
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
 ___str_1:
+	.ascii "Faiz Ainur Rofiq"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_2:
 	.ascii "Jurnal IT"
 	.db 0x00
 	.area CSEG    (CODE)

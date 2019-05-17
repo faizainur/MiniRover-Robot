@@ -42,7 +42,7 @@ and that both those copyright notices and this permission notice appear in suppo
 #ifndef _STD_UTIL_H_
 #define _STD_UTIL_H_
 
-#include <at89x51.h>
+#include <at89x52.h>
 
 
 /***************************************************************************************************

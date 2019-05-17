@@ -1,6 +1,11 @@
-#include <at89x51.h>
-// #include "stdutils.h"
+#include <at89x52.h>
+#include "stdutils.h"
+	
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "delay.h"
+#include <stdbool.h>
 
 /* LCD Bus Modes */
 #define BUS8 0
@@ -9,6 +14,13 @@
 /*******************************************
     LCD Command Modes Code in Hexademical
     source : LCD Display Datasheet
+    **************************************
+    References of LCD Line Address 
+        Line 0  ==>   0x80
+        Line 1  ==>   0xC0
+        Line 2  ==>   0x90
+        Line 3  ==>   0xD0             
+    ***************************************
  *******************************************/
 #define CLEAR_SCREEN                0x01u
 #define RETURN_HOME                 0x02u
@@ -44,6 +56,9 @@
 #define LCD_16x3 2
 #define LCD_16x4 3
 
+#define LCD_TYPE_CONFIG 2            // LCD Type config
+                                            // Note : Set the type based on your LCD Type
+
 /* ***********************
     LCD Data Bus
    ********************* */
@@ -65,47 +80,34 @@
 #define THIRD_LINE 2
 #define FORTH_LINE 3
 
-/**************************************
-    References of LCD Line Address 
-        Line 0  ==>   0x80
-        Line 1  ==>   0xC0
-        Line 2  ==>   0x90
-        Line 3  ==>   0xD0             
-***************************************/
-uint16_t LCDLineAddress[] = {0x80, 0xC0, 0x90, 0xD0};
+
 
 /* LCD Control Pin Setup */
 
-        __sbit __at 0x80 RS_P0       ;
-        __sbit __at 0x81 RW_P0       ;
-        __sbit __at 0x82 EN_P0       ;
-    
-        __sbit __at 0x90 RS_P1       ;
-        __sbit __at 0x91 RW_P1       ;
-        __sbit __at 0x92 EN_P1       ;
-    
-        __sbit __at 0xA0 RS_P2       ;
-        __sbit __at 0xA1 RW_P2       ;
-        __sbit __at 0xA2 EN_P2       ;
-    
-        __sbit __at 0xB0 RS_P3       ;
-        __sbit __at 0xB1 RW_P3       ;
-        __sbit __at 0xB2 EN_P3       ;
-
-typedef struct lcd
-{
-    uint8_t LCDType;
-    uint8_t __LCDBusModes;
-    uint8_t LCDDatabusType;
-} LCDConfig;
-
-
-
+#if LCD_TYPE_CONFIG == 0
+    __sbit __at 0x80 RS       ;
+    __sbit __at 0x81 RW       ;
+    __sbit __at 0x82 EN       ;
+#elif LCD_TYPE_CONFIG == 1
+    __sbit __at 0x90 RS       ;
+    __sbit __at 0x91 RW       ;
+    __sbit __at 0x92 EN       ;
+#elif LCD_TYPE_CONFIG == 2
+    __sbit __at 0xA0 RS       ;
+    __sbit __at 0xA1 RW       ;
+    __sbit __at 0xA2 EN       ;
+#elif LCD_TYPE_CONFIG == 3
+    __sbit __at 0xB0 RS       ;
+    __sbit __at 0xB1 RW       ;
+    __sbit __at 0xB2 EN       ;
+#endif
 
 
 int LCDCmdWrite(char cmd);
 int LCDDataWrite(char data);
-int LCDSetup(uint8_t lcdType, uint8_t lcdDatabusType, uint8_t lcdBusModes);
 void LCDInit();
-void pinSetup(__sbit pin, uint8_t modes);
-void printString(uint8_t line, char* string);
+void LCDPrintString(uint8_t line, char* string);
+void LCDDisplayNumber(uint8_t line, int number,unsigned char radix);
+char* itoa(int value, char* buffer, int base);
+char* reverse(char *buffer, int i, int j);
+inline void swap(char *x, char *y);

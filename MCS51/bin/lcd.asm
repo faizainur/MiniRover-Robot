@@ -8,23 +8,14 @@
 ;--------------------------------------------------------
 ; Public variables in this module
 ;--------------------------------------------------------
-	.globl _pinSetup_PARM_2
-	.globl _LCDSetup_PARM_3
-	.globl _LCDSetup_PARM_2
+	.globl _reverse_PARM_3
+	.globl _reverse_PARM_2
+	.globl _swap_PARM_2
 	.globl _DELAY_us
-	.globl _EN_P3
-	.globl _RW_P3
-	.globl _RS_P3
-	.globl _EN_P2
-	.globl _RW_P2
-	.globl _RS_P2
-	.globl _EN_P1
-	.globl _RW_P1
-	.globl _RS_P1
-	.globl _EN_P0
-	.globl _RW_P0
-	.globl _RS_P0
-	.globl _P_NC
+	.globl _abs
+	.globl _EN
+	.globl _RW
+	.globl _RS
 	.globl _CY
 	.globl _AC
 	.globl _F0
@@ -33,6 +24,23 @@
 	.globl _OV
 	.globl _FL
 	.globl _P
+	.globl _TF2
+	.globl _EXF2
+	.globl _RCLK
+	.globl _TCLK
+	.globl _EXEN2
+	.globl _TR2
+	.globl _C_T2
+	.globl _CP_RL2
+	.globl _T2CON_7
+	.globl _T2CON_6
+	.globl _T2CON_5
+	.globl _T2CON_4
+	.globl _T2CON_3
+	.globl _T2CON_2
+	.globl _T2CON_1
+	.globl _T2CON_0
+	.globl _PT2
 	.globl _PS
 	.globl _PT1
 	.globl _PX1
@@ -55,6 +63,7 @@
 	.globl _P3_1
 	.globl _P3_0
 	.globl _EA
+	.globl _ET2
 	.globl _ES
 	.globl _ET1
 	.globl _EX1
@@ -76,6 +85,8 @@
 	.globl _RB8
 	.globl _TI
 	.globl _RI
+	.globl _T2EX
+	.globl _T2
 	.globl _P1_7
 	.globl _P1_6
 	.globl _P1_5
@@ -104,6 +115,12 @@
 	.globl _A
 	.globl _ACC
 	.globl _PSW
+	.globl _TH2
+	.globl _TL2
+	.globl _RCAP2H
+	.globl _RCAP2L
+	.globl _T2MOD
+	.globl _T2CON
 	.globl _IP
 	.globl _P3
 	.globl _IE
@@ -122,15 +139,19 @@
 	.globl _DPL
 	.globl _SP
 	.globl _P0
-	.globl _printString_PARM_2
-	.globl ___config
-	.globl _LCDLineAddress
-	.globl _LCDSetup
-	.globl _pinSetup
+	.globl _itoa_PARM_3
+	.globl _itoa_PARM_2
+	.globl _LCDDisplayNumber_PARM_3
+	.globl _LCDDisplayNumber_PARM_2
+	.globl _LCDPrintString_PARM_2
 	.globl _LCDInit
 	.globl _LCDCmdWrite
 	.globl _LCDDataWrite
-	.globl _printString
+	.globl _LCDPrintString
+	.globl _LCDDisplayNumber
+	.globl _swap
+	.globl _reverse
+	.globl _itoa
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -154,6 +175,12 @@ _P2	=	0x00a0
 _IE	=	0x00a8
 _P3	=	0x00b0
 _IP	=	0x00b8
+_T2CON	=	0x00c8
+_T2MOD	=	0x00c9
+_RCAP2L	=	0x00ca
+_RCAP2H	=	0x00cb
+_TL2	=	0x00cc
+_TH2	=	0x00cd
 _PSW	=	0x00d0
 _ACC	=	0x00e0
 _A	=	0x00e0
@@ -187,6 +214,8 @@ _P1_4	=	0x0094
 _P1_5	=	0x0095
 _P1_6	=	0x0096
 _P1_7	=	0x0097
+_T2	=	0x0090
+_T2EX	=	0x0091
 _RI	=	0x0098
 _TI	=	0x0099
 _RB8	=	0x009a
@@ -208,6 +237,7 @@ _ET0	=	0x00a9
 _EX1	=	0x00aa
 _ET1	=	0x00ab
 _ES	=	0x00ac
+_ET2	=	0x00ad
 _EA	=	0x00af
 _P3_0	=	0x00b0
 _P3_1	=	0x00b1
@@ -230,6 +260,23 @@ _PT0	=	0x00b9
 _PX1	=	0x00ba
 _PT1	=	0x00bb
 _PS	=	0x00bc
+_PT2	=	0x00bd
+_T2CON_0	=	0x00c8
+_T2CON_1	=	0x00c9
+_T2CON_2	=	0x00ca
+_T2CON_3	=	0x00cb
+_T2CON_4	=	0x00cc
+_T2CON_5	=	0x00cd
+_T2CON_6	=	0x00ce
+_T2CON_7	=	0x00cf
+_CP_RL2	=	0x00c8
+_C_T2	=	0x00c9
+_TR2	=	0x00ca
+_EXEN2	=	0x00cb
+_TCLK	=	0x00cc
+_RCLK	=	0x00cd
+_EXF2	=	0x00ce
+_TF2	=	0x00cf
 _P	=	0x00d0
 _FL	=	0x00d1
 _OV	=	0x00d2
@@ -238,21 +285,9 @@ _RS1	=	0x00d4
 _F0	=	0x00d5
 _AC	=	0x00d6
 _CY	=	0x00d7
-_P_NC	=	0x00ff
-_RS_P0	=	0x0080
-_RW_P0	=	0x0081
-_EN_P0	=	0x0082
-_RS_P1	=	0x0090
-_RW_P1	=	0x0091
-_EN_P1	=	0x0092
-_RS_P2	=	0x00a0
-_RW_P2	=	0x00a1
-_EN_P2	=	0x00a2
-_RS_P3	=	0x00b0
-_RW_P3	=	0x00b1
-_EN_P3	=	0x00b2
-_pinSetup_pin_65536_11:
-	.ds 1
+_RS	=	0x00a0
+_RW	=	0x00a1
+_EN	=	0x00a2
 ;--------------------------------------------------------
 ; overlayable register banks
 ;--------------------------------------------------------
@@ -262,22 +297,38 @@ _pinSetup_pin_65536_11:
 ; internal ram data
 ;--------------------------------------------------------
 	.area DSEG    (DATA)
-_LCDLineAddress::
-	.ds 8
-___config::
+_LCDPrintString_PARM_2:
 	.ds 3
-_printString_PARM_2:
+_LCDDisplayNumber_PARM_2:
+	.ds 2
+_LCDDisplayNumber_PARM_3:
+	.ds 1
+_LCDDisplayNumber_buffer_65536_83:
+	.ds 33
+_itoa_PARM_2:
 	.ds 3
+_itoa_PARM_3:
+	.ds 2
+_itoa_value_65536_91:
+	.ds 2
+_itoa_r_131073_94:
+	.ds 2
 ;--------------------------------------------------------
 ; overlayable items in internal ram 
 ;--------------------------------------------------------
 	.area	OSEG    (OVR,DATA)
-_LCDSetup_PARM_2:
-	.ds 1
-_LCDSetup_PARM_3:
-	.ds 1
+_swap_PARM_2:
+	.ds 3
 	.area	OSEG    (OVR,DATA)
-_pinSetup_PARM_2:
+_reverse_PARM_2:
+	.ds 2
+_reverse_PARM_3:
+	.ds 2
+_reverse___1310720001_131072_88:
+	.ds 3
+_reverse___1310720002_131072_88:
+	.ds 3
+_reverse_t_262144_90:
 	.ds 1
 ;--------------------------------------------------------
 ; indirectly addressable internal ram data
@@ -325,15 +376,6 @@ _pinSetup_PARM_2:
 	.area GSINIT  (CODE)
 	.area GSFINAL (CODE)
 	.area GSINIT  (CODE)
-;	src/libs/lcd.h:75: uint16_t LCDLineAddress[] = {0x80, 0xC0, 0x90, 0xD0};
-	mov	(_LCDLineAddress + 0),#0x80
-	mov	(_LCDLineAddress + 1),#0x00
-	mov	((_LCDLineAddress + 0x0002) + 0),#0xc0
-	mov	((_LCDLineAddress + 0x0002) + 1),#0x00
-	mov	((_LCDLineAddress + 0x0004) + 0),#0x90
-	mov	((_LCDLineAddress + 0x0004) + 1),#0x00
-	mov	((_LCDLineAddress + 0x0006) + 0),#0xd0
-	mov	((_LCDLineAddress + 0x0006) + 1),#0x00
 ;--------------------------------------------------------
 ; Home
 ;--------------------------------------------------------
@@ -344,17 +386,13 @@ _pinSetup_PARM_2:
 ;--------------------------------------------------------
 	.area CSEG    (CODE)
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'LCDSetup'
+;Allocation info for local variables in function 'LCDInit'
 ;------------------------------------------------------------
-;lcdDatabusType            Allocated with name '_LCDSetup_PARM_2'
-;lcdBusModes               Allocated with name '_LCDSetup_PARM_3'
-;lcdType                   Allocated to registers r7 
-;------------------------------------------------------------
-;	src/libs/lcd.c:5: int LCDSetup(uint8_t lcdType, uint8_t lcdDatabusType, uint8_t lcdBusModes)
+;	src/libs/lcd.c:4: void LCDInit(){
 ;	-----------------------------------------
-;	 function LCDSetup
+;	 function LCDInit
 ;	-----------------------------------------
-_LCDSetup:
+_LCDInit:
 	ar7 = 0x07
 	ar6 = 0x06
 	ar5 = 0x05
@@ -363,705 +401,218 @@ _LCDSetup:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-	mov	r7,dpl
-;	src/libs/lcd.c:7: __config.LCDType = lcdType;
-	mov	___config,r7
-;	src/libs/lcd.c:8: __config.__LCDBusModes = lcdBusModes;
-	mov	(___config + 0x0001),_LCDSetup_PARM_3
-;	src/libs/lcd.c:9: __config.LCDDatabusType = lcdDatabusType;
-	mov	(___config + 0x0002),_LCDSetup_PARM_2
-;	src/libs/lcd.c:10: return 0;
-	mov	dptr,#0x0000
-;	src/libs/lcd.c:11: }
-	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function 'pinSetup'
-;------------------------------------------------------------
-;pin                       Allocated with name '_pinSetup_pin_65536_11'
-;modes                     Allocated with name '_pinSetup_PARM_2'
-;------------------------------------------------------------
-;	src/libs/lcd.c:13: void pinSetup(__sbit pin, uint8_t modes){
-;	-----------------------------------------
-;	 function pinSetup
-;	-----------------------------------------
-_pinSetup:
-;	src/libs/lcd.c:15: pin = modes;
-;	assignBit
-	mov	a,_pinSetup_PARM_2
-	add	a,#0xff
-	mov	_pinSetup_pin_65536_11,c
-;	src/libs/lcd.c:16: }
-	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function 'LCDInit'
-;------------------------------------------------------------
-;	src/libs/lcd.c:18: void LCDInit(){
-;	-----------------------------------------
-;	 function LCDInit
-;	-----------------------------------------
-_LCDInit:
-;	src/libs/lcd.c:20: LCDCmdWrite(RETURN_HOME);
+;	src/libs/lcd.c:6: LCDCmdWrite(RETURN_HOME);
 	mov	dpl,#0x02
 	lcall	_LCDCmdWrite
-;	src/libs/lcd.c:22: if (__config.__LCDBusModes == BUS4){
-	mov	r7,(___config + 0x0001)
-	cjne	r7,#0x01,00104$
-;	src/libs/lcd.c:23: LCDCmdWrite(CMD_LCD_FOUR_BIT_MODE);
+;	src/libs/lcd.c:7: LCDCmdWrite(CMD_LCD_FOUR_BIT_MODE);             // Set data bus in 4-bit mode
 	mov	dpl,#0x28
 	lcall	_LCDCmdWrite
-	sjmp	00105$
-00104$:
-;	src/libs/lcd.c:24: } else if (__config.__LCDBusModes == BUS8){
-	mov	a,r7
-	jnz	00105$
-;	src/libs/lcd.c:25: LCDCmdWrite(CMD_LCD_EIGHT_BIT_MODE);
-	mov	dpl,#0x38
-	lcall	_LCDCmdWrite
-00105$:
-;	src/libs/lcd.c:28: LCDCmdWrite(DISPLAY_ON_CURSOR_BLINK_1);
+;	src/libs/lcd.c:8: LCDCmdWrite(DISPLAY_ON_CURSOR_BLINK_1);
 	mov	dpl,#0x0e
 	lcall	_LCDCmdWrite
-;	src/libs/lcd.c:29: LCDCmdWrite(CLEAR_SCREEN);
+;	src/libs/lcd.c:9: LCDCmdWrite(CLEAR_SCREEN);
 	mov	dpl,#0x01
-;	src/libs/lcd.c:31: }
+;	src/libs/lcd.c:11: }
 	ljmp	_LCDCmdWrite
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'LCDCmdWrite'
 ;------------------------------------------------------------
 ;cmd                       Allocated to registers r7 
 ;------------------------------------------------------------
-;	src/libs/lcd.c:33: int LCDCmdWrite(char cmd){
+;	src/libs/lcd.c:13: int LCDCmdWrite(char cmd){
 ;	-----------------------------------------
 ;	 function LCDCmdWrite
 ;	-----------------------------------------
 _LCDCmdWrite:
 	mov	r7,dpl
-;	src/libs/lcd.c:35: switch (__config.LCDDatabusType)
-	mov	a,(___config + 0x0002)
-	mov	r6,a
-	add	a,#0xff - 0x03
-	jnc	00123$
-	ljmp	00105$
-00123$:
-	mov	a,r6
-	add	a,r6
-;	src/libs/lcd.c:37: case DATABUS_P0:
-	mov	dptr,#00124$
-	jmp	@a+dptr
-00124$:
-	sjmp	00101$
-	sjmp	00102$
-	sjmp	00103$
-	sjmp	00104$
-00101$:
-;	src/libs/lcd.c:38: LcdDatabus_P0 = (cmd & 0xF0);
-	mov	a,#0xf0
-	anl	a,r7
-	mov	_P0,a
-;	src/libs/lcd.c:39: RS_P0 = LOW;
-;	assignBit
-	clr	_RS_P0
-;	src/libs/lcd.c:40: RW_P0 = LOW;
-;	assignBit
-	clr	_RW_P0
-;	src/libs/lcd.c:41: EN_P0 = HIGH;
-;	assignBit
-	setb	_EN_P0
-;	src/libs/lcd.c:42: DELAY_us(1000);
-	mov	dptr,#0x03e8
-	push	ar7
-	lcall	_DELAY_us
-	pop	ar7
-;	src/libs/lcd.c:43: EN_P0 = LOW;
-;	assignBit
-	clr	_EN_P0
-;	src/libs/lcd.c:44: break;
-;	src/libs/lcd.c:46: case DATABUS_P1:
-	sjmp	00106$
-00102$:
-;	src/libs/lcd.c:47: LcdDatabus_P1 = (cmd & 0xF0);
-	mov	a,#0xf0
-	anl	a,r7
-	mov	_P1,a
-;	src/libs/lcd.c:48: RS_P1 = LOW;
-;	assignBit
-	clr	_RS_P1
-;	src/libs/lcd.c:49: RW_P1 = LOW;
-;	assignBit
-	clr	_RW_P1
-;	src/libs/lcd.c:50: EN_P1 = HIGH;
-;	assignBit
-	setb	_EN_P1
-;	src/libs/lcd.c:51: DELAY_us(1000);
-	mov	dptr,#0x03e8
-	push	ar7
-	lcall	_DELAY_us
-	pop	ar7
-;	src/libs/lcd.c:52: EN_P1 = LOW;
-;	assignBit
-	clr	_EN_P1
-;	src/libs/lcd.c:53: break;
-;	src/libs/lcd.c:55: case DATABUS_P2:
-	sjmp	00106$
-00103$:
-;	src/libs/lcd.c:56: LcdDatabus_P2 = (cmd & 0xF0);
+;	src/libs/lcd.c:15: LcdDatabus_P2 = (cmd & 0xF0);
 	mov	a,#0xf0
 	anl	a,r7
 	mov	_P2,a
-;	src/libs/lcd.c:57: RS_P2 = LOW;
+;	src/libs/lcd.c:16: RS = LOW;
 ;	assignBit
-	clr	_RS_P2
-;	src/libs/lcd.c:58: RW_P2 = LOW;
+	clr	_RS
+;	src/libs/lcd.c:17: RW = LOW;
 ;	assignBit
-	clr	_RW_P2
-;	src/libs/lcd.c:59: EN_P2 = HIGH;
+	clr	_RW
+;	src/libs/lcd.c:18: EN = HIGH;
 ;	assignBit
-	setb	_EN_P2
-;	src/libs/lcd.c:60: DELAY_us(1000);
+	setb	_EN
+;	src/libs/lcd.c:19: DELAY_us(1000);
 	mov	dptr,#0x03e8
 	push	ar7
 	lcall	_DELAY_us
-	pop	ar7
-;	src/libs/lcd.c:61: EN_P2 = LOW;
+;	src/libs/lcd.c:20: EN = LOW;
 ;	assignBit
-	clr	_EN_P2
-;	src/libs/lcd.c:62: break;
-;	src/libs/lcd.c:64: case DATABUS_P3:
-	sjmp	00106$
-00104$:
-;	src/libs/lcd.c:65: LcdDatabus_P3 = (cmd & 0xF0);
-	mov	a,#0xf0
-	anl	a,r7
-	mov	_P3,a
-;	src/libs/lcd.c:66: RS_P3 = LOW;
-;	assignBit
-	clr	_RS_P3
-;	src/libs/lcd.c:67: RW_P3 = LOW;
-;	assignBit
-	clr	_RW_P3
-;	src/libs/lcd.c:68: EN_P3 = HIGH;
-;	assignBit
-	setb	_EN_P3
-;	src/libs/lcd.c:69: DELAY_us(1000);
-	mov	dptr,#0x03e8
-	push	ar7
-	lcall	_DELAY_us
-	pop	ar7
-;	src/libs/lcd.c:70: EN_P3 = LOW;
-;	assignBit
-	clr	_EN_P3
-;	src/libs/lcd.c:71: break;
-;	src/libs/lcd.c:73: default:
-	sjmp	00106$
-00105$:
-;	src/libs/lcd.c:74: return -1;
-	mov	dptr,#0xffff
-	ret
-;	src/libs/lcd.c:75: }
-00106$:
-;	src/libs/lcd.c:77: DELAY_us(10000);
+	clr	_EN
+;	src/libs/lcd.c:22: DELAY_us(10000);
 	mov	dptr,#0x2710
-	push	ar7
 	lcall	_DELAY_us
 	pop	ar7
-;	src/libs/lcd.c:79: switch (__config.LCDDatabusType)
-	mov	a,(___config + 0x0002)
-	mov	r6,a
-	add	a,#0xff - 0x03
-	jnc	00125$
-	ljmp	00111$
-00125$:
-	mov	a,r6
-	add	a,r6
-;	src/libs/lcd.c:81: case DATABUS_P0:
-	mov	dptr,#00126$
-	jmp	@a+dptr
-00126$:
-	sjmp	00107$
-	sjmp	00108$
-	sjmp	00109$
-	sjmp	00110$
-00107$:
-;	src/libs/lcd.c:82: LcdDatabus_P0 = ((cmd<<4) & 0xF0);
-	mov	ar6,r7
-	mov	a,r6
-	swap	a
-	anl	a,#0xf0
-	mov	r6,a
-	mov	a,#0xf0
-	anl	a,r6
-	mov	_P0,a
-;	src/libs/lcd.c:83: RS_P0 = LOW;
-;	assignBit
-	clr	_RS_P0
-;	src/libs/lcd.c:84: RW_P0 = LOW;
-;	assignBit
-	clr	_RW_P0
-;	src/libs/lcd.c:85: EN_P0 = HIGH;
-;	assignBit
-	setb	_EN_P0
-;	src/libs/lcd.c:86: DELAY_us(1000);
-	mov	dptr,#0x03e8
-	lcall	_DELAY_us
-;	src/libs/lcd.c:87: EN_P0 = LOW;
-;	assignBit
-	clr	_EN_P0
-;	src/libs/lcd.c:88: break;
-;	src/libs/lcd.c:89: case DATABUS_P1:
-	sjmp	00112$
-00108$:
-;	src/libs/lcd.c:90: LcdDatabus_P1 = ((cmd<<4) & 0xF0);
-	mov	ar6,r7
-	mov	a,r6
-	swap	a
-	anl	a,#0xf0
-	mov	r6,a
-	mov	a,#0xf0
-	anl	a,r6
-	mov	_P1,a
-;	src/libs/lcd.c:91: RS_P1 = LOW;
-;	assignBit
-	clr	_RS_P1
-;	src/libs/lcd.c:92: RW_P1 = LOW;
-;	assignBit
-	clr	_RW_P1
-;	src/libs/lcd.c:93: EN_P1 = HIGH;
-;	assignBit
-	setb	_EN_P1
-;	src/libs/lcd.c:94: DELAY_us(1000);
-	mov	dptr,#0x03e8
-	lcall	_DELAY_us
-;	src/libs/lcd.c:95: EN_P1 = LOW;
-;	assignBit
-	clr	_EN_P1
-;	src/libs/lcd.c:96: break;
-;	src/libs/lcd.c:97: case DATABUS_P2:
-	sjmp	00112$
-00109$:
-;	src/libs/lcd.c:98: LcdDatabus_P2 = ((cmd<<4) & 0xF0);
-	mov	ar6,r7
-	mov	a,r6
-	swap	a
-	anl	a,#0xf0
-	mov	r6,a
-	mov	a,#0xf0
-	anl	a,r6
-	mov	_P2,a
-;	src/libs/lcd.c:99: RS_P2 = LOW;
-;	assignBit
-	clr	_RS_P2
-;	src/libs/lcd.c:100: RW_P2 = LOW;
-;	assignBit
-	clr	_RW_P2
-;	src/libs/lcd.c:101: EN_P2 = HIGH;
-;	assignBit
-	setb	_EN_P2
-;	src/libs/lcd.c:102: DELAY_us(1000);
-	mov	dptr,#0x03e8
-	lcall	_DELAY_us
-;	src/libs/lcd.c:103: EN_P2 = LOW;
-;	assignBit
-	clr	_EN_P2
-;	src/libs/lcd.c:104: break;
-;	src/libs/lcd.c:105: case DATABUS_P3:
-	sjmp	00112$
-00110$:
-;	src/libs/lcd.c:106: LcdDatabus_P3 = ((cmd<<4) & 0xF0);
+;	src/libs/lcd.c:24: LcdDatabus_P2 = ((cmd<<4) & 0xF0);
 	mov	a,r7
 	swap	a
 	anl	a,#0xf0
 	mov	r7,a
 	mov	a,#0xf0
 	anl	a,r7
-	mov	_P3,a
-;	src/libs/lcd.c:107: RS_P3 = LOW;
+	mov	_P2,a
+;	src/libs/lcd.c:25: RS = LOW;
 ;	assignBit
-	clr	_RS_P3
-;	src/libs/lcd.c:108: RW_P3 = LOW;
+	clr	_RS
+;	src/libs/lcd.c:26: RW = LOW;
 ;	assignBit
-	clr	_RW_P3
-;	src/libs/lcd.c:109: EN_P3 = HIGH;
+	clr	_RW
+;	src/libs/lcd.c:27: EN = HIGH;
 ;	assignBit
-	setb	_EN_P3
-;	src/libs/lcd.c:110: DELAY_us(1000);
+	setb	_EN
+;	src/libs/lcd.c:28: DELAY_us(1000);
 	mov	dptr,#0x03e8
 	lcall	_DELAY_us
-;	src/libs/lcd.c:111: EN_P3 = LOW;
+;	src/libs/lcd.c:29: EN = LOW;
 ;	assignBit
-	clr	_EN_P3
-;	src/libs/lcd.c:112: break;
-;	src/libs/lcd.c:113: default:
-	sjmp	00112$
-00111$:
-;	src/libs/lcd.c:114: return -1;
-	mov	dptr,#0xffff
-;	src/libs/lcd.c:115: }
-	ret
-00112$:
-;	src/libs/lcd.c:117: DELAY_us(10000);
+	clr	_EN
+;	src/libs/lcd.c:31: DELAY_us(10000);
 	mov	dptr,#0x2710
 	lcall	_DELAY_us
-;	src/libs/lcd.c:118: return 0;
+;	src/libs/lcd.c:32: return 0;
 	mov	dptr,#0x0000
-;	src/libs/lcd.c:119: }
+;	src/libs/lcd.c:33: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'LCDDataWrite'
 ;------------------------------------------------------------
 ;data                      Allocated to registers r7 
 ;------------------------------------------------------------
-;	src/libs/lcd.c:121: int LCDDataWrite(char data){
+;	src/libs/lcd.c:35: int LCDDataWrite(char data){
 ;	-----------------------------------------
 ;	 function LCDDataWrite
 ;	-----------------------------------------
 _LCDDataWrite:
 	mov	r7,dpl
-;	src/libs/lcd.c:123: switch (__config.LCDDatabusType)
-	mov	a,(___config + 0x0002)
-	mov	r6,a
-	add	a,#0xff - 0x03
-	jnc	00123$
-	ljmp	00105$
-00123$:
-	mov	a,r6
-	add	a,r6
-;	src/libs/lcd.c:125: case DATABUS_P0:
-	mov	dptr,#00124$
-	jmp	@a+dptr
-00124$:
-	sjmp	00101$
-	sjmp	00102$
-	sjmp	00103$
-	sjmp	00104$
-00101$:
-;	src/libs/lcd.c:126: LcdDatabus_P0 = (data & 0xF0);
-	mov	a,#0xf0
-	anl	a,r7
-	mov	_P0,a
-;	src/libs/lcd.c:127: RS_P0 = HIGH;
-;	assignBit
-	setb	_RS_P0
-;	src/libs/lcd.c:128: RW_P0 = LOW;
-;	assignBit
-	clr	_RW_P0
-;	src/libs/lcd.c:129: EN_P0 = HIGH;
-;	assignBit
-	setb	_EN_P0
-;	src/libs/lcd.c:130: DELAY_us(1000);
-	mov	dptr,#0x03e8
-	push	ar7
-	lcall	_DELAY_us
-	pop	ar7
-;	src/libs/lcd.c:131: EN_P0 = LOW;
-;	assignBit
-	clr	_EN_P0
-;	src/libs/lcd.c:132: break;
-;	src/libs/lcd.c:134: case DATABUS_P1:
-	sjmp	00106$
-00102$:
-;	src/libs/lcd.c:135: LcdDatabus_P1 = (data & 0xF0);
-	mov	a,#0xf0
-	anl	a,r7
-	mov	_P1,a
-;	src/libs/lcd.c:136: RS_P1 = HIGH;
-;	assignBit
-	setb	_RS_P1
-;	src/libs/lcd.c:137: RW_P1 = LOW;
-;	assignBit
-	clr	_RW_P1
-;	src/libs/lcd.c:138: EN_P1 = HIGH;
-;	assignBit
-	setb	_EN_P1
-;	src/libs/lcd.c:139: DELAY_us(1000);
-	mov	dptr,#0x03e8
-	push	ar7
-	lcall	_DELAY_us
-	pop	ar7
-;	src/libs/lcd.c:140: EN_P1 = LOW;
-;	assignBit
-	clr	_EN_P1
-;	src/libs/lcd.c:141: break;
-;	src/libs/lcd.c:143: case DATABUS_P2:
-	sjmp	00106$
-00103$:
-;	src/libs/lcd.c:144: LcdDatabus_P2 = (data & 0xF0);
+;	src/libs/lcd.c:37: LcdDatabus_P2 = (data & 0xF0);
 	mov	a,#0xf0
 	anl	a,r7
 	mov	_P2,a
-;	src/libs/lcd.c:145: RS_P2 = HIGH;
+;	src/libs/lcd.c:38: RS = HIGH;
 ;	assignBit
-	setb	_RS_P2
-;	src/libs/lcd.c:146: RW_P2 = LOW;
+	setb	_RS
+;	src/libs/lcd.c:39: RW = LOW;
 ;	assignBit
-	clr	_RW_P2
-;	src/libs/lcd.c:147: EN_P2 = HIGH;
+	clr	_RW
+;	src/libs/lcd.c:40: EN = HIGH;
 ;	assignBit
-	setb	_EN_P2
-;	src/libs/lcd.c:148: DELAY_us(1000);
+	setb	_EN
+;	src/libs/lcd.c:41: DELAY_us(1000);
 	mov	dptr,#0x03e8
 	push	ar7
 	lcall	_DELAY_us
-	pop	ar7
-;	src/libs/lcd.c:149: EN_P2 = LOW;
+;	src/libs/lcd.c:42: EN = LOW;
 ;	assignBit
-	clr	_EN_P2
-;	src/libs/lcd.c:150: break;
-;	src/libs/lcd.c:152: case DATABUS_P3:
-	sjmp	00106$
-00104$:
-;	src/libs/lcd.c:153: LcdDatabus_P3 = (data & 0xF0);
-	mov	a,#0xf0
-	anl	a,r7
-	mov	_P3,a
-;	src/libs/lcd.c:154: RS_P3 = HIGH;
-;	assignBit
-	setb	_RS_P3
-;	src/libs/lcd.c:155: RW_P3 = LOW;
-;	assignBit
-	clr	_RW_P3
-;	src/libs/lcd.c:156: EN_P3 = HIGH;
-;	assignBit
-	setb	_EN_P3
-;	src/libs/lcd.c:157: DELAY_us(1000);
-	mov	dptr,#0x03e8
-	push	ar7
-	lcall	_DELAY_us
-	pop	ar7
-;	src/libs/lcd.c:158: EN_P3 = LOW;
-;	assignBit
-	clr	_EN_P3
-;	src/libs/lcd.c:159: break;
-;	src/libs/lcd.c:161: default:
-	sjmp	00106$
-00105$:
-;	src/libs/lcd.c:162: return -1;
-	mov	dptr,#0xffff
-	ret
-;	src/libs/lcd.c:163: }
-00106$:
-;	src/libs/lcd.c:165: DELAY_us(10000);
+	clr	_EN
+;	src/libs/lcd.c:44: DELAY_us(10000);
 	mov	dptr,#0x2710
-	push	ar7
 	lcall	_DELAY_us
 	pop	ar7
-;	src/libs/lcd.c:167: switch (__config.LCDDatabusType)
-	mov	a,(___config + 0x0002)
-	mov	r6,a
-	add	a,#0xff - 0x03
-	jnc	00125$
-	ljmp	00111$
-00125$:
-	mov	a,r6
-	add	a,r6
-;	src/libs/lcd.c:169: case DATABUS_P0:
-	mov	dptr,#00126$
-	jmp	@a+dptr
-00126$:
-	sjmp	00107$
-	sjmp	00108$
-	sjmp	00109$
-	sjmp	00110$
-00107$:
-;	src/libs/lcd.c:170: LcdDatabus_P0 = ((data<<4) & 0xF0);
-	mov	ar6,r7
-	mov	a,r6
-	swap	a
-	anl	a,#0xf0
-	mov	r6,a
-	mov	a,#0xf0
-	anl	a,r6
-	mov	_P0,a
-;	src/libs/lcd.c:171: RS_P0 = HIGH;
-;	assignBit
-	setb	_RS_P0
-;	src/libs/lcd.c:172: RW_P0 = LOW;
-;	assignBit
-	clr	_RW_P0
-;	src/libs/lcd.c:173: EN_P0 = HIGH;
-;	assignBit
-	setb	_EN_P0
-;	src/libs/lcd.c:174: DELAY_us(1000);
-	mov	dptr,#0x03e8
-	lcall	_DELAY_us
-;	src/libs/lcd.c:175: EN_P0 = LOW;
-;	assignBit
-	clr	_EN_P0
-;	src/libs/lcd.c:176: break;
-;	src/libs/lcd.c:177: case DATABUS_P1:
-	sjmp	00112$
-00108$:
-;	src/libs/lcd.c:178: LcdDatabus_P1 = ((data<<4) & 0xF0);
-	mov	ar6,r7
-	mov	a,r6
-	swap	a
-	anl	a,#0xf0
-	mov	r6,a
-	mov	a,#0xf0
-	anl	a,r6
-	mov	_P1,a
-;	src/libs/lcd.c:179: RS_P1 = HIGH;
-;	assignBit
-	setb	_RS_P1
-;	src/libs/lcd.c:180: RW_P1 = LOW;
-;	assignBit
-	clr	_RW_P1
-;	src/libs/lcd.c:181: EN_P1 = HIGH;
-;	assignBit
-	setb	_EN_P1
-;	src/libs/lcd.c:182: DELAY_us(1000);
-	mov	dptr,#0x03e8
-	lcall	_DELAY_us
-;	src/libs/lcd.c:183: EN_P1 = LOW;
-;	assignBit
-	clr	_EN_P1
-;	src/libs/lcd.c:184: break;
-;	src/libs/lcd.c:185: case DATABUS_P2:
-	sjmp	00112$
-00109$:
-;	src/libs/lcd.c:186: LcdDatabus_P2 = ((data<<4) & 0xF0);
-	mov	ar6,r7
-	mov	a,r6
-	swap	a
-	anl	a,#0xf0
-	mov	r6,a
-	mov	a,#0xf0
-	anl	a,r6
-	mov	_P2,a
-;	src/libs/lcd.c:187: RS_P2 = HIGH;
-;	assignBit
-	setb	_RS_P2
-;	src/libs/lcd.c:188: RW_P2 = LOW;
-;	assignBit
-	clr	_RW_P2
-;	src/libs/lcd.c:189: EN_P2 = HIGH;
-;	assignBit
-	setb	_EN_P2
-;	src/libs/lcd.c:190: DELAY_us(1000);
-	mov	dptr,#0x03e8
-	lcall	_DELAY_us
-;	src/libs/lcd.c:191: EN_P2 = LOW;
-;	assignBit
-	clr	_EN_P2
-;	src/libs/lcd.c:192: break;
-;	src/libs/lcd.c:193: case DATABUS_P3:
-	sjmp	00112$
-00110$:
-;	src/libs/lcd.c:194: LcdDatabus_P3 = ((data<<4) & 0xF0);
+;	src/libs/lcd.c:46: LcdDatabus_P2 = ((data<<4) & 0xF0);
 	mov	a,r7
 	swap	a
 	anl	a,#0xf0
 	mov	r7,a
 	mov	a,#0xf0
 	anl	a,r7
-	mov	_P3,a
-;	src/libs/lcd.c:195: RS_P3 = HIGH;
+	mov	_P2,a
+;	src/libs/lcd.c:47: RS = HIGH;
 ;	assignBit
-	setb	_RS_P3
-;	src/libs/lcd.c:196: RW_P3 = LOW;
+	setb	_RS
+;	src/libs/lcd.c:48: RW = LOW;
 ;	assignBit
-	clr	_RW_P3
-;	src/libs/lcd.c:197: EN_P3 = HIGH;
+	clr	_RW
+;	src/libs/lcd.c:49: EN = HIGH;
 ;	assignBit
-	setb	_EN_P3
-;	src/libs/lcd.c:198: DELAY_us(1000);
+	setb	_EN
+;	src/libs/lcd.c:50: DELAY_us(1000);
 	mov	dptr,#0x03e8
 	lcall	_DELAY_us
-;	src/libs/lcd.c:199: EN_P3 = LOW;
+;	src/libs/lcd.c:51: EN = LOW;
 ;	assignBit
-	clr	_EN_P3
-;	src/libs/lcd.c:200: break;
-;	src/libs/lcd.c:201: default:
-	sjmp	00112$
-00111$:
-;	src/libs/lcd.c:202: return -1;
-	mov	dptr,#0xffff
-;	src/libs/lcd.c:203: }
-	ret
-00112$:
-;	src/libs/lcd.c:205: DELAY_us(10000);
+	clr	_EN
+;	src/libs/lcd.c:53: DELAY_us(10000);
 	mov	dptr,#0x2710
 	lcall	_DELAY_us
-;	src/libs/lcd.c:206: return 0;
+;	src/libs/lcd.c:54: return 0;
 	mov	dptr,#0x0000
-;	src/libs/lcd.c:207: }
+;	src/libs/lcd.c:55: }
 	ret
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'printString'
+;Allocation info for local variables in function 'LCDPrintString'
 ;------------------------------------------------------------
-;string                    Allocated with name '_printString_PARM_2'
+;string                    Allocated with name '_LCDPrintString_PARM_2'
 ;line                      Allocated to registers r7 
 ;------------------------------------------------------------
-;	src/libs/lcd.c:209: void printString(uint8_t line, char* string){
+;	src/libs/lcd.c:57: void LCDPrintString(uint8_t line, char* string){
 ;	-----------------------------------------
-;	 function printString
+;	 function LCDPrintString
 ;	-----------------------------------------
-_printString:
-;	src/libs/lcd.c:210: if (line == FIRST_LINE){
+_LCDPrintString:
+;	src/libs/lcd.c:58: switch (line)
 	mov	a,dpl
 	mov	r7,a
-	jnz	00116$
-;	src/libs/lcd.c:211: LCDCmdWrite(CURSOR_TO_FIRST_LINE);
+	add	a,#0xff - 0x03
+	jc	00114$
+	mov	a,r7
+	add	a,r7
+;	src/libs/lcd.c:60: case FIRST_LINE:
+	mov	dptr,#00126$
+	jmp	@a+dptr
+00126$:
+	sjmp	00101$
+	sjmp	00102$
+	sjmp	00103$
+	sjmp	00104$
+00101$:
+;	src/libs/lcd.c:61: LCDCmdWrite(CURSOR_TO_FIRST_LINE);
 	mov	dpl,#0x80
 	lcall	_LCDCmdWrite
-	sjmp	00132$
-00116$:
-;	src/libs/lcd.c:213: else if (line == SECOND_LINE && (__config.LCDType == LCD_16x2 
-	cjne	r7,#0x01,00110$
-	mov	r6,___config
-	cjne	r6,#0x01,00167$
-	sjmp	00109$
-00167$:
-;	src/libs/lcd.c:214: || __config.LCDType == LCD_16x3
-	cjne	r6,#0x02,00168$
-	sjmp	00109$
-00168$:
-;	src/libs/lcd.c:215: || __config.LCDType == LCD_16x4)){
-	cjne	r6,#0x03,00110$
-00109$:
-;	src/libs/lcd.c:216: LCDCmdWrite(CURSOR_TO_SECOND_LINE);
+;	src/libs/lcd.c:62: break;
+;	src/libs/lcd.c:63: case SECOND_LINE:
+	sjmp	00114$
+00102$:
+;	src/libs/lcd.c:64: LCDCmdWrite(CURSOR_TO_SECOND_LINE);
 	mov	dpl,#0xc0
 	lcall	_LCDCmdWrite
-	sjmp	00132$
-00110$:
-;	src/libs/lcd.c:218: else if (line == THIRD_LINE && (__config.LCDType == LCD_16x3
-	cjne	r7,#0x02,00105$
-	mov	r6,___config
-	cjne	r6,#0x02,00173$
-	sjmp	00104$
-00173$:
-;	src/libs/lcd.c:219: || __config.LCDType == LCD_16x4)){
-	cjne	r6,#0x03,00105$
-00104$:
-;	src/libs/lcd.c:220: LCDCmdWrite(CURSOR_TO_THIRD_LINE);
+;	src/libs/lcd.c:65: break;
+;	src/libs/lcd.c:66: case THIRD_LINE:
+	sjmp	00114$
+00103$:
+;	src/libs/lcd.c:67: LCDCmdWrite(CURSOR_TO_THIRD_LINE);
 	mov	dpl,#0x90
 	lcall	_LCDCmdWrite
-	sjmp	00132$
-00105$:
-;	src/libs/lcd.c:222: else if (line == FORTH_LINE && __config.LCDType == LCD_16x4){
-	cjne	r7,#0x03,00132$
-	mov	a,#0x03
-	cjne	a,___config,00132$
-;	src/libs/lcd.c:223: LCDCmdWrite(CURSOR_TO_FORTH_LINE);
+;	src/libs/lcd.c:68: break;
+;	src/libs/lcd.c:69: case FORTH_LINE:
+	sjmp	00114$
+00104$:
+;	src/libs/lcd.c:70: LCDCmdWrite(CURSOR_TO_FORTH_LINE);
 	mov	dpl,#0xd0
 	lcall	_LCDCmdWrite
-;	src/libs/lcd.c:226: while(*string){
-00132$:
-	mov	r5,_printString_PARM_2
-	mov	r6,(_printString_PARM_2 + 1)
-	mov	r7,(_printString_PARM_2 + 2)
-00118$:
+;	src/libs/lcd.c:76: while(*string){
+00114$:
+	mov	r5,_LCDPrintString_PARM_2
+	mov	r6,(_LCDPrintString_PARM_2 + 1)
+	mov	r7,(_LCDPrintString_PARM_2 + 2)
+00107$:
 	mov	dpl,r5
 	mov	dph,r6
 	mov	b,r7
 	lcall	__gptrget
 	mov	r4,a
-	jz	00121$
-;	src/libs/lcd.c:227: LCDDataWrite(*string++);
+	jz	00110$
+;	src/libs/lcd.c:77: LCDDataWrite(*string++);
 	mov	dpl,r4
 	inc	r5
-	cjne	r5,#0x00,00181$
+	cjne	r5,#0x00,00128$
 	inc	r6
-00181$:
+00128$:
 	push	ar7
 	push	ar6
 	push	ar5
@@ -1069,10 +620,387 @@ _printString:
 	pop	ar5
 	pop	ar6
 	pop	ar7
-	sjmp	00118$
-00121$:
-;	src/libs/lcd.c:229: }
+	sjmp	00107$
+00110$:
+;	src/libs/lcd.c:79: }
 	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'LCDDisplayNumber'
+;------------------------------------------------------------
+;number                    Allocated with name '_LCDDisplayNumber_PARM_2'
+;radix                     Allocated with name '_LCDDisplayNumber_PARM_3'
+;line                      Allocated to registers r7 
+;buffer                    Allocated with name '_LCDDisplayNumber_buffer_65536_83'
+;------------------------------------------------------------
+;	src/libs/lcd.c:81: void LCDDisplayNumber(uint8_t line,int number,unsigned char radix)
+;	-----------------------------------------
+;	 function LCDDisplayNumber
+;	-----------------------------------------
+_LCDDisplayNumber:
+	mov	r7,dpl
+;	src/libs/lcd.c:84: itoa(number,buffer,radix);
+	mov	_itoa_PARM_2,#_LCDDisplayNumber_buffer_65536_83
+	mov	(_itoa_PARM_2 + 1),#0x00
+	mov	(_itoa_PARM_2 + 2),#0x40
+	mov	_itoa_PARM_3,_LCDDisplayNumber_PARM_3
+	mov	(_itoa_PARM_3 + 1),#0x00
+	mov	dpl,_LCDDisplayNumber_PARM_2
+	mov	dph,(_LCDDisplayNumber_PARM_2 + 1)
+	push	ar7
+	lcall	_itoa
+	pop	ar7
+;	src/libs/lcd.c:85: LCDPrintString(line, buffer);
+	mov	_LCDPrintString_PARM_2,#_LCDDisplayNumber_buffer_65536_83
+	mov	(_LCDPrintString_PARM_2 + 1),#0x00
+	mov	(_LCDPrintString_PARM_2 + 2),#0x40
+	mov	dpl,r7
+;	src/libs/lcd.c:86: }
+	ljmp	_LCDPrintString
+;------------------------------------------------------------
+;Allocation info for local variables in function 'swap'
+;------------------------------------------------------------
+;y                         Allocated with name '_swap_PARM_2'
+;x                         Allocated to registers r5 r6 r7 
+;t                         Allocated to registers r4 
+;------------------------------------------------------------
+;	src/libs/lcd.c:90: inline void swap(char *x, char *y) {
+;	-----------------------------------------
+;	 function swap
+;	-----------------------------------------
+_swap:
+;	src/libs/lcd.c:91: char t = *x; *x = *y; *y = t;
+	mov	r5,dpl
+	mov	r6,dph
+	mov	r7,b
+	lcall	__gptrget
+	mov	r4,a
+	mov	r1,_swap_PARM_2
+	mov	r2,(_swap_PARM_2 + 1)
+	mov	r3,(_swap_PARM_2 + 2)
+	mov	dpl,r1
+	mov	dph,r2
+	mov	b,r3
+	lcall	__gptrget
+	mov	dpl,r5
+	mov	dph,r6
+	mov	b,r7
+	lcall	__gptrput
+	mov	dpl,r1
+	mov	dph,r2
+	mov	b,r3
+	mov	a,r4
+;	src/libs/lcd.c:92: }
+	ljmp	__gptrput
+;------------------------------------------------------------
+;Allocation info for local variables in function 'reverse'
+;------------------------------------------------------------
+;i                         Allocated with name '_reverse_PARM_2'
+;j                         Allocated with name '_reverse_PARM_3'
+;buffer                    Allocated to registers r5 r6 r7 
+;__1310720001              Allocated with name '_reverse___1310720001_131072_88'
+;__1310720002              Allocated with name '_reverse___1310720002_131072_88'
+;x                         Allocated to registers 
+;y                         Allocated to registers 
+;t                         Allocated with name '_reverse_t_262144_90'
+;------------------------------------------------------------
+;	src/libs/lcd.c:95: char* reverse(char *buffer, int i, int j)
+;	-----------------------------------------
+;	 function reverse
+;	-----------------------------------------
+_reverse:
+	mov	r5,dpl
+	mov	r6,dph
+	mov	r7,b
+;	src/libs/lcd.c:97: while (i < j)
+	mov	r3,_reverse_PARM_3
+	mov	r4,(_reverse_PARM_3 + 1)
+	mov	r1,_reverse_PARM_2
+	mov	r2,(_reverse_PARM_2 + 1)
+00101$:
+	clr	c
+	mov	a,r1
+	subb	a,r3
+	mov	a,r2
+	xrl	a,#0x80
+	mov	b,r4
+	xrl	b,#0x80
+	subb	a,b
+	jnc	00103$
+;	src/libs/lcd.c:98: swap(&buffer[i++], &buffer[j--]);
+	mov	a,r3
+	add	a,r5
+	mov	_reverse___1310720002_131072_88,a
+	mov	a,r4
+	addc	a,r6
+	mov	(_reverse___1310720002_131072_88 + 1),a
+	mov	(_reverse___1310720002_131072_88 + 2),r7
+	dec	r3
+	cjne	r3,#0xff,00117$
+	dec	r4
+00117$:
+	mov	a,r1
+	add	a,r5
+	mov	_reverse___1310720001_131072_88,a
+	mov	a,r2
+	addc	a,r6
+	mov	(_reverse___1310720001_131072_88 + 1),a
+	mov	(_reverse___1310720001_131072_88 + 2),r7
+	inc	r1
+	cjne	r1,#0x00,00118$
+	inc	r2
+00118$:
+;	src/libs/lcd.c:91: char t = *x; *x = *y; *y = t;
+	mov	dpl,_reverse___1310720001_131072_88
+	mov	dph,(_reverse___1310720001_131072_88 + 1)
+	mov	b,(_reverse___1310720001_131072_88 + 2)
+	lcall	__gptrget
+	mov	_reverse_t_262144_90,a
+	mov	dpl,_reverse___1310720002_131072_88
+	mov	dph,(_reverse___1310720002_131072_88 + 1)
+	mov	b,(_reverse___1310720002_131072_88 + 2)
+	lcall	__gptrget
+	mov	r0,a
+	mov	dpl,_reverse___1310720001_131072_88
+	mov	dph,(_reverse___1310720001_131072_88 + 1)
+	mov	b,(_reverse___1310720001_131072_88 + 2)
+	lcall	__gptrput
+	mov	dpl,_reverse___1310720002_131072_88
+	mov	dph,(_reverse___1310720002_131072_88 + 1)
+	mov	b,(_reverse___1310720002_131072_88 + 2)
+	mov	a,_reverse_t_262144_90
+	lcall	__gptrput
+;	src/libs/lcd.c:98: swap(&buffer[i++], &buffer[j--]);
+	sjmp	00101$
+00103$:
+;	src/libs/lcd.c:100: return buffer;
+	mov	dpl,r5
+	mov	dph,r6
+	mov	b,r7
+;	src/libs/lcd.c:101: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'itoa'
+;------------------------------------------------------------
+;buffer                    Allocated with name '_itoa_PARM_2'
+;base                      Allocated with name '_itoa_PARM_3'
+;value                     Allocated with name '_itoa_value_65536_91'
+;n                         Allocated to registers r4 r5 
+;i                         Allocated to registers r2 r3 
+;r                         Allocated with name '_itoa_r_131073_94'
+;------------------------------------------------------------
+;	src/libs/lcd.c:104: char* itoa(int value, char* buffer, int base)
+;	-----------------------------------------
+;	 function itoa
+;	-----------------------------------------
+_itoa:
+	mov	_itoa_value_65536_91,dpl
+	mov	(_itoa_value_65536_91 + 1),dph
+;	src/libs/lcd.c:107: if (base < 2 || base > 32)
+	clr	c
+	mov	a,_itoa_PARM_3
+	subb	a,#0x02
+	mov	a,(_itoa_PARM_3 + 1)
+	xrl	a,#0x80
+	subb	a,#0x80
+	jc	00101$
+	mov	a,#0x20
+	subb	a,_itoa_PARM_3
+	mov	a,#(0x00 ^ 0x80)
+	mov	b,(_itoa_PARM_3 + 1)
+	xrl	b,#0x80
+	subb	a,b
+	jnc	00102$
+00101$:
+;	src/libs/lcd.c:108: return buffer;
+	mov	dpl,_itoa_PARM_2
+	mov	dph,(_itoa_PARM_2 + 1)
+	mov	b,(_itoa_PARM_2 + 2)
+	ret
+00102$:
+;	src/libs/lcd.c:111: int n = abs(value);
+	mov	dpl,_itoa_value_65536_91
+	mov	dph,(_itoa_value_65536_91 + 1)
+	lcall	_abs
+	mov	r4,dpl
+	mov	r5,dph
+;	src/libs/lcd.c:113: int i = 0;
+	mov	r2,#0x00
+	mov	r3,#0x00
+;	src/libs/lcd.c:114: while (n)
+00107$:
+	mov	a,r4
+	orl	a,r5
+	jnz	00147$
+	ljmp	00109$
+00147$:
+;	src/libs/lcd.c:116: int r = n % base;
+	mov	__modsint_PARM_2,_itoa_PARM_3
+	mov	(__modsint_PARM_2 + 1),(_itoa_PARM_3 + 1)
+	mov	dpl,r4
+	mov	dph,r5
+	push	ar5
+	push	ar4
+	push	ar3
+	push	ar2
+	lcall	__modsint
+	mov	_itoa_r_131073_94,dpl
+	mov	(_itoa_r_131073_94 + 1),dph
+	pop	ar2
+	pop	ar3
+	pop	ar4
+	pop	ar5
+;	src/libs/lcd.c:118: if (r >= 10) 
+	clr	c
+	mov	a,_itoa_r_131073_94
+	subb	a,#0x0a
+	mov	a,(_itoa_r_131073_94 + 1)
+	xrl	a,#0x80
+	subb	a,#0x80
+	jc	00105$
+;	src/libs/lcd.c:119: buffer[i++] = 65 + (r - 10);
+	mov	ar6,r2
+	mov	ar7,r3
+	inc	r2
+	cjne	r2,#0x00,00149$
+	inc	r3
+00149$:
+	mov	a,r6
+	add	a,_itoa_PARM_2
+	mov	r6,a
+	mov	a,r7
+	addc	a,(_itoa_PARM_2 + 1)
+	mov	r1,a
+	mov	r7,(_itoa_PARM_2 + 2)
+	mov	r0,_itoa_r_131073_94
+	mov	a,#0x37
+	add	a,r0
+	mov	r0,a
+	mov	dpl,r6
+	mov	dph,r1
+	mov	b,r7
+	lcall	__gptrput
+	sjmp	00106$
+00105$:
+;	src/libs/lcd.c:121: buffer[i++] = 48 + r;
+	mov	ar6,r2
+	mov	ar7,r3
+	inc	r2
+	cjne	r2,#0x00,00150$
+	inc	r3
+00150$:
+	mov	a,r6
+	add	a,_itoa_PARM_2
+	mov	r6,a
+	mov	a,r7
+	addc	a,(_itoa_PARM_2 + 1)
+	mov	r1,a
+	mov	r7,(_itoa_PARM_2 + 2)
+	mov	r0,_itoa_r_131073_94
+	mov	a,#0x30
+	add	a,r0
+	mov	r0,a
+	mov	dpl,r6
+	mov	dph,r1
+	mov	b,r7
+	lcall	__gptrput
+00106$:
+;	src/libs/lcd.c:123: n = n / base;
+	mov	__divsint_PARM_2,_itoa_PARM_3
+	mov	(__divsint_PARM_2 + 1),(_itoa_PARM_3 + 1)
+	mov	dpl,r4
+	mov	dph,r5
+	push	ar3
+	push	ar2
+	lcall	__divsint
+	mov	r4,dpl
+	mov	r5,dph
+	pop	ar2
+	pop	ar3
+	ljmp	00107$
+00109$:
+;	src/libs/lcd.c:127: if (i == 0)
+	mov	a,r2
+	orl	a,r3
+	jnz	00111$
+;	src/libs/lcd.c:128: buffer[i++] = '0';
+	mov	ar6,r2
+	mov	ar7,r3
+	inc	r2
+	cjne	r2,#0x00,00152$
+	inc	r3
+00152$:
+	mov	a,r6
+	add	a,_itoa_PARM_2
+	mov	r6,a
+	mov	a,r7
+	addc	a,(_itoa_PARM_2 + 1)
+	mov	r7,a
+	mov	r5,(_itoa_PARM_2 + 2)
+	mov	dpl,r6
+	mov	dph,r7
+	mov	b,r5
+	mov	a,#0x30
+	lcall	__gptrput
+00111$:
+;	src/libs/lcd.c:133: if (value < 0 && base == 10)
+	mov	a,(_itoa_value_65536_91 + 1)
+	jnb	acc.7,00113$
+	mov	a,#0x0a
+	cjne	a,_itoa_PARM_3,00154$
+	clr	a
+	cjne	a,(_itoa_PARM_3 + 1),00154$
+	sjmp	00155$
+00154$:
+	sjmp	00113$
+00155$:
+;	src/libs/lcd.c:134: buffer[i++] = '-';
+	mov	ar6,r2
+	mov	ar7,r3
+	inc	r2
+	cjne	r2,#0x00,00156$
+	inc	r3
+00156$:
+	mov	a,r6
+	add	a,_itoa_PARM_2
+	mov	r6,a
+	mov	a,r7
+	addc	a,(_itoa_PARM_2 + 1)
+	mov	r7,a
+	mov	r5,(_itoa_PARM_2 + 2)
+	mov	dpl,r6
+	mov	dph,r7
+	mov	b,r5
+	mov	a,#0x2d
+	lcall	__gptrput
+00113$:
+;	src/libs/lcd.c:136: buffer[i] = '\0'; // null terminate string
+	mov	a,r2
+	add	a,_itoa_PARM_2
+	mov	r5,a
+	mov	a,r3
+	addc	a,(_itoa_PARM_2 + 1)
+	mov	r6,a
+	mov	r7,(_itoa_PARM_2 + 2)
+	mov	dpl,r5
+	mov	dph,r6
+	mov	b,r7
+	clr	a
+	lcall	__gptrput
+;	src/libs/lcd.c:139: return reverse(buffer, 0, i - 1);
+	mov	a,r2
+	add	a,#0xff
+	mov	_reverse_PARM_3,a
+	mov	a,r3
+	addc	a,#0xff
+	mov	(_reverse_PARM_3 + 1),a
+	clr	a
+	mov	_reverse_PARM_2,a
+	mov	(_reverse_PARM_2 + 1),a
+	mov	dpl,_itoa_PARM_2
+	mov	dph,(_itoa_PARM_2 + 1)
+	mov	b,(_itoa_PARM_2 + 2)
+;	src/libs/lcd.c:140: }
+	ljmp	_reverse
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 	.area XINIT   (CODE)

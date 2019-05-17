@@ -8,7 +8,6 @@
 ;--------------------------------------------------------
 ; Public variables in this module
 ;--------------------------------------------------------
-	.globl _P_NC
 	.globl _CY
 	.globl _AC
 	.globl _F0
@@ -17,6 +16,23 @@
 	.globl _OV
 	.globl _FL
 	.globl _P
+	.globl _TF2
+	.globl _EXF2
+	.globl _RCLK
+	.globl _TCLK
+	.globl _EXEN2
+	.globl _TR2
+	.globl _C_T2
+	.globl _CP_RL2
+	.globl _T2CON_7
+	.globl _T2CON_6
+	.globl _T2CON_5
+	.globl _T2CON_4
+	.globl _T2CON_3
+	.globl _T2CON_2
+	.globl _T2CON_1
+	.globl _T2CON_0
+	.globl _PT2
 	.globl _PS
 	.globl _PT1
 	.globl _PX1
@@ -39,6 +55,7 @@
 	.globl _P3_1
 	.globl _P3_0
 	.globl _EA
+	.globl _ET2
 	.globl _ES
 	.globl _ET1
 	.globl _EX1
@@ -60,6 +77,8 @@
 	.globl _RB8
 	.globl _TI
 	.globl _RI
+	.globl _T2EX
+	.globl _T2
 	.globl _P1_7
 	.globl _P1_6
 	.globl _P1_5
@@ -88,6 +107,12 @@
 	.globl _A
 	.globl _ACC
 	.globl _PSW
+	.globl _TH2
+	.globl _TL2
+	.globl _RCAP2H
+	.globl _RCAP2L
+	.globl _T2MOD
+	.globl _T2CON
 	.globl _IP
 	.globl _P3
 	.globl _IE
@@ -131,6 +156,12 @@ _P2	=	0x00a0
 _IE	=	0x00a8
 _P3	=	0x00b0
 _IP	=	0x00b8
+_T2CON	=	0x00c8
+_T2MOD	=	0x00c9
+_RCAP2L	=	0x00ca
+_RCAP2H	=	0x00cb
+_TL2	=	0x00cc
+_TH2	=	0x00cd
 _PSW	=	0x00d0
 _ACC	=	0x00e0
 _A	=	0x00e0
@@ -164,6 +195,8 @@ _P1_4	=	0x0094
 _P1_5	=	0x0095
 _P1_6	=	0x0096
 _P1_7	=	0x0097
+_T2	=	0x0090
+_T2EX	=	0x0091
 _RI	=	0x0098
 _TI	=	0x0099
 _RB8	=	0x009a
@@ -185,6 +218,7 @@ _ET0	=	0x00a9
 _EX1	=	0x00aa
 _ET1	=	0x00ab
 _ES	=	0x00ac
+_ET2	=	0x00ad
 _EA	=	0x00af
 _P3_0	=	0x00b0
 _P3_1	=	0x00b1
@@ -207,6 +241,23 @@ _PT0	=	0x00b9
 _PX1	=	0x00ba
 _PT1	=	0x00bb
 _PS	=	0x00bc
+_PT2	=	0x00bd
+_T2CON_0	=	0x00c8
+_T2CON_1	=	0x00c9
+_T2CON_2	=	0x00ca
+_T2CON_3	=	0x00cb
+_T2CON_4	=	0x00cc
+_T2CON_5	=	0x00cd
+_T2CON_6	=	0x00ce
+_T2CON_7	=	0x00cf
+_CP_RL2	=	0x00c8
+_C_T2	=	0x00c9
+_TR2	=	0x00ca
+_EXEN2	=	0x00cb
+_TCLK	=	0x00cc
+_RCLK	=	0x00cd
+_EXF2	=	0x00ce
+_TF2	=	0x00cf
 _P	=	0x00d0
 _FL	=	0x00d1
 _OV	=	0x00d2
@@ -215,7 +266,6 @@ _RS1	=	0x00d4
 _F0	=	0x00d5
 _AC	=	0x00d6
 _CY	=	0x00d7
-_P_NC	=	0x00ff
 ;--------------------------------------------------------
 ; overlayable register banks
 ;--------------------------------------------------------

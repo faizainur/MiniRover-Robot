@@ -18,5 +18,6 @@ bin/main.rel
 bin/delay.rel
 bin/lcd.rel
 bin/uart.rel
+bin/hcsr04.rel
 
 -e

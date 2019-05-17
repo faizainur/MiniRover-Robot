@@ -1,30 +1,10 @@
 #include "lcd.h"
 
-LCDConfig __config;
-
-int LCDSetup(uint8_t lcdType, uint8_t lcdDatabusType, uint8_t lcdBusModes)
-{
-    __config.LCDType = lcdType;
-    __config.__LCDBusModes = lcdBusModes;
-    __config.LCDDatabusType = lcdDatabusType;
-    return 0;
-}
-
-void pinSetup(__sbit pin, uint8_t modes){
-    // Set pin as input or output
-    pin = modes;
-}
 
 void LCDInit(){
 
     LCDCmdWrite(RETURN_HOME);
-
-    if (__config.__LCDBusModes == BUS4){
-        LCDCmdWrite(CMD_LCD_FOUR_BIT_MODE);
-    } else if (__config.__LCDBusModes == BUS8){
-        LCDCmdWrite(CMD_LCD_EIGHT_BIT_MODE);
-    }
-
+    LCDCmdWrite(CMD_LCD_FOUR_BIT_MODE);             // Set data bus in 4-bit mode
     LCDCmdWrite(DISPLAY_ON_CURSOR_BLINK_1);
     LCDCmdWrite(CLEAR_SCREEN);
     
@@ -32,87 +12,21 @@ void LCDInit(){
 
 int LCDCmdWrite(char cmd){
 
-    switch (__config.LCDDatabusType)
-    {
-        case DATABUS_P0:
-            LcdDatabus_P0 = (cmd & 0xF0);
-            RS_P0 = LOW;
-            RW_P0 = LOW;
-            EN_P0 = HIGH;
+    LcdDatabus_P2 = (cmd & 0xF0);
+            RS = LOW;
+            RW = LOW;
+            EN = HIGH;
             DELAY_us(1000);
-            EN_P0 = LOW;
-            break;
-
-        case DATABUS_P1:
-            LcdDatabus_P1 = (cmd & 0xF0);
-            RS_P1 = LOW;
-            RW_P1 = LOW;
-            EN_P1 = HIGH;
-            DELAY_us(1000);
-            EN_P1 = LOW;
-            break;
-
-        case DATABUS_P2:
-            LcdDatabus_P2 = (cmd & 0xF0);
-            RS_P2 = LOW;
-            RW_P2 = LOW;
-            EN_P2 = HIGH;
-            DELAY_us(1000);
-            EN_P2 = LOW;
-            break;
-
-        case DATABUS_P3:
-            LcdDatabus_P3 = (cmd & 0xF0);
-            RS_P3 = LOW;
-            RW_P3 = LOW;
-            EN_P3 = HIGH;
-            DELAY_us(1000);
-            EN_P3 = LOW;
-            break;
-
-        default:
-            return -1;
-    }
+            EN = LOW;
     
     DELAY_us(10000);
 
-    switch (__config.LCDDatabusType)
-    {
-        case DATABUS_P0:
-            LcdDatabus_P0 = ((cmd<<4) & 0xF0);
-            RS_P0 = LOW;
-            RW_P0 = LOW;
-            EN_P0 = HIGH;
+    LcdDatabus_P2 = ((cmd<<4) & 0xF0);
+            RS = LOW;
+            RW = LOW;
+            EN = HIGH;
             DELAY_us(1000);
-            EN_P0 = LOW;
-            break;
-        case DATABUS_P1:
-            LcdDatabus_P1 = ((cmd<<4) & 0xF0);
-            RS_P1 = LOW;
-            RW_P1 = LOW;
-            EN_P1 = HIGH;
-            DELAY_us(1000);
-            EN_P1 = LOW;
-        break;
-        case DATABUS_P2:
-            LcdDatabus_P2 = ((cmd<<4) & 0xF0);
-            RS_P2 = LOW;
-            RW_P2 = LOW;
-            EN_P2 = HIGH;
-            DELAY_us(1000);
-            EN_P2 = LOW;
-            break;
-        case DATABUS_P3:
-            LcdDatabus_P3 = ((cmd<<4) & 0xF0);
-            RS_P3 = LOW;
-            RW_P3 = LOW;
-            EN_P3 = HIGH;
-            DELAY_us(1000);
-            EN_P3 = LOW;
-            break;
-        default:
-            return -1;
-    }
+            EN = LOW;
     
     DELAY_us(10000);
     return 0;
@@ -120,110 +34,107 @@ int LCDCmdWrite(char cmd){
 
 int LCDDataWrite(char data){
 
-    switch (__config.LCDDatabusType)
-    {
-        case DATABUS_P0:
-            LcdDatabus_P0 = (data & 0xF0);
-            RS_P0 = HIGH;
-            RW_P0 = LOW;
-            EN_P0 = HIGH;
+    LcdDatabus_P2 = (data & 0xF0);
+            RS = HIGH;
+            RW = LOW;
+            EN = HIGH;
             DELAY_us(1000);
-            EN_P0 = LOW;
-            break;
-
-        case DATABUS_P1:
-            LcdDatabus_P1 = (data & 0xF0);
-            RS_P1 = HIGH;
-            RW_P1 = LOW;
-            EN_P1 = HIGH;
-            DELAY_us(1000);
-            EN_P1 = LOW;
-            break;
-
-        case DATABUS_P2:
-            LcdDatabus_P2 = (data & 0xF0);
-            RS_P2 = HIGH;
-            RW_P2 = LOW;
-            EN_P2 = HIGH;
-            DELAY_us(1000);
-            EN_P2 = LOW;
-            break;
-
-        case DATABUS_P3:
-            LcdDatabus_P3 = (data & 0xF0);
-            RS_P3 = HIGH;
-            RW_P3 = LOW;
-            EN_P3 = HIGH;
-            DELAY_us(1000);
-            EN_P3 = LOW;
-            break;
-
-        default:
-            return -1;
-    }
-
+            EN = LOW;
+    
     DELAY_us(10000);
 
-    switch (__config.LCDDatabusType)
-    {
-        case DATABUS_P0:
-            LcdDatabus_P0 = ((data<<4) & 0xF0);
-            RS_P0 = HIGH;
-            RW_P0 = LOW;
-            EN_P0 = HIGH;
+    LcdDatabus_P2 = ((data<<4) & 0xF0);
+            RS = HIGH;
+            RW = LOW;
+            EN = HIGH;
             DELAY_us(1000);
-            EN_P0 = LOW;
-            break;
-        case DATABUS_P1:
-            LcdDatabus_P1 = ((data<<4) & 0xF0);
-            RS_P1 = HIGH;
-            RW_P1 = LOW;
-            EN_P1 = HIGH;
-            DELAY_us(1000);
-            EN_P1 = LOW;
-        break;
-        case DATABUS_P2:
-            LcdDatabus_P2 = ((data<<4) & 0xF0);
-            RS_P2 = HIGH;
-            RW_P2 = LOW;
-            EN_P2 = HIGH;
-            DELAY_us(1000);
-            EN_P2 = LOW;
-            break;
-        case DATABUS_P3:
-            LcdDatabus_P3 = ((data<<4) & 0xF0);
-            RS_P3 = HIGH;
-            RW_P3 = LOW;
-            EN_P3 = HIGH;
-            DELAY_us(1000);
-            EN_P3 = LOW;
-            break;
-        default:
-            return -1;
-    }
+            EN = LOW;
 
     DELAY_us(10000);
     return 0;
 }
 
-void printString(uint8_t line, char* string){
-    if (line == FIRST_LINE){
+void LCDPrintString(uint8_t line, char* string){
+    switch (line)
+    {
+    case FIRST_LINE:
         LCDCmdWrite(CURSOR_TO_FIRST_LINE);
-    }
-    else if (line == SECOND_LINE && (__config.LCDType == LCD_16x2 
-                                     || __config.LCDType == LCD_16x3
-                                     || __config.LCDType == LCD_16x4)){
+        break;
+    case SECOND_LINE:
         LCDCmdWrite(CURSOR_TO_SECOND_LINE);
-    }
-    else if (line == THIRD_LINE && (__config.LCDType == LCD_16x3
-                                     || __config.LCDType == LCD_16x4)){
+        break;
+    case THIRD_LINE:
         LCDCmdWrite(CURSOR_TO_THIRD_LINE);
-    }
-    else if (line == FORTH_LINE && __config.LCDType == LCD_16x4){
+        break;
+    case FORTH_LINE:
         LCDCmdWrite(CURSOR_TO_FORTH_LINE);
+        break;
+    default:
+        break;
     }
     
     while(*string){
         LCDDataWrite(*string++);
     }
+}
+
+void LCDDisplayNumber(uint8_t line,int number,unsigned char radix)
+{
+	char buffer[33];
+	itoa(number,buffer,radix);
+	LCDPrintString(line, buffer);
+}
+
+
+// inline function to swap two numbers
+inline void swap(char *x, char *y) {
+	char t = *x; *x = *y; *y = t;
+}
+
+// function to reverse buffer[i..j]
+char* reverse(char *buffer, int i, int j)
+{
+	while (i < j)
+		swap(&buffer[i++], &buffer[j--]);
+
+	return buffer;
+}
+
+// Iterative function to implement itoa() function in C
+char* itoa(int value, char* buffer, int base)
+{
+	// invalid input
+	if (base < 2 || base > 32)
+		return buffer;
+
+	// consider absolute value of number
+	int n = abs(value);
+
+	int i = 0;
+	while (n)
+	{
+		int r = n % base;
+
+		if (r >= 10) 
+			buffer[i++] = 65 + (r - 10);
+		else
+			buffer[i++] = 48 + r;
+
+		n = n / base;
+	}
+
+	// if number is 0
+	if (i == 0)
+		buffer[i++] = '0';
+
+	// If base is 10 and value is negative, the resulting string 
+	// is preceded with a minus sign (-)
+	// With any other base, value is always considered unsigned
+	if (value < 0 && base == 10)
+		buffer[i++] = '-';
+
+	buffer[i] = '\0'; // null terminate string
+
+	// reverse the string and return it
+	return reverse(buffer, 0, i - 1);
 }
