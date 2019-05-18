@@ -103,1365 +103,471 @@
                                     103 	.globl _P0_2
                                     104 	.globl _P0_1
                                     105 	.globl _P0_0
-                                    106 	.globl _P_NC
-                                    107 	.globl _B
-                                    108 	.globl _A
-                                    109 	.globl _ACC
-                                    110 	.globl _PSW
-                                    111 	.globl _TH2
-                                    112 	.globl _TL2
-                                    113 	.globl _RCAP2H
-                                    114 	.globl _RCAP2L
-                                    115 	.globl _T2MOD
-                                    116 	.globl _T2CON
-                                    117 	.globl _IP
-                                    118 	.globl _P3
-                                    119 	.globl _IE
-                                    120 	.globl _P2
-                                    121 	.globl _SBUF
-                                    122 	.globl _SCON
-                                    123 	.globl _P1
-                                    124 	.globl _TH1
-                                    125 	.globl _TH0
-                                    126 	.globl _TL1
-                                    127 	.globl _TL0
-                                    128 	.globl _TMOD
-                                    129 	.globl _TCON
-                                    130 	.globl _PCON
-                                    131 	.globl _DPH
-                                    132 	.globl _DPL
-                                    133 	.globl _SP
-                                    134 	.globl _P0
-                                    135 	.globl _UART_TxNumber_PARM_3
-                                    136 	.globl _UART_TxNumber_PARM_2
-                                    137 	.globl _UART_Init
-                                    138 	.globl _UART_SetBaudRate
-                                    139 	.globl _UART_RxChar
-                                    140 	.globl _UART_TxChar
-                                    141 	.globl _UART_TxString
-                                    142 	.globl _UART_RxString
-                                    143 	.globl _UART_TxNumber
-                                    144 	.globl _UART_Printf
-                                    145 ;--------------------------------------------------------
-                                    146 ; special function registers
-                                    147 ;--------------------------------------------------------
-                                    148 	.area RSEG    (ABS,DATA)
-      000000                        149 	.org 0x0000
-                           000080   150 _P0	=	0x0080
-                           000081   151 _SP	=	0x0081
-                           000082   152 _DPL	=	0x0082
-                           000083   153 _DPH	=	0x0083
-                           000087   154 _PCON	=	0x0087
-                           000088   155 _TCON	=	0x0088
-                           000089   156 _TMOD	=	0x0089
-                           00008A   157 _TL0	=	0x008a
-                           00008B   158 _TL1	=	0x008b
-                           00008C   159 _TH0	=	0x008c
-                           00008D   160 _TH1	=	0x008d
-                           000090   161 _P1	=	0x0090
-                           000098   162 _SCON	=	0x0098
-                           000099   163 _SBUF	=	0x0099
-                           0000A0   164 _P2	=	0x00a0
-                           0000A8   165 _IE	=	0x00a8
-                           0000B0   166 _P3	=	0x00b0
-                           0000B8   167 _IP	=	0x00b8
-                           0000C8   168 _T2CON	=	0x00c8
-                           0000C9   169 _T2MOD	=	0x00c9
-                           0000CA   170 _RCAP2L	=	0x00ca
-                           0000CB   171 _RCAP2H	=	0x00cb
-                           0000CC   172 _TL2	=	0x00cc
-                           0000CD   173 _TH2	=	0x00cd
-                           0000D0   174 _PSW	=	0x00d0
-                           0000E0   175 _ACC	=	0x00e0
-                           0000E0   176 _A	=	0x00e0
-                           0000F0   177 _B	=	0x00f0
-                                    178 ;--------------------------------------------------------
-                                    179 ; special function bits
-                                    180 ;--------------------------------------------------------
-                                    181 	.area RSEG    (ABS,DATA)
-      000000                        182 	.org 0x0000
-                           0000FF   183 _P_NC	=	0x00ff
-                           000080   184 _P0_0	=	0x0080
-                           000081   185 _P0_1	=	0x0081
-                           000082   186 _P0_2	=	0x0082
-                           000083   187 _P0_3	=	0x0083
-                           000084   188 _P0_4	=	0x0084
-                           000085   189 _P0_5	=	0x0085
-                           000086   190 _P0_6	=	0x0086
-                           000087   191 _P0_7	=	0x0087
-                           000088   192 _IT0	=	0x0088
-                           000089   193 _IE0	=	0x0089
-                           00008A   194 _IT1	=	0x008a
-                           00008B   195 _IE1	=	0x008b
-                           00008C   196 _TR0	=	0x008c
-                           00008D   197 _TF0	=	0x008d
-                           00008E   198 _TR1	=	0x008e
-                           00008F   199 _TF1	=	0x008f
-                           000090   200 _P1_0	=	0x0090
-                           000091   201 _P1_1	=	0x0091
-                           000092   202 _P1_2	=	0x0092
-                           000093   203 _P1_3	=	0x0093
-                           000094   204 _P1_4	=	0x0094
-                           000095   205 _P1_5	=	0x0095
-                           000096   206 _P1_6	=	0x0096
-                           000097   207 _P1_7	=	0x0097
-                           000090   208 _T2	=	0x0090
-                           000091   209 _T2EX	=	0x0091
-                           000098   210 _RI	=	0x0098
-                           000099   211 _TI	=	0x0099
-                           00009A   212 _RB8	=	0x009a
-                           00009B   213 _TB8	=	0x009b
-                           00009C   214 _REN	=	0x009c
-                           00009D   215 _SM2	=	0x009d
-                           00009E   216 _SM1	=	0x009e
-                           00009F   217 _SM0	=	0x009f
-                           0000A0   218 _P2_0	=	0x00a0
-                           0000A1   219 _P2_1	=	0x00a1
-                           0000A2   220 _P2_2	=	0x00a2
-                           0000A3   221 _P2_3	=	0x00a3
-                           0000A4   222 _P2_4	=	0x00a4
-                           0000A5   223 _P2_5	=	0x00a5
-                           0000A6   224 _P2_6	=	0x00a6
-                           0000A7   225 _P2_7	=	0x00a7
-                           0000A8   226 _EX0	=	0x00a8
-                           0000A9   227 _ET0	=	0x00a9
-                           0000AA   228 _EX1	=	0x00aa
-                           0000AB   229 _ET1	=	0x00ab
-                           0000AC   230 _ES	=	0x00ac
-                           0000AD   231 _ET2	=	0x00ad
-                           0000AF   232 _EA	=	0x00af
-                           0000B0   233 _P3_0	=	0x00b0
-                           0000B1   234 _P3_1	=	0x00b1
-                           0000B2   235 _P3_2	=	0x00b2
-                           0000B3   236 _P3_3	=	0x00b3
-                           0000B4   237 _P3_4	=	0x00b4
-                           0000B5   238 _P3_5	=	0x00b5
-                           0000B6   239 _P3_6	=	0x00b6
-                           0000B7   240 _P3_7	=	0x00b7
-                           0000B0   241 _RXD	=	0x00b0
-                           0000B1   242 _TXD	=	0x00b1
-                           0000B2   243 _INT0	=	0x00b2
-                           0000B3   244 _INT1	=	0x00b3
-                           0000B4   245 _T0	=	0x00b4
-                           0000B5   246 _T1	=	0x00b5
-                           0000B6   247 _WR	=	0x00b6
-                           0000B7   248 _RD	=	0x00b7
-                           0000B8   249 _PX0	=	0x00b8
-                           0000B9   250 _PT0	=	0x00b9
-                           0000BA   251 _PX1	=	0x00ba
-                           0000BB   252 _PT1	=	0x00bb
-                           0000BC   253 _PS	=	0x00bc
-                           0000BD   254 _PT2	=	0x00bd
-                           0000C8   255 _T2CON_0	=	0x00c8
-                           0000C9   256 _T2CON_1	=	0x00c9
-                           0000CA   257 _T2CON_2	=	0x00ca
-                           0000CB   258 _T2CON_3	=	0x00cb
-                           0000CC   259 _T2CON_4	=	0x00cc
-                           0000CD   260 _T2CON_5	=	0x00cd
-                           0000CE   261 _T2CON_6	=	0x00ce
-                           0000CF   262 _T2CON_7	=	0x00cf
-                           0000C8   263 _CP_RL2	=	0x00c8
-                           0000C9   264 _C_T2	=	0x00c9
-                           0000CA   265 _TR2	=	0x00ca
-                           0000CB   266 _EXEN2	=	0x00cb
-                           0000CC   267 _TCLK	=	0x00cc
-                           0000CD   268 _RCLK	=	0x00cd
-                           0000CE   269 _EXF2	=	0x00ce
-                           0000CF   270 _TF2	=	0x00cf
-                           0000D0   271 _P	=	0x00d0
-                           0000D1   272 _FL	=	0x00d1
-                           0000D2   273 _OV	=	0x00d2
-                           0000D3   274 _RS0	=	0x00d3
-                           0000D4   275 _RS1	=	0x00d4
-                           0000D5   276 _F0	=	0x00d5
-                           0000D6   277 _AC	=	0x00d6
-                           0000D7   278 _CY	=	0x00d7
+                                    106 	.globl _B
+                                    107 	.globl _A
+                                    108 	.globl _ACC
+                                    109 	.globl _PSW
+                                    110 	.globl _TH2
+                                    111 	.globl _TL2
+                                    112 	.globl _RCAP2H
+                                    113 	.globl _RCAP2L
+                                    114 	.globl _T2MOD
+                                    115 	.globl _T2CON
+                                    116 	.globl _IP
+                                    117 	.globl _P3
+                                    118 	.globl _IE
+                                    119 	.globl _P2
+                                    120 	.globl _SBUF
+                                    121 	.globl _SCON
+                                    122 	.globl _P1
+                                    123 	.globl _TH1
+                                    124 	.globl _TH0
+                                    125 	.globl _TL1
+                                    126 	.globl _TL0
+                                    127 	.globl _TMOD
+                                    128 	.globl _TCON
+                                    129 	.globl _PCON
+                                    130 	.globl _DPH
+                                    131 	.globl _DPL
+                                    132 	.globl _SP
+                                    133 	.globl _P0
+                                    134 	.globl _serial_begin
+                                    135 	.globl _rx_char
+                                    136 	.globl _tx_char
+                                    137 	.globl _tx_string
+                                    138 	.globl _rx_string
+                                    139 ;--------------------------------------------------------
+                                    140 ; special function registers
+                                    141 ;--------------------------------------------------------
+                                    142 	.area RSEG    (ABS,DATA)
+      000000                        143 	.org 0x0000
+                           000080   144 _P0	=	0x0080
+                           000081   145 _SP	=	0x0081
+                           000082   146 _DPL	=	0x0082
+                           000083   147 _DPH	=	0x0083
+                           000087   148 _PCON	=	0x0087
+                           000088   149 _TCON	=	0x0088
+                           000089   150 _TMOD	=	0x0089
+                           00008A   151 _TL0	=	0x008a
+                           00008B   152 _TL1	=	0x008b
+                           00008C   153 _TH0	=	0x008c
+                           00008D   154 _TH1	=	0x008d
+                           000090   155 _P1	=	0x0090
+                           000098   156 _SCON	=	0x0098
+                           000099   157 _SBUF	=	0x0099
+                           0000A0   158 _P2	=	0x00a0
+                           0000A8   159 _IE	=	0x00a8
+                           0000B0   160 _P3	=	0x00b0
+                           0000B8   161 _IP	=	0x00b8
+                           0000C8   162 _T2CON	=	0x00c8
+                           0000C9   163 _T2MOD	=	0x00c9
+                           0000CA   164 _RCAP2L	=	0x00ca
+                           0000CB   165 _RCAP2H	=	0x00cb
+                           0000CC   166 _TL2	=	0x00cc
+                           0000CD   167 _TH2	=	0x00cd
+                           0000D0   168 _PSW	=	0x00d0
+                           0000E0   169 _ACC	=	0x00e0
+                           0000E0   170 _A	=	0x00e0
+                           0000F0   171 _B	=	0x00f0
+                                    172 ;--------------------------------------------------------
+                                    173 ; special function bits
+                                    174 ;--------------------------------------------------------
+                                    175 	.area RSEG    (ABS,DATA)
+      000000                        176 	.org 0x0000
+                           000080   177 _P0_0	=	0x0080
+                           000081   178 _P0_1	=	0x0081
+                           000082   179 _P0_2	=	0x0082
+                           000083   180 _P0_3	=	0x0083
+                           000084   181 _P0_4	=	0x0084
+                           000085   182 _P0_5	=	0x0085
+                           000086   183 _P0_6	=	0x0086
+                           000087   184 _P0_7	=	0x0087
+                           000088   185 _IT0	=	0x0088
+                           000089   186 _IE0	=	0x0089
+                           00008A   187 _IT1	=	0x008a
+                           00008B   188 _IE1	=	0x008b
+                           00008C   189 _TR0	=	0x008c
+                           00008D   190 _TF0	=	0x008d
+                           00008E   191 _TR1	=	0x008e
+                           00008F   192 _TF1	=	0x008f
+                           000090   193 _P1_0	=	0x0090
+                           000091   194 _P1_1	=	0x0091
+                           000092   195 _P1_2	=	0x0092
+                           000093   196 _P1_3	=	0x0093
+                           000094   197 _P1_4	=	0x0094
+                           000095   198 _P1_5	=	0x0095
+                           000096   199 _P1_6	=	0x0096
+                           000097   200 _P1_7	=	0x0097
+                           000090   201 _T2	=	0x0090
+                           000091   202 _T2EX	=	0x0091
+                           000098   203 _RI	=	0x0098
+                           000099   204 _TI	=	0x0099
+                           00009A   205 _RB8	=	0x009a
+                           00009B   206 _TB8	=	0x009b
+                           00009C   207 _REN	=	0x009c
+                           00009D   208 _SM2	=	0x009d
+                           00009E   209 _SM1	=	0x009e
+                           00009F   210 _SM0	=	0x009f
+                           0000A0   211 _P2_0	=	0x00a0
+                           0000A1   212 _P2_1	=	0x00a1
+                           0000A2   213 _P2_2	=	0x00a2
+                           0000A3   214 _P2_3	=	0x00a3
+                           0000A4   215 _P2_4	=	0x00a4
+                           0000A5   216 _P2_5	=	0x00a5
+                           0000A6   217 _P2_6	=	0x00a6
+                           0000A7   218 _P2_7	=	0x00a7
+                           0000A8   219 _EX0	=	0x00a8
+                           0000A9   220 _ET0	=	0x00a9
+                           0000AA   221 _EX1	=	0x00aa
+                           0000AB   222 _ET1	=	0x00ab
+                           0000AC   223 _ES	=	0x00ac
+                           0000AD   224 _ET2	=	0x00ad
+                           0000AF   225 _EA	=	0x00af
+                           0000B0   226 _P3_0	=	0x00b0
+                           0000B1   227 _P3_1	=	0x00b1
+                           0000B2   228 _P3_2	=	0x00b2
+                           0000B3   229 _P3_3	=	0x00b3
+                           0000B4   230 _P3_4	=	0x00b4
+                           0000B5   231 _P3_5	=	0x00b5
+                           0000B6   232 _P3_6	=	0x00b6
+                           0000B7   233 _P3_7	=	0x00b7
+                           0000B0   234 _RXD	=	0x00b0
+                           0000B1   235 _TXD	=	0x00b1
+                           0000B2   236 _INT0	=	0x00b2
+                           0000B3   237 _INT1	=	0x00b3
+                           0000B4   238 _T0	=	0x00b4
+                           0000B5   239 _T1	=	0x00b5
+                           0000B6   240 _WR	=	0x00b6
+                           0000B7   241 _RD	=	0x00b7
+                           0000B8   242 _PX0	=	0x00b8
+                           0000B9   243 _PT0	=	0x00b9
+                           0000BA   244 _PX1	=	0x00ba
+                           0000BB   245 _PT1	=	0x00bb
+                           0000BC   246 _PS	=	0x00bc
+                           0000BD   247 _PT2	=	0x00bd
+                           0000C8   248 _T2CON_0	=	0x00c8
+                           0000C9   249 _T2CON_1	=	0x00c9
+                           0000CA   250 _T2CON_2	=	0x00ca
+                           0000CB   251 _T2CON_3	=	0x00cb
+                           0000CC   252 _T2CON_4	=	0x00cc
+                           0000CD   253 _T2CON_5	=	0x00cd
+                           0000CE   254 _T2CON_6	=	0x00ce
+                           0000CF   255 _T2CON_7	=	0x00cf
+                           0000C8   256 _CP_RL2	=	0x00c8
+                           0000C9   257 _C_T2	=	0x00c9
+                           0000CA   258 _TR2	=	0x00ca
+                           0000CB   259 _EXEN2	=	0x00cb
+                           0000CC   260 _TCLK	=	0x00cc
+                           0000CD   261 _RCLK	=	0x00cd
+                           0000CE   262 _EXF2	=	0x00ce
+                           0000CF   263 _TF2	=	0x00cf
+                           0000D0   264 _P	=	0x00d0
+                           0000D1   265 _FL	=	0x00d1
+                           0000D2   266 _OV	=	0x00d2
+                           0000D3   267 _RS0	=	0x00d3
+                           0000D4   268 _RS1	=	0x00d4
+                           0000D5   269 _F0	=	0x00d5
+                           0000D6   270 _AC	=	0x00d6
+                           0000D7   271 _CY	=	0x00d7
+                                    272 ;--------------------------------------------------------
+                                    273 ; overlayable register banks
+                                    274 ;--------------------------------------------------------
+                                    275 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        276 	.ds 8
+                                    277 ;--------------------------------------------------------
+                                    278 ; internal ram data
                                     279 ;--------------------------------------------------------
-                                    280 ; overlayable register banks
+                                    280 	.area DSEG    (DATA)
                                     281 ;--------------------------------------------------------
-                                    282 	.area REG_BANK_0	(REL,OVR,DATA)
-      000000                        283 	.ds 8
-                                    284 ;--------------------------------------------------------
-                                    285 ; internal ram data
-                                    286 ;--------------------------------------------------------
-                                    287 	.area DSEG    (DATA)
-      000000                        288 _UART_TxNumber_PARM_2:
-      000000                        289 	.ds 4
-      000004                        290 _UART_TxNumber_PARM_3:
-      000004                        291 	.ds 1
-      000005                        292 _UART_TxNumber_v_numericSystem_u8_65536_72:
-      000005                        293 	.ds 1
-      000006                        294 _UART_TxNumber_i_65536_73:
-      000006                        295 	.ds 1
-      000007                        296 _UART_TxNumber_a_65536_73:
-      000007                        297 	.ds 10
-      000011                        298 _UART_TxNumber_sloc0_1_0:
-      000011                        299 	.ds 1
+                                    282 ; overlayable items in internal ram 
+                                    283 ;--------------------------------------------------------
+                                    284 	.area	OSEG    (OVR,DATA)
+                                    285 	.area	OSEG    (OVR,DATA)
+                                    286 	.area	OSEG    (OVR,DATA)
+                                    287 ;--------------------------------------------------------
+                                    288 ; indirectly addressable internal ram data
+                                    289 ;--------------------------------------------------------
+                                    290 	.area ISEG    (DATA)
+                                    291 ;--------------------------------------------------------
+                                    292 ; absolute internal ram data
+                                    293 ;--------------------------------------------------------
+                                    294 	.area IABS    (ABS,DATA)
+                                    295 	.area IABS    (ABS,DATA)
+                                    296 ;--------------------------------------------------------
+                                    297 ; bit data
+                                    298 ;--------------------------------------------------------
+                                    299 	.area BSEG    (BIT)
                                     300 ;--------------------------------------------------------
-                                    301 ; overlayable items in internal ram 
+                                    301 ; paged external ram data
                                     302 ;--------------------------------------------------------
-                                    303 	.area	OSEG    (OVR,DATA)
+                                    303 	.area PSEG    (PAG,XDATA)
                                     304 ;--------------------------------------------------------
-                                    305 ; indirectly addressable internal ram data
+                                    305 ; external ram data
                                     306 ;--------------------------------------------------------
-                                    307 	.area ISEG    (DATA)
+                                    307 	.area XSEG    (XDATA)
                                     308 ;--------------------------------------------------------
-                                    309 ; absolute internal ram data
+                                    309 ; absolute external ram data
                                     310 ;--------------------------------------------------------
-                                    311 	.area IABS    (ABS,DATA)
-                                    312 	.area IABS    (ABS,DATA)
-                                    313 ;--------------------------------------------------------
-                                    314 ; bit data
-                                    315 ;--------------------------------------------------------
-                                    316 	.area BSEG    (BIT)
-                                    317 ;--------------------------------------------------------
-                                    318 ; paged external ram data
-                                    319 ;--------------------------------------------------------
-                                    320 	.area PSEG    (PAG,XDATA)
-                                    321 ;--------------------------------------------------------
-                                    322 ; external ram data
-                                    323 ;--------------------------------------------------------
-                                    324 	.area XSEG    (XDATA)
-                                    325 ;--------------------------------------------------------
-                                    326 ; absolute external ram data
-                                    327 ;--------------------------------------------------------
-                                    328 	.area XABS    (ABS,XDATA)
-                                    329 ;--------------------------------------------------------
-                                    330 ; external initialized ram data
-                                    331 ;--------------------------------------------------------
-                                    332 	.area XISEG   (XDATA)
-                                    333 	.area HOME    (CODE)
-                                    334 	.area GSINIT0 (CODE)
-                                    335 	.area GSINIT1 (CODE)
-                                    336 	.area GSINIT2 (CODE)
-                                    337 	.area GSINIT3 (CODE)
-                                    338 	.area GSINIT4 (CODE)
-                                    339 	.area GSINIT5 (CODE)
-                                    340 	.area GSINIT  (CODE)
-                                    341 	.area GSFINAL (CODE)
-                                    342 	.area CSEG    (CODE)
-                                    343 ;--------------------------------------------------------
-                                    344 ; global & static initialisations
-                                    345 ;--------------------------------------------------------
-                                    346 	.area HOME    (CODE)
-                                    347 	.area GSINIT  (CODE)
-                                    348 	.area GSFINAL (CODE)
-                                    349 	.area GSINIT  (CODE)
-                                    350 ;--------------------------------------------------------
-                                    351 ; Home
-                                    352 ;--------------------------------------------------------
-                                    353 	.area HOME    (CODE)
-                                    354 	.area HOME    (CODE)
-                                    355 ;--------------------------------------------------------
-                                    356 ; code
-                                    357 ;--------------------------------------------------------
-                                    358 	.area CSEG    (CODE)
-                                    359 ;------------------------------------------------------------
-                                    360 ;Allocation info for local variables in function 'UART_Init'
-                                    361 ;------------------------------------------------------------
-                                    362 ;v_baudRate_u32            Allocated to registers r4 r5 r6 r7 
-                                    363 ;------------------------------------------------------------
-                                    364 ;	src/libs/uart.c:54: void UART_Init(uint32_t v_baudRate_u32)
-                                    365 ;	-----------------------------------------
-                                    366 ;	 function UART_Init
-                                    367 ;	-----------------------------------------
-      000000                        368 _UART_Init:
-                           000007   369 	ar7 = 0x07
-                           000006   370 	ar6 = 0x06
-                           000005   371 	ar5 = 0x05
-                           000004   372 	ar4 = 0x04
-                           000003   373 	ar3 = 0x03
-                           000002   374 	ar2 = 0x02
-                           000001   375 	ar1 = 0x01
-                           000000   376 	ar0 = 0x00
-      000000 AC 82            [24]  377 	mov	r4,dpl
-      000002 AD 83            [24]  378 	mov	r5,dph
-      000004 AE F0            [24]  379 	mov	r6,b
-      000006 FF               [12]  380 	mov	r7,a
-                                    381 ;	src/libs/uart.c:56: TMOD |= 0x20; //Timer1 in Mode2.
-      000007 43 89 20         [24]  382 	orl	_TMOD,#0x20
-                                    383 ;	src/libs/uart.c:57: SCON=0x50;    // Asynchronous mode, 8-bit data and 1-stop bit
-      00000A 75 98 50         [24]  384 	mov	_SCON,#0x50
-                                    385 ;	src/libs/uart.c:58: TR1=1;        //Turn ON the timer for Baud rate generation
-                                    386 ;	assignBit
-      00000D D2 8E            [12]  387 	setb	_TR1
-                                    388 ;	src/libs/uart.c:59: UART_SetBaudRate(v_baudRate_u32);
-      00000F 8C 82            [24]  389 	mov	dpl,r4
-      000011 8D 83            [24]  390 	mov	dph,r5
-      000013 8E F0            [24]  391 	mov	b,r6
-      000015 EF               [12]  392 	mov	a,r7
-                                    393 ;	src/libs/uart.c:60: }
-      000016 02r00r19         [24]  394 	ljmp	_UART_SetBaudRate
-                                    395 ;------------------------------------------------------------
-                                    396 ;Allocation info for local variables in function 'UART_SetBaudRate'
-                                    397 ;------------------------------------------------------------
-                                    398 ;v_baudRate_u32            Allocated to registers r4 r5 r6 r7 
-                                    399 ;RegValue                  Allocated to registers r7 
-                                    400 ;------------------------------------------------------------
-                                    401 ;	src/libs/uart.c:79: void UART_SetBaudRate(uint32_t v_baudRate_u32)
-                                    402 ;	-----------------------------------------
-                                    403 ;	 function UART_SetBaudRate
-                                    404 ;	-----------------------------------------
-      000019                        405 _UART_SetBaudRate:
-      000019 AC 82            [24]  406 	mov	r4,dpl
-      00001B AD 83            [24]  407 	mov	r5,dph
-      00001D AE F0            [24]  408 	mov	r6,b
-      00001F FF               [12]  409 	mov	r7,a
-                                    410 ;	src/libs/uart.c:83: if((v_baudRate_u32 >= C_MinBaudRate_U32) && (v_baudRate_u32<=C_MaxBaudRate_U32))
-      000020 C3               [12]  411 	clr	c
-      000021 EC               [12]  412 	mov	a,r4
-      000022 94 60            [12]  413 	subb	a,#0x60
-      000024 ED               [12]  414 	mov	a,r5
-      000025 94 09            [12]  415 	subb	a,#0x09
-      000027 EE               [12]  416 	mov	a,r6
-      000028 94 00            [12]  417 	subb	a,#0x00
-      00002A EF               [12]  418 	mov	a,r7
-      00002B 94 00            [12]  419 	subb	a,#0x00
-      00002D 40 3E            [24]  420 	jc	00102$
-      00002F E4               [12]  421 	clr	a
-      000030 9C               [12]  422 	subb	a,r4
-      000031 74 C2            [12]  423 	mov	a,#0xc2
-      000033 9D               [12]  424 	subb	a,r5
-      000034 74 01            [12]  425 	mov	a,#0x01
-      000036 9E               [12]  426 	subb	a,r6
-      000037 E4               [12]  427 	clr	a
-      000038 9F               [12]  428 	subb	a,r7
-      000039 40 32            [24]  429 	jc	00102$
-                                    430 ;	src/libs/uart.c:87: RegValue = M_GetBaudRateGeneratorValue(v_baudRate_u32);
-      00003B 8C*00            [24]  431 	mov	__mullong_PARM_2,r4
-      00003D 8D*01            [24]  432 	mov	(__mullong_PARM_2 + 1),r5
-      00003F 8E*02            [24]  433 	mov	(__mullong_PARM_2 + 2),r6
-      000041 8F*03            [24]  434 	mov	(__mullong_PARM_2 + 3),r7
-      000043 90 01 80         [24]  435 	mov	dptr,#0x0180
-      000046 E4               [12]  436 	clr	a
-      000047 F5 F0            [12]  437 	mov	b,a
-      000049 12r00r00         [24]  438 	lcall	__mullong
-      00004C 85 82*00         [24]  439 	mov	__divulong_PARM_2,dpl
-      00004F 85 83*01         [24]  440 	mov	(__divulong_PARM_2 + 1),dph
-      000052 85 F0*02         [24]  441 	mov	(__divulong_PARM_2 + 2),b
-      000055 F5*03            [12]  442 	mov	(__divulong_PARM_2 + 3),a
-      000057 90 C0 00         [24]  443 	mov	dptr,#0xc000
-      00005A 75 F0 A8         [24]  444 	mov	b,#0xa8
-      00005D E4               [12]  445 	clr	a
-      00005E 12r00r00         [24]  446 	lcall	__divulong
-      000061 AC 82            [24]  447 	mov	r4,dpl
-      000063 AD 83            [24]  448 	mov	r5,dph
-      000065 AE F0            [24]  449 	mov	r6,b
-      000067 C3               [12]  450 	clr	c
-      000068 E4               [12]  451 	clr	a
-      000069 9C               [12]  452 	subb	a,r4
-      00006A FF               [12]  453 	mov	r7,a
-      00006B 80 02            [24]  454 	sjmp	00103$
-      00006D                        455 00102$:
-                                    456 ;	src/libs/uart.c:92: RegValue = M_GetBaudRateGeneratorValue(9600);
-      00006D 7F 5D            [12]  457 	mov	r7,#0x5d
-      00006F                        458 00103$:
-                                    459 ;	src/libs/uart.c:95: TH1 = RegValue; 
-      00006F 8F 8D            [24]  460 	mov	_TH1,r7
-                                    461 ;	src/libs/uart.c:96: }
-      000071 22               [24]  462 	ret
-                                    463 ;------------------------------------------------------------
-                                    464 ;Allocation info for local variables in function 'UART_RxChar'
-                                    465 ;------------------------------------------------------------
-                                    466 ;	src/libs/uart.c:111: char UART_RxChar(void)
-                                    467 ;	-----------------------------------------
-                                    468 ;	 function UART_RxChar
-                                    469 ;	-----------------------------------------
-      000072                        470 _UART_RxChar:
-                                    471 ;	src/libs/uart.c:113: while(RI==0);      // Wait till the data is received
-      000072                        472 00101$:
-                                    473 ;	src/libs/uart.c:114: RI=0;             // Clear Receive Interrupt Flag for next cycle
-                                    474 ;	assignBit
-      000072 10 98 02         [24]  475 	jbc	_RI,00114$
-      000075 80 FB            [24]  476 	sjmp	00101$
-      000077                        477 00114$:
-                                    478 ;	src/libs/uart.c:116: return(SBUF);      // return the received char
-      000077 85 99 82         [24]  479 	mov	dpl,_SBUF
-                                    480 ;	src/libs/uart.c:117: }
-      00007A 22               [24]  481 	ret
-                                    482 ;------------------------------------------------------------
-                                    483 ;Allocation info for local variables in function 'UART_TxChar'
-                                    484 ;------------------------------------------------------------
-                                    485 ;v_uartData_u8             Allocated to registers 
-                                    486 ;------------------------------------------------------------
-                                    487 ;	src/libs/uart.c:134: void UART_TxChar(char v_uartData_u8)
-                                    488 ;	-----------------------------------------
-                                    489 ;	 function UART_TxChar
-                                    490 ;	-----------------------------------------
-      00007B                        491 _UART_TxChar:
-      00007B 85 82 99         [24]  492 	mov	_SBUF,dpl
-                                    493 ;	src/libs/uart.c:137: while(TI==0);       // Wait till the data is trasmitted
-      00007E                        494 00101$:
-                                    495 ;	src/libs/uart.c:138: TI=0;                //Clear the Tx flag for next cycle.
-                                    496 ;	assignBit
-      00007E 10 99 02         [24]  497 	jbc	_TI,00114$
-      000081 80 FB            [24]  498 	sjmp	00101$
-      000083                        499 00114$:
-                                    500 ;	src/libs/uart.c:139: }
-      000083 22               [24]  501 	ret
-                                    502 ;------------------------------------------------------------
-                                    503 ;Allocation info for local variables in function 'UART_TxString'
-                                    504 ;------------------------------------------------------------
-                                    505 ;ptr_string                Allocated to registers 
-                                    506 ;------------------------------------------------------------
-                                    507 ;	src/libs/uart.c:158: void UART_TxString(char *ptr_string)
-                                    508 ;	-----------------------------------------
-                                    509 ;	 function UART_TxString
-                                    510 ;	-----------------------------------------
-      000084                        511 _UART_TxString:
-      000084 AD 82            [24]  512 	mov	r5,dpl
-      000086 AE 83            [24]  513 	mov	r6,dph
-      000088 AF F0            [24]  514 	mov	r7,b
-                                    515 ;	src/libs/uart.c:160: while(*ptr_string)
-      00008A                        516 00101$:
-      00008A 8D 82            [24]  517 	mov	dpl,r5
-      00008C 8E 83            [24]  518 	mov	dph,r6
-      00008E 8F F0            [24]  519 	mov	b,r7
-      000090 12r00r00         [24]  520 	lcall	__gptrget
-      000093 FC               [12]  521 	mov	r4,a
-      000094 60 18            [24]  522 	jz	00104$
-                                    523 ;	src/libs/uart.c:161: UART_TxChar(*ptr_string++);// Loop through the string and transmit char by char
-      000096 8C 82            [24]  524 	mov	dpl,r4
-      000098 0D               [12]  525 	inc	r5
-      000099 BD 00 01         [24]  526 	cjne	r5,#0x00,00116$
-      00009C 0E               [12]  527 	inc	r6
-      00009D                        528 00116$:
-      00009D C0 07            [24]  529 	push	ar7
-      00009F C0 06            [24]  530 	push	ar6
-      0000A1 C0 05            [24]  531 	push	ar5
-      0000A3 12r00r7B         [24]  532 	lcall	_UART_TxChar
-      0000A6 D0 05            [24]  533 	pop	ar5
-      0000A8 D0 06            [24]  534 	pop	ar6
-      0000AA D0 07            [24]  535 	pop	ar7
-      0000AC 80 DC            [24]  536 	sjmp	00101$
-      0000AE                        537 00104$:
-                                    538 ;	src/libs/uart.c:162: }
-      0000AE 22               [24]  539 	ret
-                                    540 ;------------------------------------------------------------
-                                    541 ;Allocation info for local variables in function 'UART_RxString'
-                                    542 ;------------------------------------------------------------
-                                    543 ;ptr_string                Allocated to registers r5 r6 r7 
-                                    544 ;ch                        Allocated to registers r3 
-                                    545 ;len                       Allocated to registers r4 
-                                    546 ;------------------------------------------------------------
-                                    547 ;	src/libs/uart.c:187: uint8_t UART_RxString(char *ptr_string)
-                                    548 ;	-----------------------------------------
-                                    549 ;	 function UART_RxString
-                                    550 ;	-----------------------------------------
-      0000AF                        551 _UART_RxString:
-      0000AF AD 82            [24]  552 	mov	r5,dpl
-      0000B1 AE 83            [24]  553 	mov	r6,dph
-      0000B3 AF F0            [24]  554 	mov	r7,b
-                                    555 ;	src/libs/uart.c:190: uint8_t len = 0;
-      0000B5 7C 00            [12]  556 	mov	r4,#0x00
-                                    557 ;	src/libs/uart.c:191: while(1)
-      0000B7                        558 00110$:
-                                    559 ;	src/libs/uart.c:193: ch=UART_RxChar();    //Receive a char
-      0000B7 C0 07            [24]  560 	push	ar7
-      0000B9 C0 06            [24]  561 	push	ar6
-      0000BB C0 05            [24]  562 	push	ar5
-      0000BD C0 04            [24]  563 	push	ar4
-      0000BF 12r00r72         [24]  564 	lcall	_UART_RxChar
-                                    565 ;	src/libs/uart.c:194: UART_TxChar(ch);     //Echo back the received char
-      0000C2 AB 82            [24]  566 	mov  r3,dpl
-      0000C4 C0 03            [24]  567 	push	ar3
-      0000C6 12r00r7B         [24]  568 	lcall	_UART_TxChar
-      0000C9 D0 03            [24]  569 	pop	ar3
-      0000CB D0 04            [24]  570 	pop	ar4
-      0000CD D0 05            [24]  571 	pop	ar5
-      0000CF D0 06            [24]  572 	pop	ar6
-      0000D1 D0 07            [24]  573 	pop	ar7
-                                    574 ;	src/libs/uart.c:196: if((ch=='\r') || (ch=='\n')) //read till enter key is pressed
-      0000D3 BB 0D 02         [24]  575 	cjne	r3,#0x0d,00130$
-      0000D6 80 03            [24]  576 	sjmp	00105$
-      0000D8                        577 00130$:
-      0000D8 BB 0A 14         [24]  578 	cjne	r3,#0x0a,00106$
-      0000DB                        579 00105$:
-                                    580 ;	src/libs/uart.c:198: ptr_string[len]=0;           //and break the loop
-      0000DB EC               [12]  581 	mov	a,r4
-      0000DC 2D               [12]  582 	add	a,r5
-      0000DD F8               [12]  583 	mov	r0,a
-      0000DE E4               [12]  584 	clr	a
-      0000DF 3E               [12]  585 	addc	a,r6
-      0000E0 F9               [12]  586 	mov	r1,a
-      0000E1 8F 02            [24]  587 	mov	ar2,r7
-      0000E3 88 82            [24]  588 	mov	dpl,r0
-      0000E5 89 83            [24]  589 	mov	dph,r1
-      0000E7 8A F0            [24]  590 	mov	b,r2
-      0000E9 E4               [12]  591 	clr	a
-      0000EA 12r00r00         [24]  592 	lcall	__gptrput
-                                    593 ;	src/libs/uart.c:199: break;                  
-      0000ED 80 1E            [24]  594 	sjmp	00111$
-      0000EF                        595 00106$:
-                                    596 ;	src/libs/uart.c:201: else if((ch=='\b') && (len!=0))
-      0000EF BB 08 06         [24]  597 	cjne	r3,#0x08,00102$
-      0000F2 EC               [12]  598 	mov	a,r4
-      0000F3 60 03            [24]  599 	jz	00102$
-                                    600 ;	src/libs/uart.c:203: len--;    //If backspace is pressed then decrement the index to remove the old char
-      0000F5 1C               [12]  601 	dec	r4
-      0000F6 80 BF            [24]  602 	sjmp	00110$
-      0000F8                        603 00102$:
-                                    604 ;	src/libs/uart.c:207: ptr_string[len]=ch; //copy the char into string and increment the index
-      0000F8 EC               [12]  605 	mov	a,r4
-      0000F9 2D               [12]  606 	add	a,r5
-      0000FA F8               [12]  607 	mov	r0,a
-      0000FB E4               [12]  608 	clr	a
-      0000FC 3E               [12]  609 	addc	a,r6
-      0000FD F9               [12]  610 	mov	r1,a
-      0000FE 8F 02            [24]  611 	mov	ar2,r7
-      000100 88 82            [24]  612 	mov	dpl,r0
-      000102 89 83            [24]  613 	mov	dph,r1
-      000104 8A F0            [24]  614 	mov	b,r2
-      000106 EB               [12]  615 	mov	a,r3
-      000107 12r00r00         [24]  616 	lcall	__gptrput
-                                    617 ;	src/libs/uart.c:208: len++;
-      00010A 0C               [12]  618 	inc	r4
-      00010B 80 AA            [24]  619 	sjmp	00110$
-      00010D                        620 00111$:
-                                    621 ;	src/libs/uart.c:211: return len;   
-      00010D 8C 82            [24]  622 	mov	dpl,r4
-                                    623 ;	src/libs/uart.c:212: }
-      00010F 22               [24]  624 	ret
-                                    625 ;------------------------------------------------------------
-                                    626 ;Allocation info for local variables in function 'UART_TxNumber'
-                                    627 ;------------------------------------------------------------
-                                    628 ;v_number_u32              Allocated with name '_UART_TxNumber_PARM_2'
-                                    629 ;v_numOfDigitsToTransmit_u8 Allocated with name '_UART_TxNumber_PARM_3'
-                                    630 ;v_numericSystem_u8        Allocated with name '_UART_TxNumber_v_numericSystem_u8_65536_72'
-                                    631 ;i                         Allocated with name '_UART_TxNumber_i_65536_73'
-                                    632 ;a                         Allocated with name '_UART_TxNumber_a_65536_73'
-                                    633 ;sloc0                     Allocated with name '_UART_TxNumber_sloc0_1_0'
-                                    634 ;------------------------------------------------------------
-                                    635 ;	src/libs/uart.c:249: void UART_TxNumber(uint8_t v_numericSystem_u8, uint32_t v_number_u32, uint8_t v_numOfDigitsToTransmit_u8)
-                                    636 ;	-----------------------------------------
-                                    637 ;	 function UART_TxNumber
-                                    638 ;	-----------------------------------------
-      000110                        639 _UART_TxNumber:
-      000110 85 82*05         [24]  640 	mov	_UART_TxNumber_v_numericSystem_u8_65536_72,dpl
-                                    641 ;	src/libs/uart.c:253: if(C_BINARY_U8 == v_numericSystem_u8)
-      000113 74 02            [12]  642 	mov	a,#0x02
-      000115 B5*05 4B         [24]  643 	cjne	a,_UART_TxNumber_v_numericSystem_u8_65536_72,00120$
-                                    644 ;	src/libs/uart.c:255: while(v_numOfDigitsToTransmit_u8!=0)
-      000118                        645 00101$:
-      000118 E5*04            [12]  646 	mov	a,_UART_TxNumber_PARM_3
-      00011A 70 01            [24]  647 	jnz	00194$
-      00011C 22               [24]  648 	ret
-      00011D                        649 00194$:
-                                    650 ;	src/libs/uart.c:259: i = util_GetBitStatus(v_number_u32,(v_numOfDigitsToTransmit_u8-1));
-      00011D E5*04            [12]  651 	mov	a,_UART_TxNumber_PARM_3
-      00011F 14               [12]  652 	dec	a
-      000120 FE               [12]  653 	mov	r6,a
-      000121 8E F0            [24]  654 	mov	b,r6
-      000123 05 F0            [12]  655 	inc	b
-      000125 7C 01            [12]  656 	mov	r4,#0x01
-      000127 7D 00            [12]  657 	mov	r5,#0x00
-      000129 80 06            [24]  658 	sjmp	00196$
-      00012B                        659 00195$:
-      00012B EC               [12]  660 	mov	a,r4
-      00012C 2C               [12]  661 	add	a,r4
-      00012D FC               [12]  662 	mov	r4,a
-      00012E ED               [12]  663 	mov	a,r5
-      00012F 33               [12]  664 	rlc	a
-      000130 FD               [12]  665 	mov	r5,a
-      000131                        666 00196$:
-      000131 D5 F0 F7         [24]  667 	djnz	b,00195$
-      000134 ED               [12]  668 	mov	a,r5
-      000135 33               [12]  669 	rlc	a
-      000136 95 E0            [12]  670 	subb	a,acc
-      000138 FB               [12]  671 	mov	r3,a
-      000139 FA               [12]  672 	mov	r2,a
-      00013A E5*00            [12]  673 	mov	a,_UART_TxNumber_PARM_2
-      00013C 52 04            [12]  674 	anl	ar4,a
-      00013E E5*01            [12]  675 	mov	a,(_UART_TxNumber_PARM_2 + 1)
-      000140 52 05            [12]  676 	anl	ar5,a
-      000142 E5*02            [12]  677 	mov	a,(_UART_TxNumber_PARM_2 + 2)
-      000144 52 03            [12]  678 	anl	ar3,a
-      000146 E5*03            [12]  679 	mov	a,(_UART_TxNumber_PARM_2 + 3)
-      000148 52 02            [12]  680 	anl	ar2,a
-      00014A EC               [12]  681 	mov	a,r4
-      00014B 4D               [12]  682 	orl	a,r5
-      00014C 4B               [12]  683 	orl	a,r3
-      00014D 4A               [12]  684 	orl	a,r2
-      00014E B4 01 00         [24]  685 	cjne	a,#0x01,00197$
-      000151                        686 00197$:
-                                    687 ;	src/libs/uart.c:260: UART_TxChar(util_Dec2Ascii(i));
-      000151 B3               [12]  688 	cpl	c
-      000152 E4               [12]  689 	clr	a
-      000153 33               [12]  690 	rlc	a
-      000154 24 30            [12]  691 	add	a,#0x30
-      000156 F5 82            [12]  692 	mov	dpl,a
-      000158 C0 06            [24]  693 	push	ar6
-      00015A 12r00r7B         [24]  694 	lcall	_UART_TxChar
-      00015D D0 06            [24]  695 	pop	ar6
-                                    696 ;	src/libs/uart.c:261: v_numOfDigitsToTransmit_u8--;
-      00015F 8E*04            [24]  697 	mov	_UART_TxNumber_PARM_3,r6
-      000161 80 B5            [24]  698 	sjmp	00101$
-      000163                        699 00120$:
-                                    700 ;	src/libs/uart.c:264: else if(v_number_u32==0)
-      000163 E5*00            [12]  701 	mov	a,_UART_TxNumber_PARM_2
-      000165 45*01            [12]  702 	orl	a,(_UART_TxNumber_PARM_2 + 1)
-      000167 45*02            [12]  703 	orl	a,(_UART_TxNumber_PARM_2 + 2)
-      000169 45*03            [12]  704 	orl	a,(_UART_TxNumber_PARM_2 + 3)
-                                    705 ;	src/libs/uart.c:267: for(i=0;((i<v_numOfDigitsToTransmit_u8) && (i<C_MaxDigitsToTransmit_U8)) ;i++)
-      00016B 70 1B            [24]  706 	jnz	00143$
-      00016D FE               [12]  707 	mov	r6,a
-      00016E                        708 00124$:
-      00016E C3               [12]  709 	clr	c
-      00016F EE               [12]  710 	mov	a,r6
-      000170 95*04            [12]  711 	subb	a,_UART_TxNumber_PARM_3
-      000172 40 01            [24]  712 	jc	00200$
-      000174 22               [24]  713 	ret
-      000175                        714 00200$:
-      000175 BE 0A 00         [24]  715 	cjne	r6,#0x0a,00201$
-      000178                        716 00201$:
-      000178 40 01            [24]  717 	jc	00202$
-      00017A 22               [24]  718 	ret
-      00017B                        719 00202$:
-                                    720 ;	src/libs/uart.c:268: UART_TxChar('0');
-      00017B 75 82 30         [24]  721 	mov	dpl,#0x30
-      00017E C0 06            [24]  722 	push	ar6
-      000180 12r00r7B         [24]  723 	lcall	_UART_TxChar
-      000183 D0 06            [24]  724 	pop	ar6
-                                    725 ;	src/libs/uart.c:267: for(i=0;((i<v_numOfDigitsToTransmit_u8) && (i<C_MaxDigitsToTransmit_U8)) ;i++)
-      000185 0E               [12]  726 	inc	r6
-                                    727 ;	src/libs/uart.c:272: for(i=0;i<v_numOfDigitsToTransmit_u8;i++)
-      000186 80 E6            [24]  728 	sjmp	00124$
-      000188                        729 00143$:
-      000188 74 FF            [12]  730 	mov	a,#0xff
-      00018A B5*04 04         [24]  731 	cjne	a,_UART_TxNumber_PARM_3,00203$
-      00018D 74 01            [12]  732 	mov	a,#0x01
-      00018F 80 01            [24]  733 	sjmp	00204$
-      000191                        734 00203$:
-      000191 E4               [12]  735 	clr	a
-      000192                        736 00204$:
-      000192 F5*11            [12]  737 	mov	_UART_TxNumber_sloc0_1_0,a
-      000194 C3               [12]  738 	clr	c
-      000195 74 0A            [12]  739 	mov	a,#0x0a
-      000197 95*04            [12]  740 	subb	a,_UART_TxNumber_PARM_3
-      000199 E4               [12]  741 	clr	a
-      00019A 33               [12]  742 	rlc	a
-      00019B FD               [12]  743 	mov	r5,a
-      00019C 75*06 00         [24]  744 	mov	_UART_TxNumber_i_65536_73,#0x00
-      00019F                        745 00127$:
-      00019F C3               [12]  746 	clr	c
-      0001A0 E5*06            [12]  747 	mov	a,_UART_TxNumber_i_65536_73
-      0001A2 95*04            [12]  748 	subb	a,_UART_TxNumber_PARM_3
-      0001A4 50 66            [24]  749 	jnc	00146$
-                                    750 ;	src/libs/uart.c:276: if(v_number_u32!=0)
-      0001A6 E5*00            [12]  751 	mov	a,_UART_TxNumber_PARM_2
-      0001A8 45*01            [12]  752 	orl	a,(_UART_TxNumber_PARM_2 + 1)
-      0001AA 45*02            [12]  753 	orl	a,(_UART_TxNumber_PARM_2 + 2)
-      0001AC 45*03            [12]  754 	orl	a,(_UART_TxNumber_PARM_2 + 3)
-      0001AE 60 4A            [24]  755 	jz	00110$
-                                    756 ;	src/libs/uart.c:284: a[i]=util_GetMod32(v_number_u32,v_numericSystem_u8);
-      0001B0 C0 05            [24]  757 	push	ar5
-      0001B2 E5*06            [12]  758 	mov	a,_UART_TxNumber_i_65536_73
-      0001B4 24r07            [12]  759 	add	a,#_UART_TxNumber_a_65536_73
-      0001B6 F9               [12]  760 	mov	r1,a
-      0001B7 85*05*00         [24]  761 	mov	__divulong_PARM_2,_UART_TxNumber_v_numericSystem_u8_65536_72
-      0001BA 75*01 00         [24]  762 	mov	(__divulong_PARM_2 + 1),#0x00
-      0001BD 75*02 00         [24]  763 	mov	(__divulong_PARM_2 + 2),#0x00
-      0001C0 75*03 00         [24]  764 	mov	(__divulong_PARM_2 + 3),#0x00
-      0001C3 85*00 82         [24]  765 	mov	dpl,_UART_TxNumber_PARM_2
-      0001C6 85*01 83         [24]  766 	mov	dph,(_UART_TxNumber_PARM_2 + 1)
-      0001C9 85*02 F0         [24]  767 	mov	b,(_UART_TxNumber_PARM_2 + 2)
-      0001CC E5*03            [12]  768 	mov	a,(_UART_TxNumber_PARM_2 + 3)
-      0001CE C0 05            [24]  769 	push	ar5
-      0001D0 C0 01            [24]  770 	push	ar1
-      0001D2 12r00r00         [24]  771 	lcall	__divulong
-      0001D5 AA 82            [24]  772 	mov	r2,dpl
-      0001D7 AB 83            [24]  773 	mov	r3,dph
-      0001D9 AC F0            [24]  774 	mov	r4,b
-      0001DB FF               [12]  775 	mov	r7,a
-      0001DC D0 01            [24]  776 	pop	ar1
-      0001DE D0 05            [24]  777 	pop	ar5
-      0001E0 8A 05            [24]  778 	mov	ar5,r2
-      0001E2 85*05 F0         [24]  779 	mov	b,_UART_TxNumber_v_numericSystem_u8_65536_72
-      0001E5 ED               [12]  780 	mov	a,r5
-      0001E6 A4               [48]  781 	mul	ab
-      0001E7 FD               [12]  782 	mov	r5,a
-      0001E8 E5*00            [12]  783 	mov	a,_UART_TxNumber_PARM_2
-      0001EA FE               [12]  784 	mov	r6,a
-      0001EB C3               [12]  785 	clr	c
-      0001EC 9D               [12]  786 	subb	a,r5
-      0001ED F7               [12]  787 	mov	@r1,a
-                                    788 ;	src/libs/uart.c:285: v_number_u32=v_number_u32/v_numericSystem_u8;
-      0001EE 8A*00            [24]  789 	mov	_UART_TxNumber_PARM_2,r2
-      0001F0 8B*01            [24]  790 	mov	(_UART_TxNumber_PARM_2 + 1),r3
-      0001F2 8C*02            [24]  791 	mov	(_UART_TxNumber_PARM_2 + 2),r4
-      0001F4 8F*03            [24]  792 	mov	(_UART_TxNumber_PARM_2 + 3),r7
-      0001F6 D0 05            [24]  793 	pop	ar5
-      0001F8 80 0E            [24]  794 	sjmp	00128$
-      0001FA                        795 00110$:
-                                    796 ;	src/libs/uart.c:287: else if( (v_numOfDigitsToTransmit_u8 == C_DefaultDigitsToTransmit_U8) ||
-      0001FA E5*11            [12]  797 	mov	a,_UART_TxNumber_sloc0_1_0
-      0001FC 70 0E            [24]  798 	jnz	00146$
-                                    799 ;	src/libs/uart.c:288: (v_numOfDigitsToTransmit_u8 > C_MaxDigitsToTransmit_U8))
-      0001FE ED               [12]  800 	mov	a,r5
-      0001FF 70 0B            [24]  801 	jnz	00146$
-                                    802 ;	src/libs/uart.c:299: a[i]=0;
-      000201 E5*06            [12]  803 	mov	a,_UART_TxNumber_i_65536_73
-      000203 24r07            [12]  804 	add	a,#_UART_TxNumber_a_65536_73
-      000205 F8               [12]  805 	mov	r0,a
-      000206 76 00            [12]  806 	mov	@r0,#0x00
-      000208                        807 00128$:
-                                    808 ;	src/libs/uart.c:272: for(i=0;i<v_numOfDigitsToTransmit_u8;i++)
-      000208 05*06            [12]  809 	inc	_UART_TxNumber_i_65536_73
-                                    810 ;	src/libs/uart.c:303: while(i)
-      00020A 80 93            [24]  811 	sjmp	00127$
-      00020C                        812 00146$:
-      00020C AF*06            [24]  813 	mov	r7,_UART_TxNumber_i_65536_73
-      00020E                        814 00113$:
-      00020E EF               [12]  815 	mov	a,r7
-      00020F 60 30            [24]  816 	jz	00129$
-                                    817 ;	src/libs/uart.c:306: UART_TxChar(util_Hex2Ascii(a[i-1]));
-      000211 8F 06            [24]  818 	mov	ar6,r7
-      000213 EE               [12]  819 	mov	a,r6
-      000214 14               [12]  820 	dec	a
-      000215 24r07            [12]  821 	add	a,#_UART_TxNumber_a_65536_73
-      000217 F9               [12]  822 	mov	r1,a
-      000218 E7               [12]  823 	mov	a,@r1
-      000219 24 F6            [12]  824 	add	a,#0xff - 0x09
-      00021B 50 0D            [24]  825 	jnc	00131$
-      00021D EE               [12]  826 	mov	a,r6
-      00021E 14               [12]  827 	dec	a
-      00021F 24r07            [12]  828 	add	a,#_UART_TxNumber_a_65536_73
-      000221 F9               [12]  829 	mov	r1,a
-      000222 87 05            [24]  830 	mov	ar5,@r1
-      000224 74 37            [12]  831 	mov	a,#0x37
-      000226 2D               [12]  832 	add	a,r5
-      000227 FD               [12]  833 	mov	r5,a
-      000228 80 0B            [24]  834 	sjmp	00132$
-      00022A                        835 00131$:
-      00022A EE               [12]  836 	mov	a,r6
-      00022B 14               [12]  837 	dec	a
-      00022C 24r07            [12]  838 	add	a,#_UART_TxNumber_a_65536_73
-      00022E F9               [12]  839 	mov	r1,a
-      00022F 87 06            [24]  840 	mov	ar6,@r1
-      000231 74 30            [12]  841 	mov	a,#0x30
-      000233 2E               [12]  842 	add	a,r6
-      000234 FD               [12]  843 	mov	r5,a
-      000235                        844 00132$:
-      000235 8D 82            [24]  845 	mov	dpl,r5
-      000237 C0 07            [24]  846 	push	ar7
-      000239 12r00r7B         [24]  847 	lcall	_UART_TxChar
-      00023C D0 07            [24]  848 	pop	ar7
-                                    849 ;	src/libs/uart.c:307: i--;
-      00023E 1F               [12]  850 	dec	r7
-      00023F 80 CD            [24]  851 	sjmp	00113$
-      000241                        852 00129$:
-                                    853 ;	src/libs/uart.c:312: }
-      000241 22               [24]  854 	ret
-                                    855 ;------------------------------------------------------------
-                                    856 ;Allocation info for local variables in function 'UART_Printf'
-                                    857 ;------------------------------------------------------------
-                                    858 ;argList                   Allocated to stack - _bp -5
-                                    859 ;ptr                       Allocated to stack - _bp +2
-                                    860 ;argp                      Allocated to stack - _bp +5
-                                    861 ;v_num_s16                 Allocated to registers r6 r7 
-                                    862 ;v_num_s32                 Allocated to registers r4 r5 r6 r7 
-                                    863 ;v_num_u16                 Allocated to registers r6 r7 
-                                    864 ;v_num_u32                 Allocated to registers 
-                                    865 ;str                       Allocated to registers r5 r6 r7 
-                                    866 ;ch                        Allocated to registers r3 
-                                    867 ;v_numOfDigitsToTransmit_u8 Allocated to stack - _bp +1
-                                    868 ;------------------------------------------------------------
-                                    869 ;	src/libs/uart.c:401: void UART_Printf(const char *argList, ...)
-                                    870 ;	-----------------------------------------
-                                    871 ;	 function UART_Printf
-                                    872 ;	-----------------------------------------
-      000242                        873 _UART_Printf:
-      000242 C0*00            [24]  874 	push	_bp
-      000244 E5 81            [12]  875 	mov	a,sp
-      000246 F5*00            [12]  876 	mov	_bp,a
-      000248 24 05            [12]  877 	add	a,#0x05
-      00024A F5 81            [12]  878 	mov	sp,a
-                                    879 ;	src/libs/uart.c:417: va_start(argp, argList);
-      00024C E5*00            [12]  880 	mov	a,_bp
-      00024E 24 FB            [12]  881 	add	a,#0xfb
-      000250 FF               [12]  882 	mov	r7,a
-      000251 E5*00            [12]  883 	mov	a,_bp
-      000253 24 05            [12]  884 	add	a,#0x05
-      000255 F8               [12]  885 	mov	r0,a
-      000256 A6 07            [24]  886 	mov	@r0,ar7
-                                    887 ;	src/libs/uart.c:420: for(ptr = argList; *ptr != '\0'; ptr++)
-      000258 E5*00            [12]  888 	mov	a,_bp
-      00025A 24 FB            [12]  889 	add	a,#0xfb
-      00025C F8               [12]  890 	mov	r0,a
-      00025D A9*00            [24]  891 	mov	r1,_bp
-      00025F 09               [12]  892 	inc	r1
-      000260 09               [12]  893 	inc	r1
-      000261 E6               [12]  894 	mov	a,@r0
-      000262 F7               [12]  895 	mov	@r1,a
-      000263 08               [12]  896 	inc	r0
-      000264 09               [12]  897 	inc	r1
-      000265 E6               [12]  898 	mov	a,@r0
-      000266 F7               [12]  899 	mov	@r1,a
-      000267 08               [12]  900 	inc	r0
-      000268 09               [12]  901 	inc	r1
-      000269 E6               [12]  902 	mov	a,@r0
-      00026A F7               [12]  903 	mov	@r1,a
-      00026B                        904 00138$:
-      00026B A8*00            [24]  905 	mov	r0,_bp
-      00026D 08               [12]  906 	inc	r0
-      00026E 08               [12]  907 	inc	r0
-      00026F 86 82            [24]  908 	mov	dpl,@r0
-      000271 08               [12]  909 	inc	r0
-      000272 86 83            [24]  910 	mov	dph,@r0
-      000274 08               [12]  911 	inc	r0
-      000275 86 F0            [24]  912 	mov	b,@r0
-      000277 12r00r00         [24]  913 	lcall	__gptrget
-      00027A FB               [12]  914 	mov	r3,a
-      00027B 70 03            [24]  915 	jnz	00278$
-      00027D 02r05r92         [24]  916 	ljmp	00140$
-      000280                        917 00278$:
-                                    918 ;	src/libs/uart.c:423: ch= *ptr;
-                                    919 ;	src/libs/uart.c:424: if(ch == '%')         /*Check for '%' as there will be format specifier after it */
-      000280 BB 25 02         [24]  920 	cjne	r3,#0x25,00279$
-      000283 80 03            [24]  921 	sjmp	00280$
-      000285                        922 00279$:
-      000285 02r05r80         [24]  923 	ljmp	00134$
-      000288                        924 00280$:
-                                    925 ;	src/libs/uart.c:426: ptr++;
-      000288 A8*00            [24]  926 	mov	r0,_bp
-      00028A 08               [12]  927 	inc	r0
-      00028B 08               [12]  928 	inc	r0
-      00028C 06               [12]  929 	inc	@r0
-      00028D B6 00 02         [24]  930 	cjne	@r0,#0x00,00281$
-      000290 08               [12]  931 	inc	r0
-      000291 06               [12]  932 	inc	@r0
-      000292                        933 00281$:
-                                    934 ;	src/libs/uart.c:427: ch = *ptr;
-      000292 A8*00            [24]  935 	mov	r0,_bp
-      000294 08               [12]  936 	inc	r0
-      000295 08               [12]  937 	inc	r0
-      000296 86 82            [24]  938 	mov	dpl,@r0
-      000298 08               [12]  939 	inc	r0
-      000299 86 83            [24]  940 	mov	dph,@r0
-      00029B 08               [12]  941 	inc	r0
-      00029C 86 F0            [24]  942 	mov	b,@r0
-      00029E 12r00r00         [24]  943 	lcall	__gptrget
-      0002A1 FB               [12]  944 	mov	r3,a
-                                    945 ;	src/libs/uart.c:428: if((ch>=0x30) && (ch<=0x39))
-      0002A2 BB 30 00         [24]  946 	cjne	r3,#0x30,00282$
-      0002A5                        947 00282$:
-      0002A5 40 46            [24]  948 	jc	00106$
-      0002A7 EB               [12]  949 	mov	a,r3
-      0002A8 24 C6            [12]  950 	add	a,#0xff - 0x39
-      0002AA 40 41            [24]  951 	jc	00106$
-                                    952 ;	src/libs/uart.c:430: v_numOfDigitsToTransmit_u8 = 0;
-      0002AC A8*00            [24]  953 	mov	r0,_bp
-      0002AE 08               [12]  954 	inc	r0
-      0002AF 76 00            [12]  955 	mov	@r0,#0x00
-                                    956 ;	src/libs/uart.c:431: while((ch>=0x30) && (ch<=0x39))
-      0002B1 A8*00            [24]  957 	mov	r0,_bp
-      0002B3 08               [12]  958 	inc	r0
-      0002B4 08               [12]  959 	inc	r0
-      0002B5 86 02            [24]  960 	mov	ar2,@r0
-      0002B7 08               [12]  961 	inc	r0
-      0002B8 86 07            [24]  962 	mov	ar7,@r0
-      0002BA 08               [12]  963 	inc	r0
-      0002BB 86 06            [24]  964 	mov	ar6,@r0
-      0002BD                        965 00102$:
-      0002BD BB 30 00         [24]  966 	cjne	r3,#0x30,00285$
-      0002C0                        967 00285$:
-      0002C0 40 32            [24]  968 	jc	00169$
-      0002C2 EB               [12]  969 	mov	a,r3
-      0002C3 24 C6            [12]  970 	add	a,#0xff - 0x39
-      0002C5 40 2D            [24]  971 	jc	00169$
-                                    972 ;	src/libs/uart.c:433: v_numOfDigitsToTransmit_u8 = (v_numOfDigitsToTransmit_u8 * 10) + (ch-0x30);
-      0002C7 A8*00            [24]  973 	mov	r0,_bp
-      0002C9 08               [12]  974 	inc	r0
-      0002CA E6               [12]  975 	mov	a,@r0
-      0002CB 75 F0 0A         [24]  976 	mov	b,#0x0a
-      0002CE A4               [48]  977 	mul	ab
-      0002CF FD               [12]  978 	mov	r5,a
-      0002D0 8B 04            [24]  979 	mov	ar4,r3
-      0002D2 EC               [12]  980 	mov	a,r4
-      0002D3 24 D0            [12]  981 	add	a,#0xd0
-      0002D5 2D               [12]  982 	add	a,r5
-      0002D6 FD               [12]  983 	mov	r5,a
-      0002D7 A8*00            [24]  984 	mov	r0,_bp
-      0002D9 08               [12]  985 	inc	r0
-      0002DA A6 05            [24]  986 	mov	@r0,ar5
-                                    987 ;	src/libs/uart.c:434: ptr++;
-      0002DC 0A               [12]  988 	inc	r2
-      0002DD BA 00 01         [24]  989 	cjne	r2,#0x00,00288$
-      0002E0 0F               [12]  990 	inc	r7
-      0002E1                        991 00288$:
-                                    992 ;	src/libs/uart.c:435: ch = *ptr;
-      0002E1 8A 82            [24]  993 	mov	dpl,r2
-      0002E3 8F 83            [24]  994 	mov	dph,r7
-      0002E5 8E F0            [24]  995 	mov	b,r6
-      0002E7 12r00r00         [24]  996 	lcall	__gptrget
-      0002EA FB               [12]  997 	mov	r3,a
-      0002EB 80 D0            [24]  998 	sjmp	00102$
-      0002ED                        999 00106$:
-                                   1000 ;	src/libs/uart.c:440: v_numOfDigitsToTransmit_u8 = C_MaxDigitsToTransmitUsingPrintf_U8;
-      0002ED A8*00            [24] 1001 	mov	r0,_bp
-      0002EF 08               [12] 1002 	inc	r0
-      0002F0 76 FF            [12] 1003 	mov	@r0,#0xff
-                                   1004 ;	src/libs/uart.c:539: va_end(argp);
-                                   1005 ;	src/libs/uart.c:440: v_numOfDigitsToTransmit_u8 = C_MaxDigitsToTransmitUsingPrintf_U8;
-      0002F2 80 0C            [24] 1006 	sjmp	00107$
-      0002F4                       1007 00169$:
-      0002F4 A8*00            [24] 1008 	mov	r0,_bp
-      0002F6 08               [12] 1009 	inc	r0
-      0002F7 08               [12] 1010 	inc	r0
-      0002F8 A6 02            [24] 1011 	mov	@r0,ar2
-      0002FA 08               [12] 1012 	inc	r0
-      0002FB A6 07            [24] 1013 	mov	@r0,ar7
-      0002FD 08               [12] 1014 	inc	r0
-      0002FE A6 06            [24] 1015 	mov	@r0,ar6
-      000300                       1016 00107$:
-                                   1017 ;	src/libs/uart.c:444: switch(ch)       /* Decode the type of the argument */
-      000300 BB 25 03         [24] 1018 	cjne	r3,#0x25,00289$
-      000303 02r05r78         [24] 1019 	ljmp	00131$
-      000306                       1020 00289$:
-      000306 BB 42 03         [24] 1021 	cjne	r3,#0x42,00290$
-      000309 02r05r11         [24] 1022 	ljmp	00124$
-      00030C                       1023 00290$:
-      00030C BB 43 02         [24] 1024 	cjne	r3,#0x43,00291$
-      00030F 80 49            [24] 1025 	sjmp	00110$
-      000311                       1026 00291$:
-      000311 BB 44 03         [24] 1027 	cjne	r3,#0x44,00292$
-      000314 02r03rBE         [24] 1028 	ljmp	00114$
-      000317                       1029 00292$:
-      000317 BB 46 03         [24] 1030 	cjne	r3,#0x46,00293$
-      00031A 02r05r85         [24] 1031 	ljmp	00139$
-      00031D                       1032 00293$:
-      00031D BB 53 03         [24] 1033 	cjne	r3,#0x53,00294$
-      000320 02r05r51         [24] 1034 	ljmp	00130$
-      000323                       1035 00294$:
-      000323 BB 55 03         [24] 1036 	cjne	r3,#0x55,00295$
-      000326 02r04r4B         [24] 1037 	ljmp	00118$
-      000329                       1038 00295$:
-      000329 BB 58 03         [24] 1039 	cjne	r3,#0x58,00296$
-      00032C 02r04rA9         [24] 1040 	ljmp	00120$
-      00032F                       1041 00296$:
-      00032F BB 62 03         [24] 1042 	cjne	r3,#0x62,00297$
-      000332 02r04rD7         [24] 1043 	ljmp	00121$
-      000335                       1044 00297$:
-      000335 BB 63 02         [24] 1045 	cjne	r3,#0x63,00298$
-      000338 80 20            [24] 1046 	sjmp	00110$
-      00033A                       1047 00298$:
-      00033A BB 64 02         [24] 1048 	cjne	r3,#0x64,00299$
-      00033D 80 34            [24] 1049 	sjmp	00111$
-      00033F                       1050 00299$:
-      00033F BB 66 03         [24] 1051 	cjne	r3,#0x66,00300$
-      000342 02r05r85         [24] 1052 	ljmp	00139$
-      000345                       1053 00300$:
-      000345 BB 73 03         [24] 1054 	cjne	r3,#0x73,00301$
-      000348 02r05r51         [24] 1055 	ljmp	00130$
-      00034B                       1056 00301$:
-      00034B BB 75 03         [24] 1057 	cjne	r3,#0x75,00302$
-      00034E 02r04r1B         [24] 1058 	ljmp	00117$
-      000351                       1059 00302$:
-      000351 BB 78 03         [24] 1060 	cjne	r3,#0x78,00303$
-      000354 02r04r79         [24] 1061 	ljmp	00119$
-      000357                       1062 00303$:
-      000357 02r05r85         [24] 1063 	ljmp	00139$
-                                   1064 ;	src/libs/uart.c:447: case 'c':     /* Argument type is of char, hence read char data from the argp */
-      00035A                       1065 00110$:
-                                   1066 ;	src/libs/uart.c:448: ch = va_arg(argp, uint8_t);
-      00035A E5*00            [12] 1067 	mov	a,_bp
-      00035C 24 05            [12] 1068 	add	a,#0x05
-      00035E F8               [12] 1069 	mov	r0,a
-      00035F E6               [12] 1070 	mov	a,@r0
-      000360 14               [12] 1071 	dec	a
-      000361 F9               [12] 1072 	mov	r1,a
-      000362 E5*00            [12] 1073 	mov	a,_bp
-      000364 24 05            [12] 1074 	add	a,#0x05
-      000366 F8               [12] 1075 	mov	r0,a
-      000367 A6 01            [24] 1076 	mov	@r0,ar1
-      000369 87 07            [24] 1077 	mov	ar7,@r1
-                                   1078 ;	src/libs/uart.c:449: UART_TxChar(ch);
-      00036B 8F 82            [24] 1079 	mov	dpl,r7
-      00036D 12r00r7B         [24] 1080 	lcall	_UART_TxChar
-                                   1081 ;	src/libs/uart.c:450: break;
-      000370 02r05r85         [24] 1082 	ljmp	00139$
-                                   1083 ;	src/libs/uart.c:452: case 'd':    /* Argument type is of signed integer, hence read 16bit data from the argp */
-      000373                       1084 00111$:
-                                   1085 ;	src/libs/uart.c:453: v_num_s16 = va_arg(argp, sint16_t);
-      000373 E5*00            [12] 1086 	mov	a,_bp
-      000375 24 05            [12] 1087 	add	a,#0x05
-      000377 F8               [12] 1088 	mov	r0,a
-      000378 E6               [12] 1089 	mov	a,@r0
-      000379 24 FE            [12] 1090 	add	a,#0xfe
-      00037B FF               [12] 1091 	mov	r7,a
-      00037C E5*00            [12] 1092 	mov	a,_bp
-      00037E 24 05            [12] 1093 	add	a,#0x05
-      000380 F8               [12] 1094 	mov	r0,a
-      000381 A6 07            [24] 1095 	mov	@r0,ar7
-      000383 8F 01            [24] 1096 	mov	ar1,r7
-      000385 87 06            [24] 1097 	mov	ar6,@r1
-      000387 09               [12] 1098 	inc	r1
-      000388 87 07            [24] 1099 	mov	ar7,@r1
-      00038A 19               [12] 1100 	dec	r1
-                                   1101 ;	src/libs/uart.c:454: if(v_num_s16<0)
-      00038B EF               [12] 1102 	mov	a,r7
-      00038C 30 E7 15         [24] 1103 	jnb	acc.7,00113$
-                                   1104 ;	src/libs/uart.c:456: v_num_s16 = -v_num_s16;
-      00038F C3               [12] 1105 	clr	c
-      000390 E4               [12] 1106 	clr	a
-      000391 9E               [12] 1107 	subb	a,r6
-      000392 FE               [12] 1108 	mov	r6,a
-      000393 E4               [12] 1109 	clr	a
-      000394 9F               [12] 1110 	subb	a,r7
-      000395 FF               [12] 1111 	mov	r7,a
-                                   1112 ;	src/libs/uart.c:457: UART_TxChar('-');
-      000396 75 82 2D         [24] 1113 	mov	dpl,#0x2d
-      000399 C0 07            [24] 1114 	push	ar7
-      00039B C0 06            [24] 1115 	push	ar6
-      00039D 12r00r7B         [24] 1116 	lcall	_UART_TxChar
-      0003A0 D0 06            [24] 1117 	pop	ar6
-      0003A2 D0 07            [24] 1118 	pop	ar7
-      0003A4                       1119 00113$:
-                                   1120 ;	src/libs/uart.c:459: UART_TxNumber(C_DECIMAL_U8,v_num_s16,v_numOfDigitsToTransmit_u8);
-      0003A4 8E*00            [24] 1121 	mov	_UART_TxNumber_PARM_2,r6
-      0003A6 EF               [12] 1122 	mov	a,r7
-      0003A7 F5*01            [12] 1123 	mov	(_UART_TxNumber_PARM_2 + 1),a
-      0003A9 33               [12] 1124 	rlc	a
-      0003AA 95 E0            [12] 1125 	subb	a,acc
-      0003AC F5*02            [12] 1126 	mov	(_UART_TxNumber_PARM_2 + 2),a
-      0003AE F5*03            [12] 1127 	mov	(_UART_TxNumber_PARM_2 + 3),a
-      0003B0 A8*00            [24] 1128 	mov	r0,_bp
-      0003B2 08               [12] 1129 	inc	r0
-      0003B3 86*04            [24] 1130 	mov	_UART_TxNumber_PARM_3,@r0
-      0003B5 75 82 0A         [24] 1131 	mov	dpl,#0x0a
-      0003B8 12r01r10         [24] 1132 	lcall	_UART_TxNumber
-                                   1133 ;	src/libs/uart.c:460: break;
-      0003BB 02r05r85         [24] 1134 	ljmp	00139$
-                                   1135 ;	src/libs/uart.c:462: case 'D':    /* Argument type is of integer, hence read 16bit data from the argp */
-      0003BE                       1136 00114$:
-                                   1137 ;	src/libs/uart.c:463: v_num_s32 = va_arg(argp, sint32_t);                
-      0003BE E5*00            [12] 1138 	mov	a,_bp
-      0003C0 24 05            [12] 1139 	add	a,#0x05
-      0003C2 F8               [12] 1140 	mov	r0,a
-      0003C3 E6               [12] 1141 	mov	a,@r0
-      0003C4 24 FC            [12] 1142 	add	a,#0xfc
-      0003C6 FF               [12] 1143 	mov	r7,a
-      0003C7 E5*00            [12] 1144 	mov	a,_bp
-      0003C9 24 05            [12] 1145 	add	a,#0x05
-      0003CB F8               [12] 1146 	mov	r0,a
-      0003CC A6 07            [24] 1147 	mov	@r0,ar7
-      0003CE 8F 01            [24] 1148 	mov	ar1,r7
-      0003D0 87 04            [24] 1149 	mov	ar4,@r1
-      0003D2 09               [12] 1150 	inc	r1
-      0003D3 87 05            [24] 1151 	mov	ar5,@r1
-      0003D5 09               [12] 1152 	inc	r1
-      0003D6 87 06            [24] 1153 	mov	ar6,@r1
-      0003D8 09               [12] 1154 	inc	r1
-      0003D9 87 07            [24] 1155 	mov	ar7,@r1
-      0003DB 19               [12] 1156 	dec	r1
-      0003DC 19               [12] 1157 	dec	r1
-      0003DD 19               [12] 1158 	dec	r1
-                                   1159 ;	src/libs/uart.c:464: if(v_num_s32<0)
-      0003DE EF               [12] 1160 	mov	a,r7
-      0003DF 30 E7 23         [24] 1161 	jnb	acc.7,00116$
-                                   1162 ;	src/libs/uart.c:466: v_num_s32 = -v_num_s32;
-      0003E2 C3               [12] 1163 	clr	c
-      0003E3 E4               [12] 1164 	clr	a
-      0003E4 9C               [12] 1165 	subb	a,r4
-      0003E5 FC               [12] 1166 	mov	r4,a
-      0003E6 E4               [12] 1167 	clr	a
-      0003E7 9D               [12] 1168 	subb	a,r5
-      0003E8 FD               [12] 1169 	mov	r5,a
-      0003E9 E4               [12] 1170 	clr	a
-      0003EA 9E               [12] 1171 	subb	a,r6
-      0003EB FE               [12] 1172 	mov	r6,a
-      0003EC E4               [12] 1173 	clr	a
-      0003ED 9F               [12] 1174 	subb	a,r7
-      0003EE FF               [12] 1175 	mov	r7,a
-                                   1176 ;	src/libs/uart.c:467: UART_TxChar('-');
-      0003EF 75 82 2D         [24] 1177 	mov	dpl,#0x2d
-      0003F2 C0 07            [24] 1178 	push	ar7
-      0003F4 C0 06            [24] 1179 	push	ar6
-      0003F6 C0 05            [24] 1180 	push	ar5
-      0003F8 C0 04            [24] 1181 	push	ar4
-      0003FA 12r00r7B         [24] 1182 	lcall	_UART_TxChar
-      0003FD D0 04            [24] 1183 	pop	ar4
-      0003FF D0 05            [24] 1184 	pop	ar5
-      000401 D0 06            [24] 1185 	pop	ar6
-      000403 D0 07            [24] 1186 	pop	ar7
-      000405                       1187 00116$:
-                                   1188 ;	src/libs/uart.c:469: UART_TxNumber(C_DECIMAL_U8,v_num_s32,v_numOfDigitsToTransmit_u8);            
-      000405 8C*00            [24] 1189 	mov	_UART_TxNumber_PARM_2,r4
-      000407 8D*01            [24] 1190 	mov	(_UART_TxNumber_PARM_2 + 1),r5
-      000409 8E*02            [24] 1191 	mov	(_UART_TxNumber_PARM_2 + 2),r6
-      00040B 8F*03            [24] 1192 	mov	(_UART_TxNumber_PARM_2 + 3),r7
-      00040D A8*00            [24] 1193 	mov	r0,_bp
-      00040F 08               [12] 1194 	inc	r0
-      000410 86*04            [24] 1195 	mov	_UART_TxNumber_PARM_3,@r0
-      000412 75 82 0A         [24] 1196 	mov	dpl,#0x0a
-      000415 12r01r10         [24] 1197 	lcall	_UART_TxNumber
-                                   1198 ;	src/libs/uart.c:470: break;    
-      000418 02r05r85         [24] 1199 	ljmp	00139$
-                                   1200 ;	src/libs/uart.c:472: case 'u':    /* Argument type is of unsigned integer, hence read 16bit unsigned data */
-      00041B                       1201 00117$:
-                                   1202 ;	src/libs/uart.c:473: v_num_u16 = va_arg(argp, uint16_t);            
-      00041B E5*00            [12] 1203 	mov	a,_bp
-      00041D 24 05            [12] 1204 	add	a,#0x05
-      00041F F8               [12] 1205 	mov	r0,a
-      000420 E6               [12] 1206 	mov	a,@r0
-      000421 24 FE            [12] 1207 	add	a,#0xfe
-      000423 FF               [12] 1208 	mov	r7,a
-      000424 E5*00            [12] 1209 	mov	a,_bp
-      000426 24 05            [12] 1210 	add	a,#0x05
-      000428 F8               [12] 1211 	mov	r0,a
-      000429 A6 07            [24] 1212 	mov	@r0,ar7
-      00042B 8F 01            [24] 1213 	mov	ar1,r7
-      00042D 87 06            [24] 1214 	mov	ar6,@r1
-      00042F 09               [12] 1215 	inc	r1
-      000430 87 07            [24] 1216 	mov	ar7,@r1
-      000432 19               [12] 1217 	dec	r1
-                                   1218 ;	src/libs/uart.c:474: UART_TxNumber(C_DECIMAL_U8,v_num_u16,v_numOfDigitsToTransmit_u8);                
-      000433 8E*00            [24] 1219 	mov	_UART_TxNumber_PARM_2,r6
-      000435 8F*01            [24] 1220 	mov	(_UART_TxNumber_PARM_2 + 1),r7
-      000437 75*02 00         [24] 1221 	mov	(_UART_TxNumber_PARM_2 + 2),#0x00
-      00043A 75*03 00         [24] 1222 	mov	(_UART_TxNumber_PARM_2 + 3),#0x00
-      00043D A8*00            [24] 1223 	mov	r0,_bp
-      00043F 08               [12] 1224 	inc	r0
-      000440 86*04            [24] 1225 	mov	_UART_TxNumber_PARM_3,@r0
-      000442 75 82 0A         [24] 1226 	mov	dpl,#0x0a
-      000445 12r01r10         [24] 1227 	lcall	_UART_TxNumber
-                                   1228 ;	src/libs/uart.c:475: break;
-      000448 02r05r85         [24] 1229 	ljmp	00139$
-                                   1230 ;	src/libs/uart.c:477: case 'U':    /* Argument type is of integer, hence read 32bit unsigend data */
-      00044B                       1231 00118$:
-                                   1232 ;	src/libs/uart.c:478: v_num_u32 = va_arg(argp, uint32_t);            
-      00044B E5*00            [12] 1233 	mov	a,_bp
-      00044D 24 05            [12] 1234 	add	a,#0x05
-      00044F F8               [12] 1235 	mov	r0,a
-      000450 E6               [12] 1236 	mov	a,@r0
-      000451 24 FC            [12] 1237 	add	a,#0xfc
-      000453 FF               [12] 1238 	mov	r7,a
-      000454 E5*00            [12] 1239 	mov	a,_bp
-      000456 24 05            [12] 1240 	add	a,#0x05
-      000458 F8               [12] 1241 	mov	r0,a
-      000459 A6 07            [24] 1242 	mov	@r0,ar7
-      00045B 8F 01            [24] 1243 	mov	ar1,r7
-      00045D 87*00            [24] 1244 	mov	_UART_TxNumber_PARM_2,@r1
-      00045F 09               [12] 1245 	inc	r1
-      000460 87*01            [24] 1246 	mov	(_UART_TxNumber_PARM_2 + 1),@r1
-      000462 09               [12] 1247 	inc	r1
-      000463 87*02            [24] 1248 	mov	(_UART_TxNumber_PARM_2 + 2),@r1
-      000465 09               [12] 1249 	inc	r1
-      000466 87*03            [24] 1250 	mov	(_UART_TxNumber_PARM_2 + 3),@r1
-      000468 19               [12] 1251 	dec	r1
-      000469 19               [12] 1252 	dec	r1
-      00046A 19               [12] 1253 	dec	r1
-                                   1254 ;	src/libs/uart.c:479: UART_TxNumber(C_DECIMAL_U8,v_num_u32,v_numOfDigitsToTransmit_u8);                
-      00046B A8*00            [24] 1255 	mov	r0,_bp
-      00046D 08               [12] 1256 	inc	r0
-      00046E 86*04            [24] 1257 	mov	_UART_TxNumber_PARM_3,@r0
-      000470 75 82 0A         [24] 1258 	mov	dpl,#0x0a
-      000473 12r01r10         [24] 1259 	lcall	_UART_TxNumber
-                                   1260 ;	src/libs/uart.c:480: break;            
-      000476 02r05r85         [24] 1261 	ljmp	00139$
-                                   1262 ;	src/libs/uart.c:482: case 'x':  /* Argument type is of hex, hence hexadecimal data from the argp */
-      000479                       1263 00119$:
-                                   1264 ;	src/libs/uart.c:483: v_num_u16 = va_arg(argp, uint16_t);                
-      000479 E5*00            [12] 1265 	mov	a,_bp
-      00047B 24 05            [12] 1266 	add	a,#0x05
-      00047D F8               [12] 1267 	mov	r0,a
-      00047E E6               [12] 1268 	mov	a,@r0
-      00047F 24 FE            [12] 1269 	add	a,#0xfe
-      000481 FF               [12] 1270 	mov	r7,a
-      000482 E5*00            [12] 1271 	mov	a,_bp
-      000484 24 05            [12] 1272 	add	a,#0x05
-      000486 F8               [12] 1273 	mov	r0,a
-      000487 A6 07            [24] 1274 	mov	@r0,ar7
-      000489 8F 01            [24] 1275 	mov	ar1,r7
-      00048B 87 06            [24] 1276 	mov	ar6,@r1
-      00048D 09               [12] 1277 	inc	r1
-      00048E 87 07            [24] 1278 	mov	ar7,@r1
-      000490 19               [12] 1279 	dec	r1
-                                   1280 ;	src/libs/uart.c:484: UART_TxNumber(C_HEX_U8,v_num_u16,v_numOfDigitsToTransmit_u8);            
-      000491 8E*00            [24] 1281 	mov	_UART_TxNumber_PARM_2,r6
-      000493 8F*01            [24] 1282 	mov	(_UART_TxNumber_PARM_2 + 1),r7
-      000495 75*02 00         [24] 1283 	mov	(_UART_TxNumber_PARM_2 + 2),#0x00
-      000498 75*03 00         [24] 1284 	mov	(_UART_TxNumber_PARM_2 + 3),#0x00
-      00049B A8*00            [24] 1285 	mov	r0,_bp
-      00049D 08               [12] 1286 	inc	r0
-      00049E 86*04            [24] 1287 	mov	_UART_TxNumber_PARM_3,@r0
-      0004A0 75 82 10         [24] 1288 	mov	dpl,#0x10
-      0004A3 12r01r10         [24] 1289 	lcall	_UART_TxNumber
-                                   1290 ;	src/libs/uart.c:485: break;
-      0004A6 02r05r85         [24] 1291 	ljmp	00139$
-                                   1292 ;	src/libs/uart.c:487: case 'X':  /* Argument type is of hex, hence hexadecimal data from the argp */
-      0004A9                       1293 00120$:
-                                   1294 ;	src/libs/uart.c:488: v_num_u32 = va_arg(argp, uint32_t);                        
-      0004A9 E5*00            [12] 1295 	mov	a,_bp
-      0004AB 24 05            [12] 1296 	add	a,#0x05
-      0004AD F8               [12] 1297 	mov	r0,a
-      0004AE E6               [12] 1298 	mov	a,@r0
-      0004AF 24 FC            [12] 1299 	add	a,#0xfc
-      0004B1 FF               [12] 1300 	mov	r7,a
-      0004B2 E5*00            [12] 1301 	mov	a,_bp
-      0004B4 24 05            [12] 1302 	add	a,#0x05
-      0004B6 F8               [12] 1303 	mov	r0,a
-      0004B7 A6 07            [24] 1304 	mov	@r0,ar7
-      0004B9 8F 01            [24] 1305 	mov	ar1,r7
-      0004BB 87*00            [24] 1306 	mov	_UART_TxNumber_PARM_2,@r1
-      0004BD 09               [12] 1307 	inc	r1
-      0004BE 87*01            [24] 1308 	mov	(_UART_TxNumber_PARM_2 + 1),@r1
-      0004C0 09               [12] 1309 	inc	r1
-      0004C1 87*02            [24] 1310 	mov	(_UART_TxNumber_PARM_2 + 2),@r1
-      0004C3 09               [12] 1311 	inc	r1
-      0004C4 87*03            [24] 1312 	mov	(_UART_TxNumber_PARM_2 + 3),@r1
-      0004C6 19               [12] 1313 	dec	r1
-      0004C7 19               [12] 1314 	dec	r1
-      0004C8 19               [12] 1315 	dec	r1
-                                   1316 ;	src/libs/uart.c:489: UART_TxNumber(C_HEX_U8,v_num_u32,v_numOfDigitsToTransmit_u8);                
-      0004C9 A8*00            [24] 1317 	mov	r0,_bp
-      0004CB 08               [12] 1318 	inc	r0
-      0004CC 86*04            [24] 1319 	mov	_UART_TxNumber_PARM_3,@r0
-      0004CE 75 82 10         [24] 1320 	mov	dpl,#0x10
-      0004D1 12r01r10         [24] 1321 	lcall	_UART_TxNumber
-                                   1322 ;	src/libs/uart.c:490: break;
-      0004D4 02r05r85         [24] 1323 	ljmp	00139$
-                                   1324 ;	src/libs/uart.c:493: case 'b':  /* Argument type is of binary,Read int and convert to binary */
-      0004D7                       1325 00121$:
-                                   1326 ;	src/libs/uart.c:494: v_num_u16 = va_arg(argp, uint16_t);        
-      0004D7 E5*00            [12] 1327 	mov	a,_bp
-      0004D9 24 05            [12] 1328 	add	a,#0x05
-      0004DB F8               [12] 1329 	mov	r0,a
-      0004DC E6               [12] 1330 	mov	a,@r0
-      0004DD 24 FE            [12] 1331 	add	a,#0xfe
-      0004DF FF               [12] 1332 	mov	r7,a
-      0004E0 E5*00            [12] 1333 	mov	a,_bp
-      0004E2 24 05            [12] 1334 	add	a,#0x05
-      0004E4 F8               [12] 1335 	mov	r0,a
-      0004E5 A6 07            [24] 1336 	mov	@r0,ar7
-      0004E7 8F 01            [24] 1337 	mov	ar1,r7
-      0004E9 87 06            [24] 1338 	mov	ar6,@r1
-      0004EB 09               [12] 1339 	inc	r1
-      0004EC 87 07            [24] 1340 	mov	ar7,@r1
-      0004EE 19               [12] 1341 	dec	r1
-                                   1342 ;	src/libs/uart.c:496: if(v_numOfDigitsToTransmit_u8 == C_MaxDigitsToTransmitUsingPrintf_U8)
-      0004EF A8*00            [24] 1343 	mov	r0,_bp
-      0004F1 08               [12] 1344 	inc	r0
-      0004F2 B6 FF 05         [24] 1345 	cjne	@r0,#0xff,00123$
-                                   1346 ;	src/libs/uart.c:497: v_numOfDigitsToTransmit_u8 = 16;
-      0004F5 A8*00            [24] 1347 	mov	r0,_bp
-      0004F7 08               [12] 1348 	inc	r0
-      0004F8 76 10            [12] 1349 	mov	@r0,#0x10
-      0004FA                       1350 00123$:
-                                   1351 ;	src/libs/uart.c:499: UART_TxNumber(C_BINARY_U8,v_num_u16,v_numOfDigitsToTransmit_u8);            
-      0004FA 8E*00            [24] 1352 	mov	_UART_TxNumber_PARM_2,r6
-      0004FC 8F*01            [24] 1353 	mov	(_UART_TxNumber_PARM_2 + 1),r7
-      0004FE 75*02 00         [24] 1354 	mov	(_UART_TxNumber_PARM_2 + 2),#0x00
-      000501 75*03 00         [24] 1355 	mov	(_UART_TxNumber_PARM_2 + 3),#0x00
-      000504 A8*00            [24] 1356 	mov	r0,_bp
-      000506 08               [12] 1357 	inc	r0
-      000507 86*04            [24] 1358 	mov	_UART_TxNumber_PARM_3,@r0
-      000509 75 82 02         [24] 1359 	mov	dpl,#0x02
-      00050C 12r01r10         [24] 1360 	lcall	_UART_TxNumber
-                                   1361 ;	src/libs/uart.c:500: break;
-                                   1362 ;	src/libs/uart.c:502: case 'B':  /* Argument type is of binary,Read int and convert to binary */
-      00050F 80 74            [24] 1363 	sjmp	00139$
-      000511                       1364 00124$:
-                                   1365 ;	src/libs/uart.c:503: v_num_u32 = va_arg(argp, uint32_t);            
-      000511 E5*00            [12] 1366 	mov	a,_bp
-      000513 24 05            [12] 1367 	add	a,#0x05
-      000515 F8               [12] 1368 	mov	r0,a
-      000516 E6               [12] 1369 	mov	a,@r0
-      000517 24 FC            [12] 1370 	add	a,#0xfc
-      000519 FF               [12] 1371 	mov	r7,a
-      00051A E5*00            [12] 1372 	mov	a,_bp
-      00051C 24 05            [12] 1373 	add	a,#0x05
-      00051E F8               [12] 1374 	mov	r0,a
-      00051F A6 07            [24] 1375 	mov	@r0,ar7
-      000521 8F 01            [24] 1376 	mov	ar1,r7
-      000523 87 04            [24] 1377 	mov	ar4,@r1
-      000525 09               [12] 1378 	inc	r1
-      000526 87 05            [24] 1379 	mov	ar5,@r1
-      000528 09               [12] 1380 	inc	r1
-      000529 87 06            [24] 1381 	mov	ar6,@r1
-      00052B 09               [12] 1382 	inc	r1
-      00052C 87 07            [24] 1383 	mov	ar7,@r1
-      00052E 19               [12] 1384 	dec	r1
-      00052F 19               [12] 1385 	dec	r1
-      000530 19               [12] 1386 	dec	r1
-                                   1387 ;	src/libs/uart.c:505: if(v_numOfDigitsToTransmit_u8 == C_MaxDigitsToTransmitUsingPrintf_U8)
-      000531 A8*00            [24] 1388 	mov	r0,_bp
-      000533 08               [12] 1389 	inc	r0
-      000534 B6 FF 05         [24] 1390 	cjne	@r0,#0xff,00126$
-                                   1391 ;	src/libs/uart.c:506: v_numOfDigitsToTransmit_u8 = 32;        
-      000537 A8*00            [24] 1392 	mov	r0,_bp
-      000539 08               [12] 1393 	inc	r0
-      00053A 76 20            [12] 1394 	mov	@r0,#0x20
-      00053C                       1395 00126$:
-                                   1396 ;	src/libs/uart.c:508: UART_TxNumber(C_BINARY_U8,v_num_u32,v_numOfDigitsToTransmit_u8);                
-      00053C 8C*00            [24] 1397 	mov	_UART_TxNumber_PARM_2,r4
-      00053E 8D*01            [24] 1398 	mov	(_UART_TxNumber_PARM_2 + 1),r5
-      000540 8E*02            [24] 1399 	mov	(_UART_TxNumber_PARM_2 + 2),r6
-      000542 8F*03            [24] 1400 	mov	(_UART_TxNumber_PARM_2 + 3),r7
-      000544 A8*00            [24] 1401 	mov	r0,_bp
-      000546 08               [12] 1402 	inc	r0
-      000547 86*04            [24] 1403 	mov	_UART_TxNumber_PARM_3,@r0
-      000549 75 82 02         [24] 1404 	mov	dpl,#0x02
-      00054C 12r01r10         [24] 1405 	lcall	_UART_TxNumber
-                                   1406 ;	src/libs/uart.c:509: break;
-                                   1407 ;	src/libs/uart.c:522: case 's': /* Argument type is of string, hence get the pointer to sting passed */
-      00054F 80 34            [24] 1408 	sjmp	00139$
-      000551                       1409 00130$:
-                                   1410 ;	src/libs/uart.c:523: str = va_arg(argp, char *);
-      000551 E5*00            [12] 1411 	mov	a,_bp
-      000553 24 05            [12] 1412 	add	a,#0x05
-      000555 F8               [12] 1413 	mov	r0,a
-      000556 E6               [12] 1414 	mov	a,@r0
-      000557 24 FD            [12] 1415 	add	a,#0xfd
-      000559 FF               [12] 1416 	mov	r7,a
-      00055A E5*00            [12] 1417 	mov	a,_bp
-      00055C 24 05            [12] 1418 	add	a,#0x05
-      00055E F8               [12] 1419 	mov	r0,a
-      00055F A6 07            [24] 1420 	mov	@r0,ar7
-      000561 8F 01            [24] 1421 	mov	ar1,r7
-      000563 87 05            [24] 1422 	mov	ar5,@r1
-      000565 09               [12] 1423 	inc	r1
-      000566 87 06            [24] 1424 	mov	ar6,@r1
-      000568 09               [12] 1425 	inc	r1
-      000569 87 07            [24] 1426 	mov	ar7,@r1
-      00056B 19               [12] 1427 	dec	r1
-      00056C 19               [12] 1428 	dec	r1
-                                   1429 ;	src/libs/uart.c:524: UART_TxString(str);            
-      00056D 8D 82            [24] 1430 	mov	dpl,r5
-      00056F 8E 83            [24] 1431 	mov	dph,r6
-      000571 8F F0            [24] 1432 	mov	b,r7
-      000573 12r00r84         [24] 1433 	lcall	_UART_TxString
-                                   1434 ;	src/libs/uart.c:525: break;
-                                   1435 ;	src/libs/uart.c:527: case '%':
-      000576 80 0D            [24] 1436 	sjmp	00139$
-      000578                       1437 00131$:
-                                   1438 ;	src/libs/uart.c:528: UART_TxChar('%');
-      000578 75 82 25         [24] 1439 	mov	dpl,#0x25
-      00057B 12r00r7B         [24] 1440 	lcall	_UART_TxChar
-                                   1441 ;	src/libs/uart.c:530: }
-      00057E 80 05            [24] 1442 	sjmp	00139$
-      000580                       1443 00134$:
-                                   1444 ;	src/libs/uart.c:535: UART_TxChar(ch);
-      000580 8B 82            [24] 1445 	mov	dpl,r3
-      000582 12r00r7B         [24] 1446 	lcall	_UART_TxChar
-      000585                       1447 00139$:
-                                   1448 ;	src/libs/uart.c:420: for(ptr = argList; *ptr != '\0'; ptr++)
-      000585 A8*00            [24] 1449 	mov	r0,_bp
-      000587 08               [12] 1450 	inc	r0
-      000588 08               [12] 1451 	inc	r0
-      000589 06               [12] 1452 	inc	@r0
-      00058A B6 00 02         [24] 1453 	cjne	@r0,#0x00,00310$
-      00058D 08               [12] 1454 	inc	r0
-      00058E 06               [12] 1455 	inc	@r0
-      00058F                       1456 00310$:
-      00058F 02r02r6B         [24] 1457 	ljmp	00138$
-                                   1458 ;	src/libs/uart.c:539: va_end(argp);
-      000592                       1459 00140$:
-                                   1460 ;	src/libs/uart.c:540: }
-      000592 85*00 81         [24] 1461 	mov	sp,_bp
-      000595 D0*00            [24] 1462 	pop	_bp
-      000597 22               [24] 1463 	ret
-                                   1464 	.area CSEG    (CODE)
-                                   1465 	.area CONST   (CODE)
-                                   1466 	.area XINIT   (CODE)
-                                   1467 	.area CABS    (ABS,CODE)
+                                    311 	.area XABS    (ABS,XDATA)
+                                    312 ;--------------------------------------------------------
+                                    313 ; external initialized ram data
+                                    314 ;--------------------------------------------------------
+                                    315 	.area XISEG   (XDATA)
+                                    316 	.area HOME    (CODE)
+                                    317 	.area GSINIT0 (CODE)
+                                    318 	.area GSINIT1 (CODE)
+                                    319 	.area GSINIT2 (CODE)
+                                    320 	.area GSINIT3 (CODE)
+                                    321 	.area GSINIT4 (CODE)
+                                    322 	.area GSINIT5 (CODE)
+                                    323 	.area GSINIT  (CODE)
+                                    324 	.area GSFINAL (CODE)
+                                    325 	.area CSEG    (CODE)
+                                    326 ;--------------------------------------------------------
+                                    327 ; global & static initialisations
+                                    328 ;--------------------------------------------------------
+                                    329 	.area HOME    (CODE)
+                                    330 	.area GSINIT  (CODE)
+                                    331 	.area GSFINAL (CODE)
+                                    332 	.area GSINIT  (CODE)
+                                    333 ;--------------------------------------------------------
+                                    334 ; Home
+                                    335 ;--------------------------------------------------------
+                                    336 	.area HOME    (CODE)
+                                    337 	.area HOME    (CODE)
+                                    338 ;--------------------------------------------------------
+                                    339 ; code
+                                    340 ;--------------------------------------------------------
+                                    341 	.area CSEG    (CODE)
+                                    342 ;------------------------------------------------------------
+                                    343 ;Allocation info for local variables in function 'serial_begin'
+                                    344 ;------------------------------------------------------------
+                                    345 ;baudrate                  Allocated to registers r4 r5 r6 r7 
+                                    346 ;------------------------------------------------------------
+                                    347 ;	src/libs/uart.c:3: void serial_begin(uint32_t baudrate){
+                                    348 ;	-----------------------------------------
+                                    349 ;	 function serial_begin
+                                    350 ;	-----------------------------------------
+      000000                        351 _serial_begin:
+                           000007   352 	ar7 = 0x07
+                           000006   353 	ar6 = 0x06
+                           000005   354 	ar5 = 0x05
+                           000004   355 	ar4 = 0x04
+                           000003   356 	ar3 = 0x03
+                           000002   357 	ar2 = 0x02
+                           000001   358 	ar1 = 0x01
+                           000000   359 	ar0 = 0x00
+      000000 AC 82            [24]  360 	mov	r4,dpl
+      000002 AD 83            [24]  361 	mov	r5,dph
+      000004 AE F0            [24]  362 	mov	r6,b
+      000006 FF               [12]  363 	mov	r7,a
+                                    364 ;	src/libs/uart.c:4: TMOD |= 0x20;
+      000007 43 89 20         [24]  365 	orl	_TMOD,#0x20
+                                    366 ;	src/libs/uart.c:5: SCON = 0x50;
+      00000A 75 98 50         [24]  367 	mov	_SCON,#0x50
+                                    368 ;	src/libs/uart.c:6: TR1 = 1;
+                                    369 ;	assignBit
+      00000D D2 8E            [12]  370 	setb	_TR1
+                                    371 ;	src/libs/uart.c:7: if (baudrate == 9600){
+      00000F BC 80 0D         [24]  372 	cjne	r4,#0x80,00108$
+      000012 BD 25 0A         [24]  373 	cjne	r5,#0x25,00108$
+      000015 BE 00 07         [24]  374 	cjne	r6,#0x00,00108$
+      000018 BF 00 04         [24]  375 	cjne	r7,#0x00,00108$
+                                    376 ;	src/libs/uart.c:8: TH1 = GET_TH1_VAL_9600;
+      00001B 75 8D FD         [24]  377 	mov	_TH1,#0xfd
+      00001E 22               [24]  378 	ret
+      00001F                        379 00108$:
+                                    380 ;	src/libs/uart.c:9: } else if (baudrate == 4800){
+      00001F BC C0 0D         [24]  381 	cjne	r4,#0xc0,00105$
+      000022 BD 12 0A         [24]  382 	cjne	r5,#0x12,00105$
+      000025 BE 00 07         [24]  383 	cjne	r6,#0x00,00105$
+      000028 BF 00 04         [24]  384 	cjne	r7,#0x00,00105$
+                                    385 ;	src/libs/uart.c:10: TH1 = GET_TH1_VAL_4800;
+      00002B 75 8D FA         [24]  386 	mov	_TH1,#0xfa
+      00002E 22               [24]  387 	ret
+      00002F                        388 00105$:
+                                    389 ;	src/libs/uart.c:11: } else if (baudrate == 2400){
+      00002F BC 60 0D         [24]  390 	cjne	r4,#0x60,00102$
+      000032 BD 09 0A         [24]  391 	cjne	r5,#0x09,00102$
+      000035 BE 00 07         [24]  392 	cjne	r6,#0x00,00102$
+      000038 BF 00 04         [24]  393 	cjne	r7,#0x00,00102$
+                                    394 ;	src/libs/uart.c:12: TH1 = GET_TH1_VAL_2400;
+      00003B 75 8D F4         [24]  395 	mov	_TH1,#0xf4
+      00003E 22               [24]  396 	ret
+      00003F                        397 00102$:
+                                    398 ;	src/libs/uart.c:14: TH1 = GET_TH1_VAL_1200;
+      00003F 75 8D E8         [24]  399 	mov	_TH1,#0xe8
+                                    400 ;	src/libs/uart.c:16: }
+      000042 22               [24]  401 	ret
+                                    402 ;------------------------------------------------------------
+                                    403 ;Allocation info for local variables in function 'rx_char'
+                                    404 ;------------------------------------------------------------
+                                    405 ;rx                        Allocated to registers 
+                                    406 ;------------------------------------------------------------
+                                    407 ;	src/libs/uart.c:18: char rx_char(){
+                                    408 ;	-----------------------------------------
+                                    409 ;	 function rx_char
+                                    410 ;	-----------------------------------------
+      000043                        411 _rx_char:
+                                    412 ;	src/libs/uart.c:20: while(RI == 0);
+      000043                        413 00101$:
+      000043 30 98 FD         [24]  414 	jnb	_RI,00101$
+                                    415 ;	src/libs/uart.c:21: rx = SBUF;
+      000046 85 99 82         [24]  416 	mov	dpl,_SBUF
+                                    417 ;	src/libs/uart.c:22: RI = 0;
+                                    418 ;	assignBit
+      000049 C2 98            [12]  419 	clr	_RI
+                                    420 ;	src/libs/uart.c:24: return rx;
+                                    421 ;	src/libs/uart.c:25: }
+      00004B 22               [24]  422 	ret
+                                    423 ;------------------------------------------------------------
+                                    424 ;Allocation info for local variables in function 'tx_char'
+                                    425 ;------------------------------------------------------------
+                                    426 ;data                      Allocated to registers 
+                                    427 ;------------------------------------------------------------
+                                    428 ;	src/libs/uart.c:27: void tx_char(char data){
+                                    429 ;	-----------------------------------------
+                                    430 ;	 function tx_char
+                                    431 ;	-----------------------------------------
+      00004C                        432 _tx_char:
+      00004C 85 82 99         [24]  433 	mov	_SBUF,dpl
+                                    434 ;	src/libs/uart.c:29: while(TI == 0);
+      00004F                        435 00101$:
+                                    436 ;	src/libs/uart.c:30: TI = 0;
+                                    437 ;	assignBit
+      00004F 10 99 02         [24]  438 	jbc	_TI,00114$
+      000052 80 FB            [24]  439 	sjmp	00101$
+      000054                        440 00114$:
+                                    441 ;	src/libs/uart.c:31: }
+      000054 22               [24]  442 	ret
+                                    443 ;------------------------------------------------------------
+                                    444 ;Allocation info for local variables in function 'tx_string'
+                                    445 ;------------------------------------------------------------
+                                    446 ;data                      Allocated to registers 
+                                    447 ;------------------------------------------------------------
+                                    448 ;	src/libs/uart.c:33: void tx_string(char *data){
+                                    449 ;	-----------------------------------------
+                                    450 ;	 function tx_string
+                                    451 ;	-----------------------------------------
+      000055                        452 _tx_string:
+      000055 AD 82            [24]  453 	mov	r5,dpl
+      000057 AE 83            [24]  454 	mov	r6,dph
+      000059 AF F0            [24]  455 	mov	r7,b
+                                    456 ;	src/libs/uart.c:34: while(*data){
+      00005B                        457 00101$:
+      00005B 8D 82            [24]  458 	mov	dpl,r5
+      00005D 8E 83            [24]  459 	mov	dph,r6
+      00005F 8F F0            [24]  460 	mov	b,r7
+      000061 12r00r00         [24]  461 	lcall	__gptrget
+      000064 FC               [12]  462 	mov	r4,a
+      000065 60 18            [24]  463 	jz	00104$
+                                    464 ;	src/libs/uart.c:35: tx_char(*data++);
+      000067 8C 82            [24]  465 	mov	dpl,r4
+      000069 0D               [12]  466 	inc	r5
+      00006A BD 00 01         [24]  467 	cjne	r5,#0x00,00116$
+      00006D 0E               [12]  468 	inc	r6
+      00006E                        469 00116$:
+      00006E C0 07            [24]  470 	push	ar7
+      000070 C0 06            [24]  471 	push	ar6
+      000072 C0 05            [24]  472 	push	ar5
+      000074 12r00r4C         [24]  473 	lcall	_tx_char
+      000077 D0 05            [24]  474 	pop	ar5
+      000079 D0 06            [24]  475 	pop	ar6
+      00007B D0 07            [24]  476 	pop	ar7
+      00007D 80 DC            [24]  477 	sjmp	00101$
+      00007F                        478 00104$:
+                                    479 ;	src/libs/uart.c:37: }
+      00007F 22               [24]  480 	ret
+                                    481 ;------------------------------------------------------------
+                                    482 ;Allocation info for local variables in function 'rx_string'
+                                    483 ;------------------------------------------------------------
+                                    484 ;data                      Allocated to registers r5 r6 r7 
+                                    485 ;ch                        Allocated to registers r3 
+                                    486 ;len                       Allocated to registers r4 
+                                    487 ;------------------------------------------------------------
+                                    488 ;	src/libs/uart.c:39: uint8_t rx_string(char *data){
+                                    489 ;	-----------------------------------------
+                                    490 ;	 function rx_string
+                                    491 ;	-----------------------------------------
+      000080                        492 _rx_string:
+      000080 AD 82            [24]  493 	mov	r5,dpl
+      000082 AE 83            [24]  494 	mov	r6,dph
+      000084 AF F0            [24]  495 	mov	r7,b
+                                    496 ;	src/libs/uart.c:42: uint8_t len = 0;
+      000086 7C 00            [12]  497 	mov	r4,#0x00
+                                    498 ;	src/libs/uart.c:43: while(1)
+      000088                        499 00111$:
+                                    500 ;	src/libs/uart.c:45: ch=rx_char();    //Receive a char
+      000088 C0 07            [24]  501 	push	ar7
+      00008A C0 06            [24]  502 	push	ar6
+      00008C C0 05            [24]  503 	push	ar5
+      00008E C0 04            [24]  504 	push	ar4
+      000090 12r00r43         [24]  505 	lcall	_rx_char
+                                    506 ;	src/libs/uart.c:46: tx_char(ch);     //Echo back the received char
+      000093 AB 82            [24]  507 	mov  r3,dpl
+      000095 C0 03            [24]  508 	push	ar3
+      000097 12r00r4C         [24]  509 	lcall	_tx_char
+      00009A D0 03            [24]  510 	pop	ar3
+      00009C D0 04            [24]  511 	pop	ar4
+      00009E D0 05            [24]  512 	pop	ar5
+      0000A0 D0 06            [24]  513 	pop	ar6
+      0000A2 D0 07            [24]  514 	pop	ar7
+                                    515 ;	src/libs/uart.c:47: if((ch == '\r') || (ch == '\n') || (ch=='\0')) //read till enter key is pressed
+      0000A4 BB 0D 02         [24]  516 	cjne	r3,#0x0d,00135$
+      0000A7 80 08            [24]  517 	sjmp	00105$
+      0000A9                        518 00135$:
+      0000A9 BB 0A 02         [24]  519 	cjne	r3,#0x0a,00136$
+      0000AC 80 03            [24]  520 	sjmp	00105$
+      0000AE                        521 00136$:
+      0000AE EB               [12]  522 	mov	a,r3
+      0000AF 70 14            [24]  523 	jnz	00106$
+      0000B1                        524 00105$:
+                                    525 ;	src/libs/uart.c:49: data[len]=0;           //and break the loop
+      0000B1 EC               [12]  526 	mov	a,r4
+      0000B2 2D               [12]  527 	add	a,r5
+      0000B3 F8               [12]  528 	mov	r0,a
+      0000B4 E4               [12]  529 	clr	a
+      0000B5 3E               [12]  530 	addc	a,r6
+      0000B6 F9               [12]  531 	mov	r1,a
+      0000B7 8F 02            [24]  532 	mov	ar2,r7
+      0000B9 88 82            [24]  533 	mov	dpl,r0
+      0000BB 89 83            [24]  534 	mov	dph,r1
+      0000BD 8A F0            [24]  535 	mov	b,r2
+      0000BF E4               [12]  536 	clr	a
+      0000C0 12r00r00         [24]  537 	lcall	__gptrput
+                                    538 ;	src/libs/uart.c:50: break;                  
+      0000C3 80 1E            [24]  539 	sjmp	00112$
+      0000C5                        540 00106$:
+                                    541 ;	src/libs/uart.c:52: else if((ch=='\b') && (len!=0))
+      0000C5 BB 08 06         [24]  542 	cjne	r3,#0x08,00102$
+      0000C8 EC               [12]  543 	mov	a,r4
+      0000C9 60 03            [24]  544 	jz	00102$
+                                    545 ;	src/libs/uart.c:54: len--;    //If backspace is pressed then decrement the index to remove the old char
+      0000CB 1C               [12]  546 	dec	r4
+      0000CC 80 BA            [24]  547 	sjmp	00111$
+      0000CE                        548 00102$:
+                                    549 ;	src/libs/uart.c:58: data[len]=ch; //copy the char into string and increment the index
+      0000CE EC               [12]  550 	mov	a,r4
+      0000CF 2D               [12]  551 	add	a,r5
+      0000D0 F8               [12]  552 	mov	r0,a
+      0000D1 E4               [12]  553 	clr	a
+      0000D2 3E               [12]  554 	addc	a,r6
+      0000D3 F9               [12]  555 	mov	r1,a
+      0000D4 8F 02            [24]  556 	mov	ar2,r7
+      0000D6 88 82            [24]  557 	mov	dpl,r0
+      0000D8 89 83            [24]  558 	mov	dph,r1
+      0000DA 8A F0            [24]  559 	mov	b,r2
+      0000DC EB               [12]  560 	mov	a,r3
+      0000DD 12r00r00         [24]  561 	lcall	__gptrput
+                                    562 ;	src/libs/uart.c:59: len++;
+      0000E0 0C               [12]  563 	inc	r4
+      0000E1 80 A5            [24]  564 	sjmp	00111$
+      0000E3                        565 00112$:
+                                    566 ;	src/libs/uart.c:63: return len;
+      0000E3 8C 82            [24]  567 	mov	dpl,r4
+                                    568 ;	src/libs/uart.c:64: }
+      0000E5 22               [24]  569 	ret
+                                    570 	.area CSEG    (CODE)
+                                    571 	.area CONST   (CODE)
+                                    572 	.area XINIT   (CODE)
+                                    573 	.area CABS    (ABS,CODE)

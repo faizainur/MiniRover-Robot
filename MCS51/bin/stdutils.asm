@@ -369,7 +369,7 @@ _reverse_t_262144_51:
 ;y                         Allocated to registers 
 ;t                         Allocated with name '_reverse_t_262144_51'
 ;------------------------------------------------------------
-;	src/libs/stdutils.c:12: char* reverse(char *buffer, int i, int j)
+;	src/libs/stdutils.c:9: char* reverse(char *buffer, int i, int j)
 ;	-----------------------------------------
 ;	 function reverse
 ;	-----------------------------------------
@@ -385,7 +385,7 @@ _reverse:
 	mov	r5,dpl
 	mov	r6,dph
 	mov	r7,b
-;	src/libs/stdutils.c:14: while (i < j)
+;	src/libs/stdutils.c:11: while (i < j)
 	mov	r3,_reverse_PARM_3
 	mov	r4,(_reverse_PARM_3 + 1)
 	mov	r1,_reverse_PARM_2
@@ -400,7 +400,7 @@ _reverse:
 	xrl	b,#0x80
 	subb	a,b
 	jnc	00103$
-;	src/libs/stdutils.c:15: swap(&buffer[i++], &buffer[j--]);
+;	src/libs/stdutils.c:12: swap(&buffer[i++], &buffer[j--]);
 	mov	a,r3
 	add	a,r5
 	mov	_reverse___1310720002_131072_49,a
@@ -423,7 +423,7 @@ _reverse:
 	cjne	r1,#0x00,00118$
 	inc	r2
 00118$:
-;	src/libs/stdutils.c:8: char t = *x; *x = *y; *y = t;
+;	src/libs/stdutils.c:5: char t = *x; *x = *y; *y = t;
 	mov	dpl,_reverse___1310720001_131072_49
 	mov	dph,(_reverse___1310720001_131072_49 + 1)
 	mov	b,(_reverse___1310720001_131072_49 + 2)
@@ -443,14 +443,14 @@ _reverse:
 	mov	b,(_reverse___1310720002_131072_49 + 2)
 	mov	a,_reverse_t_262144_51
 	lcall	__gptrput
-;	src/libs/stdutils.c:15: swap(&buffer[i++], &buffer[j--]);
+;	src/libs/stdutils.c:12: swap(&buffer[i++], &buffer[j--]);
 	sjmp	00101$
 00103$:
-;	src/libs/stdutils.c:17: return buffer;
+;	src/libs/stdutils.c:14: return buffer;
 	mov	dpl,r5
 	mov	dph,r6
 	mov	b,r7
-;	src/libs/stdutils.c:18: }
+;	src/libs/stdutils.c:15: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'itoa'
@@ -462,14 +462,14 @@ _reverse:
 ;i                         Allocated to registers r2 r3 
 ;r                         Allocated with name '_itoa_r_131073_55'
 ;------------------------------------------------------------
-;	src/libs/stdutils.c:21: char* itoa(int value, char* buffer, int base)
+;	src/libs/stdutils.c:18: char* itoa(int value, char* buffer, int base)
 ;	-----------------------------------------
 ;	 function itoa
 ;	-----------------------------------------
 _itoa:
 	mov	_itoa_value_65536_52,dpl
 	mov	(_itoa_value_65536_52 + 1),dph
-;	src/libs/stdutils.c:24: if (base < 2 || base > 32)
+;	src/libs/stdutils.c:21: if (base < 2 || base > 32)
 	clr	c
 	mov	a,_itoa_PARM_3
 	subb	a,#0x02
@@ -485,29 +485,29 @@ _itoa:
 	subb	a,b
 	jnc	00102$
 00101$:
-;	src/libs/stdutils.c:25: return buffer;
+;	src/libs/stdutils.c:22: return buffer;
 	mov	dpl,_itoa_PARM_2
 	mov	dph,(_itoa_PARM_2 + 1)
 	mov	b,(_itoa_PARM_2 + 2)
 	ret
 00102$:
-;	src/libs/stdutils.c:28: int n = abs(value);
+;	src/libs/stdutils.c:25: int n = abs(value);
 	mov	dpl,_itoa_value_65536_52
 	mov	dph,(_itoa_value_65536_52 + 1)
 	lcall	_abs
 	mov	r4,dpl
 	mov	r5,dph
-;	src/libs/stdutils.c:30: int i = 0;
+;	src/libs/stdutils.c:27: int i = 0;
 	mov	r2,#0x00
 	mov	r3,#0x00
-;	src/libs/stdutils.c:31: while (n)
+;	src/libs/stdutils.c:28: while (n)
 00107$:
 	mov	a,r4
 	orl	a,r5
 	jnz	00147$
 	ljmp	00109$
 00147$:
-;	src/libs/stdutils.c:33: int r = n % base;
+;	src/libs/stdutils.c:30: int r = n % base;
 	mov	__modsint_PARM_2,_itoa_PARM_3
 	mov	(__modsint_PARM_2 + 1),(_itoa_PARM_3 + 1)
 	mov	dpl,r4
@@ -523,7 +523,7 @@ _itoa:
 	pop	ar3
 	pop	ar4
 	pop	ar5
-;	src/libs/stdutils.c:35: if (r >= 10) 
+;	src/libs/stdutils.c:32: if (r >= 10) 
 	clr	c
 	mov	a,_itoa_r_131073_55
 	subb	a,#0x0a
@@ -531,7 +531,7 @@ _itoa:
 	xrl	a,#0x80
 	subb	a,#0x80
 	jc	00105$
-;	src/libs/stdutils.c:36: buffer[i++] = 65 + (r - 10);
+;	src/libs/stdutils.c:33: buffer[i++] = 65 + (r - 10);
 	mov	ar6,r2
 	mov	ar7,r3
 	inc	r2
@@ -555,7 +555,7 @@ _itoa:
 	lcall	__gptrput
 	sjmp	00106$
 00105$:
-;	src/libs/stdutils.c:38: buffer[i++] = 48 + r;
+;	src/libs/stdutils.c:35: buffer[i++] = 48 + r;
 	mov	ar6,r2
 	mov	ar7,r3
 	inc	r2
@@ -578,7 +578,7 @@ _itoa:
 	mov	b,r7
 	lcall	__gptrput
 00106$:
-;	src/libs/stdutils.c:40: n = n / base;
+;	src/libs/stdutils.c:37: n = n / base;
 	mov	__divsint_PARM_2,_itoa_PARM_3
 	mov	(__divsint_PARM_2 + 1),(_itoa_PARM_3 + 1)
 	mov	dpl,r4
@@ -592,11 +592,11 @@ _itoa:
 	pop	ar3
 	ljmp	00107$
 00109$:
-;	src/libs/stdutils.c:44: if (i == 0)
+;	src/libs/stdutils.c:41: if (i == 0)
 	mov	a,r2
 	orl	a,r3
 	jnz	00111$
-;	src/libs/stdutils.c:45: buffer[i++] = '0';
+;	src/libs/stdutils.c:42: buffer[i++] = '0';
 	mov	ar6,r2
 	mov	ar7,r3
 	inc	r2
@@ -616,7 +616,7 @@ _itoa:
 	mov	a,#0x30
 	lcall	__gptrput
 00111$:
-;	src/libs/stdutils.c:50: if (value < 0 && base == 10)
+;	src/libs/stdutils.c:47: if (value < 0 && base == 10)
 	mov	a,(_itoa_value_65536_52 + 1)
 	jnb	acc.7,00113$
 	mov	a,#0x0a
@@ -627,7 +627,7 @@ _itoa:
 00154$:
 	sjmp	00113$
 00155$:
-;	src/libs/stdutils.c:51: buffer[i++] = '-';
+;	src/libs/stdutils.c:48: buffer[i++] = '-';
 	mov	ar6,r2
 	mov	ar7,r3
 	inc	r2
@@ -647,7 +647,7 @@ _itoa:
 	mov	a,#0x2d
 	lcall	__gptrput
 00113$:
-;	src/libs/stdutils.c:53: buffer[i] = '\0'; // null terminate string
+;	src/libs/stdutils.c:50: buffer[i] = '\0'; // null terminate string
 	mov	a,r2
 	add	a,_itoa_PARM_2
 	mov	r5,a
@@ -660,7 +660,7 @@ _itoa:
 	mov	b,r7
 	clr	a
 	lcall	__gptrput
-;	src/libs/stdutils.c:56: return reverse(buffer, 0, i - 1);
+;	src/libs/stdutils.c:53: return reverse(buffer, 0, i - 1);
 	mov	a,r2
 	add	a,#0xff
 	mov	_reverse_PARM_3,a
@@ -673,7 +673,7 @@ _itoa:
 	mov	dpl,_itoa_PARM_2
 	mov	dph,(_itoa_PARM_2 + 1)
 	mov	b,(_itoa_PARM_2 + 2)
-;	src/libs/stdutils.c:57: }
+;	src/libs/stdutils.c:54: }
 	ljmp	_reverse
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

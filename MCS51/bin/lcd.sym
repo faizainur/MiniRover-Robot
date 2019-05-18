@@ -233,7 +233,7 @@ Symbol Table
  16 _LCDDisplayNumber                                              0000F8 GR
   5 _LCDDisplayNumber_PARM_2                                       000003 GR
   5 _LCDDisplayNumber_PARM_3                                       000005 GR
-  5 _LCDDisplayNumber_buffer_65536_86                              000006 R
+  5 _LCDDisplayNumber_buffer_65536_83                              000006 R
  16 _LCDInit                                                       000000 GR
  16 _LCDPrintString                                                00009A GR
   5 _LCDPrintString_PARM_2                                         000000 GR

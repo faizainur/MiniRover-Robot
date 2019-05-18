@@ -2,6 +2,7 @@
 #include "libs/lcd.h"
 #include "libs/delay.h"
 #include "libs/hcsr04.h"
+#include "libs/uart.h"
 
 #define MAX 10
 
@@ -15,20 +16,29 @@ int main(){
 
     initPortPin();
 
-    LCDInit();
-    LCDCmdWrite(CURSOR_TO_FIRST_LINE);
+    // LCDInit();
+    // LCDCmdWrite(CURSOR_TO_FIRST_LINE);
 
-    welcomeScreen();
-    DELAY_ms(1000);
+    // welcomeScreen();
+    // DELAY_ms(1000);
+    // LCDCmdWrite(CLEAR_SCREEN);
+    // LCDPrintString(FIRST_LINE, "Distance : ");
+
+    serial_begin(9600);
+    char buff;
 
     while(1){
-        sendTriggerPulse();
-        measureDistance(result_distance);
-        LCDCmdWrite(CLEAR_SCREEN);
-        LCDPrintString(FIRST_LINE, "Distance : ");
-        LCDDisplayNumber(SECOND_LINE, result_distance, 10);
+        // sendTriggerPulse();
+        // measureDistance(result_distance);
+        // LCDDisplayNumber(SECOND_LINE, result_distance, 10);
         // toggleLed();
-        DELAY_ms(500);
+        buff = rx_char();
+        if (buff == 0x30){
+            P0_0 = 0;
+        } else {
+            P0_0 = 1;
+        }
+        // DELAY_ms(1000);
     }
 }
 
@@ -37,18 +47,18 @@ void initPortPin(){
     P2 = 0x00;
 }
 
-void welcomeScreen(){
-    LCDPrintString(FIRST_LINE, "Faiz Ainur Rofiq");
-    LCDPrintString(SECOND_LINE, "Jurnal IT");
-}
+// void welcomeScreen(){
+//     LCDPrintString(FIRST_LINE, "Faiz Ainur Rofiq");
+//     LCDPrintString(SECOND_LINE, "Jurnal IT");
+// }
 
-void toggleLed(){
-    if (!P0_0){
-        P0_0 = 1;
-    } else {
-        P0_0 = 0;
-    }
-}
+// void toggleLed(){
+//     if (!P0_0){
+//         P0_0 = 1;
+//     } else {
+//         P0_0 = 0;
+//     }
+// }
 
 
 
