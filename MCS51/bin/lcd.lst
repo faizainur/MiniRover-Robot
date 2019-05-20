@@ -408,15 +408,15 @@
                                     408 ;	src/libs/lcd.c:19: EN = HIGH;
                                     409 ;	assignBit
       000023 D2 A2            [12]  410 	setb	_EN
-                                    411 ;	src/libs/lcd.c:20: DELAY_us(1000);
-      000025 90 03 E8         [24]  412 	mov	dptr,#0x03e8
+                                    411 ;	src/libs/lcd.c:20: DELAY_us(10);
+      000025 90 00 0A         [24]  412 	mov	dptr,#0x000a
       000028 C0 07            [24]  413 	push	ar7
       00002A 12r00r00         [24]  414 	lcall	_DELAY_us
                                     415 ;	src/libs/lcd.c:21: EN = LOW;
                                     416 ;	assignBit
       00002D C2 A2            [12]  417 	clr	_EN
-                                    418 ;	src/libs/lcd.c:23: DELAY_us(10000);
-      00002F 90 27 10         [24]  419 	mov	dptr,#0x2710
+                                    418 ;	src/libs/lcd.c:23: DELAY_us(200);
+      00002F 90 00 C8         [24]  419 	mov	dptr,#0x00c8
       000032 12r00r00         [24]  420 	lcall	_DELAY_us
       000035 D0 07            [24]  421 	pop	ar7
                                     422 ;	src/libs/lcd.c:25: LCDDatabus = ((cmd<<4) & 0xF0);
@@ -436,14 +436,14 @@
                                     436 ;	src/libs/lcd.c:28: EN = HIGH;
                                     437 ;	assignBit
       000045 D2 A2            [12]  438 	setb	_EN
-                                    439 ;	src/libs/lcd.c:29: DELAY_us(1000);
-      000047 90 03 E8         [24]  440 	mov	dptr,#0x03e8
+                                    439 ;	src/libs/lcd.c:29: DELAY_us(10);
+      000047 90 00 0A         [24]  440 	mov	dptr,#0x000a
       00004A 12r00r00         [24]  441 	lcall	_DELAY_us
                                     442 ;	src/libs/lcd.c:30: EN = LOW;
                                     443 ;	assignBit
       00004D C2 A2            [12]  444 	clr	_EN
-                                    445 ;	src/libs/lcd.c:32: DELAY_us(10000);
-      00004F 90 27 10         [24]  446 	mov	dptr,#0x2710
+                                    445 ;	src/libs/lcd.c:32: DELAY_us(200);
+      00004F 90 00 C8         [24]  446 	mov	dptr,#0x00c8
       000052 12r00r00         [24]  447 	lcall	_DELAY_us
                                     448 ;	src/libs/lcd.c:33: return 0;
       000055 90 00 00         [24]  449 	mov	dptr,#0x0000
@@ -473,15 +473,15 @@
                                     473 ;	src/libs/lcd.c:41: EN = HIGH;
                                     474 ;	assignBit
       000064 D2 A2            [12]  475 	setb	_EN
-                                    476 ;	src/libs/lcd.c:42: DELAY_us(1000);
-      000066 90 03 E8         [24]  477 	mov	dptr,#0x03e8
+                                    476 ;	src/libs/lcd.c:42: DELAY_us(10);
+      000066 90 00 0A         [24]  477 	mov	dptr,#0x000a
       000069 C0 07            [24]  478 	push	ar7
       00006B 12r00r00         [24]  479 	lcall	_DELAY_us
                                     480 ;	src/libs/lcd.c:43: EN = LOW;
                                     481 ;	assignBit
       00006E C2 A2            [12]  482 	clr	_EN
-                                    483 ;	src/libs/lcd.c:45: DELAY_us(10000);
-      000070 90 27 10         [24]  484 	mov	dptr,#0x2710
+                                    483 ;	src/libs/lcd.c:45: DELAY_us(200);
+      000070 90 00 C8         [24]  484 	mov	dptr,#0x00c8
       000073 12r00r00         [24]  485 	lcall	_DELAY_us
       000076 D0 07            [24]  486 	pop	ar7
                                     487 ;	src/libs/lcd.c:47: LCDDatabus = ((data<<4) & 0xF0);
@@ -501,14 +501,14 @@
                                     501 ;	src/libs/lcd.c:50: EN = HIGH;
                                     502 ;	assignBit
       000086 D2 A2            [12]  503 	setb	_EN
-                                    504 ;	src/libs/lcd.c:51: DELAY_us(1000);
-      000088 90 03 E8         [24]  505 	mov	dptr,#0x03e8
+                                    504 ;	src/libs/lcd.c:51: DELAY_us(10);
+      000088 90 00 0A         [24]  505 	mov	dptr,#0x000a
       00008B 12r00r00         [24]  506 	lcall	_DELAY_us
                                     507 ;	src/libs/lcd.c:52: EN = LOW;
                                     508 ;	assignBit
       00008E C2 A2            [12]  509 	clr	_EN
-                                    510 ;	src/libs/lcd.c:54: DELAY_us(10000);
-      000090 90 27 10         [24]  511 	mov	dptr,#0x2710
+                                    510 ;	src/libs/lcd.c:54: DELAY_us(200);
+      000090 90 00 C8         [24]  511 	mov	dptr,#0x00c8
       000093 12r00r00         [24]  512 	lcall	_DELAY_us
                                     513 ;	src/libs/lcd.c:55: return 0;
       000096 90 00 00         [24]  514 	mov	dptr,#0x0000

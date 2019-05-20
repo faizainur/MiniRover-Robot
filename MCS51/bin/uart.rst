@@ -348,7 +348,7 @@
                                     348 ;	-----------------------------------------
                                     349 ;	 function serial_begin
                                     350 ;	-----------------------------------------
-      0001D6                        351 _serial_begin:
+      000238                        351 _serial_begin:
                            000007   352 	ar7 = 0x07
                            000006   353 	ar6 = 0x06
                            000005   354 	ar5 = 0x05
@@ -357,48 +357,48 @@
                            000002   357 	ar2 = 0x02
                            000001   358 	ar1 = 0x01
                            000000   359 	ar0 = 0x00
-      0001D6 AC 82            [24]  360 	mov	r4,dpl
-      0001D8 AD 83            [24]  361 	mov	r5,dph
-      0001DA AE F0            [24]  362 	mov	r6,b
-      0001DC FF               [12]  363 	mov	r7,a
+      000238 AC 82            [24]  360 	mov	r4,dpl
+      00023A AD 83            [24]  361 	mov	r5,dph
+      00023C AE F0            [24]  362 	mov	r6,b
+      00023E FF               [12]  363 	mov	r7,a
                                     364 ;	src/libs/uart.c:4: TMOD |= 0x20;
-      0001DD 43 89 20         [24]  365 	orl	_TMOD,#0x20
+      00023F 43 89 20         [24]  365 	orl	_TMOD,#0x20
                                     366 ;	src/libs/uart.c:5: SCON = 0x50;
-      0001E0 75 98 50         [24]  367 	mov	_SCON,#0x50
+      000242 75 98 50         [24]  367 	mov	_SCON,#0x50
                                     368 ;	src/libs/uart.c:6: TR1 = 1;
                                     369 ;	assignBit
-      0001E3 D2 8E            [12]  370 	setb	_TR1
+      000245 D2 8E            [12]  370 	setb	_TR1
                                     371 ;	src/libs/uart.c:7: if (baudrate == 9600){
-      0001E5 BC 80 0D         [24]  372 	cjne	r4,#0x80,00108$
-      0001E8 BD 25 0A         [24]  373 	cjne	r5,#0x25,00108$
-      0001EB BE 00 07         [24]  374 	cjne	r6,#0x00,00108$
-      0001EE BF 00 04         [24]  375 	cjne	r7,#0x00,00108$
+      000247 BC 80 0D         [24]  372 	cjne	r4,#0x80,00108$
+      00024A BD 25 0A         [24]  373 	cjne	r5,#0x25,00108$
+      00024D BE 00 07         [24]  374 	cjne	r6,#0x00,00108$
+      000250 BF 00 04         [24]  375 	cjne	r7,#0x00,00108$
                                     376 ;	src/libs/uart.c:8: TH1 = GET_TH1_VAL_9600;
-      0001F1 75 8D FD         [24]  377 	mov	_TH1,#0xfd
-      0001F4 22               [24]  378 	ret
-      0001F5                        379 00108$:
+      000253 75 8D FD         [24]  377 	mov	_TH1,#0xfd
+      000256 22               [24]  378 	ret
+      000257                        379 00108$:
                                     380 ;	src/libs/uart.c:9: } else if (baudrate == 4800){
-      0001F5 BC C0 0D         [24]  381 	cjne	r4,#0xc0,00105$
-      0001F8 BD 12 0A         [24]  382 	cjne	r5,#0x12,00105$
-      0001FB BE 00 07         [24]  383 	cjne	r6,#0x00,00105$
-      0001FE BF 00 04         [24]  384 	cjne	r7,#0x00,00105$
+      000257 BC C0 0D         [24]  381 	cjne	r4,#0xc0,00105$
+      00025A BD 12 0A         [24]  382 	cjne	r5,#0x12,00105$
+      00025D BE 00 07         [24]  383 	cjne	r6,#0x00,00105$
+      000260 BF 00 04         [24]  384 	cjne	r7,#0x00,00105$
                                     385 ;	src/libs/uart.c:10: TH1 = GET_TH1_VAL_4800;
-      000201 75 8D FA         [24]  386 	mov	_TH1,#0xfa
-      000204 22               [24]  387 	ret
-      000205                        388 00105$:
+      000263 75 8D FA         [24]  386 	mov	_TH1,#0xfa
+      000266 22               [24]  387 	ret
+      000267                        388 00105$:
                                     389 ;	src/libs/uart.c:11: } else if (baudrate == 2400){
-      000205 BC 60 0D         [24]  390 	cjne	r4,#0x60,00102$
-      000208 BD 09 0A         [24]  391 	cjne	r5,#0x09,00102$
-      00020B BE 00 07         [24]  392 	cjne	r6,#0x00,00102$
-      00020E BF 00 04         [24]  393 	cjne	r7,#0x00,00102$
+      000267 BC 60 0D         [24]  390 	cjne	r4,#0x60,00102$
+      00026A BD 09 0A         [24]  391 	cjne	r5,#0x09,00102$
+      00026D BE 00 07         [24]  392 	cjne	r6,#0x00,00102$
+      000270 BF 00 04         [24]  393 	cjne	r7,#0x00,00102$
                                     394 ;	src/libs/uart.c:12: TH1 = GET_TH1_VAL_2400;
-      000211 75 8D F4         [24]  395 	mov	_TH1,#0xf4
-      000214 22               [24]  396 	ret
-      000215                        397 00102$:
+      000273 75 8D F4         [24]  395 	mov	_TH1,#0xf4
+      000276 22               [24]  396 	ret
+      000277                        397 00102$:
                                     398 ;	src/libs/uart.c:14: TH1 = GET_TH1_VAL_1200;
-      000215 75 8D E8         [24]  399 	mov	_TH1,#0xe8
+      000277 75 8D E8         [24]  399 	mov	_TH1,#0xe8
                                     400 ;	src/libs/uart.c:16: }
-      000218 22               [24]  401 	ret
+      00027A 22               [24]  401 	ret
                                     402 ;------------------------------------------------------------
                                     403 ;Allocation info for local variables in function 'rx_char'
                                     404 ;------------------------------------------------------------
@@ -408,18 +408,18 @@
                                     408 ;	-----------------------------------------
                                     409 ;	 function rx_char
                                     410 ;	-----------------------------------------
-      000219                        411 _rx_char:
+      00027B                        411 _rx_char:
                                     412 ;	src/libs/uart.c:20: while(RI == 0);
-      000219                        413 00101$:
-      000219 30 98 FD         [24]  414 	jnb	_RI,00101$
+      00027B                        413 00101$:
+      00027B 30 98 FD         [24]  414 	jnb	_RI,00101$
                                     415 ;	src/libs/uart.c:21: rx = SBUF;
-      00021C 85 99 82         [24]  416 	mov	dpl,_SBUF
+      00027E 85 99 82         [24]  416 	mov	dpl,_SBUF
                                     417 ;	src/libs/uart.c:22: RI = 0;
                                     418 ;	assignBit
-      00021F C2 98            [12]  419 	clr	_RI
+      000281 C2 98            [12]  419 	clr	_RI
                                     420 ;	src/libs/uart.c:24: return rx;
                                     421 ;	src/libs/uart.c:25: }
-      000221 22               [24]  422 	ret
+      000283 22               [24]  422 	ret
                                     423 ;------------------------------------------------------------
                                     424 ;Allocation info for local variables in function 'tx_char'
                                     425 ;------------------------------------------------------------
@@ -429,17 +429,17 @@
                                     429 ;	-----------------------------------------
                                     430 ;	 function tx_char
                                     431 ;	-----------------------------------------
-      000222                        432 _tx_char:
-      000222 85 82 99         [24]  433 	mov	_SBUF,dpl
+      000284                        432 _tx_char:
+      000284 85 82 99         [24]  433 	mov	_SBUF,dpl
                                     434 ;	src/libs/uart.c:29: while(TI == 0);
-      000225                        435 00101$:
+      000287                        435 00101$:
                                     436 ;	src/libs/uart.c:30: TI = 0;
                                     437 ;	assignBit
-      000225 10 99 02         [24]  438 	jbc	_TI,00114$
-      000228 80 FB            [24]  439 	sjmp	00101$
-      00022A                        440 00114$:
+      000287 10 99 02         [24]  438 	jbc	_TI,00114$
+      00028A 80 FB            [24]  439 	sjmp	00101$
+      00028C                        440 00114$:
                                     441 ;	src/libs/uart.c:31: }
-      00022A 22               [24]  442 	ret
+      00028C 22               [24]  442 	ret
                                     443 ;------------------------------------------------------------
                                     444 ;Allocation info for local variables in function 'tx_string'
                                     445 ;------------------------------------------------------------
@@ -449,35 +449,35 @@
                                     449 ;	-----------------------------------------
                                     450 ;	 function tx_string
                                     451 ;	-----------------------------------------
-      00022B                        452 _tx_string:
-      00022B AD 82            [24]  453 	mov	r5,dpl
-      00022D AE 83            [24]  454 	mov	r6,dph
-      00022F AF F0            [24]  455 	mov	r7,b
+      00028D                        452 _tx_string:
+      00028D AD 82            [24]  453 	mov	r5,dpl
+      00028F AE 83            [24]  454 	mov	r6,dph
+      000291 AF F0            [24]  455 	mov	r7,b
                                     456 ;	src/libs/uart.c:34: while(*data){
-      000231                        457 00101$:
-      000231 8D 82            [24]  458 	mov	dpl,r5
-      000233 8E 83            [24]  459 	mov	dph,r6
-      000235 8F F0            [24]  460 	mov	b,r7
-      000237 12 05 48         [24]  461 	lcall	__gptrget
-      00023A FC               [12]  462 	mov	r4,a
-      00023B 60 18            [24]  463 	jz	00104$
+      000293                        457 00101$:
+      000293 8D 82            [24]  458 	mov	dpl,r5
+      000295 8E 83            [24]  459 	mov	dph,r6
+      000297 8F F0            [24]  460 	mov	b,r7
+      000299 12 05 AA         [24]  461 	lcall	__gptrget
+      00029C FC               [12]  462 	mov	r4,a
+      00029D 60 18            [24]  463 	jz	00104$
                                     464 ;	src/libs/uart.c:35: tx_char(*data++);
-      00023D 8C 82            [24]  465 	mov	dpl,r4
-      00023F 0D               [12]  466 	inc	r5
-      000240 BD 00 01         [24]  467 	cjne	r5,#0x00,00116$
-      000243 0E               [12]  468 	inc	r6
-      000244                        469 00116$:
-      000244 C0 07            [24]  470 	push	ar7
-      000246 C0 06            [24]  471 	push	ar6
-      000248 C0 05            [24]  472 	push	ar5
-      00024A 12 02 22         [24]  473 	lcall	_tx_char
-      00024D D0 05            [24]  474 	pop	ar5
-      00024F D0 06            [24]  475 	pop	ar6
-      000251 D0 07            [24]  476 	pop	ar7
-      000253 80 DC            [24]  477 	sjmp	00101$
-      000255                        478 00104$:
+      00029F 8C 82            [24]  465 	mov	dpl,r4
+      0002A1 0D               [12]  466 	inc	r5
+      0002A2 BD 00 01         [24]  467 	cjne	r5,#0x00,00116$
+      0002A5 0E               [12]  468 	inc	r6
+      0002A6                        469 00116$:
+      0002A6 C0 07            [24]  470 	push	ar7
+      0002A8 C0 06            [24]  471 	push	ar6
+      0002AA C0 05            [24]  472 	push	ar5
+      0002AC 12 02 84         [24]  473 	lcall	_tx_char
+      0002AF D0 05            [24]  474 	pop	ar5
+      0002B1 D0 06            [24]  475 	pop	ar6
+      0002B3 D0 07            [24]  476 	pop	ar7
+      0002B5 80 DC            [24]  477 	sjmp	00101$
+      0002B7                        478 00104$:
                                     479 ;	src/libs/uart.c:37: }
-      000255 22               [24]  480 	ret
+      0002B7 22               [24]  480 	ret
                                     481 ;------------------------------------------------------------
                                     482 ;Allocation info for local variables in function 'rx_string'
                                     483 ;------------------------------------------------------------
@@ -489,84 +489,84 @@
                                     489 ;	-----------------------------------------
                                     490 ;	 function rx_string
                                     491 ;	-----------------------------------------
-      000256                        492 _rx_string:
-      000256 AD 82            [24]  493 	mov	r5,dpl
-      000258 AE 83            [24]  494 	mov	r6,dph
-      00025A AF F0            [24]  495 	mov	r7,b
+      0002B8                        492 _rx_string:
+      0002B8 AD 82            [24]  493 	mov	r5,dpl
+      0002BA AE 83            [24]  494 	mov	r6,dph
+      0002BC AF F0            [24]  495 	mov	r7,b
                                     496 ;	src/libs/uart.c:42: uint8_t len = 0;
-      00025C 7C 00            [12]  497 	mov	r4,#0x00
+      0002BE 7C 00            [12]  497 	mov	r4,#0x00
                                     498 ;	src/libs/uart.c:43: while(1)
-      00025E                        499 00111$:
+      0002C0                        499 00111$:
                                     500 ;	src/libs/uart.c:45: ch=rx_char();    //Receive a char
-      00025E C0 07            [24]  501 	push	ar7
-      000260 C0 06            [24]  502 	push	ar6
-      000262 C0 05            [24]  503 	push	ar5
-      000264 C0 04            [24]  504 	push	ar4
-      000266 12 02 19         [24]  505 	lcall	_rx_char
+      0002C0 C0 07            [24]  501 	push	ar7
+      0002C2 C0 06            [24]  502 	push	ar6
+      0002C4 C0 05            [24]  503 	push	ar5
+      0002C6 C0 04            [24]  504 	push	ar4
+      0002C8 12 02 7B         [24]  505 	lcall	_rx_char
                                     506 ;	src/libs/uart.c:46: tx_char(ch);     //Echo back the received char
-      000269 AB 82            [24]  507 	mov  r3,dpl
-      00026B C0 03            [24]  508 	push	ar3
-      00026D 12 02 22         [24]  509 	lcall	_tx_char
-      000270 D0 03            [24]  510 	pop	ar3
-      000272 D0 04            [24]  511 	pop	ar4
-      000274 D0 05            [24]  512 	pop	ar5
-      000276 D0 06            [24]  513 	pop	ar6
-      000278 D0 07            [24]  514 	pop	ar7
+      0002CB AB 82            [24]  507 	mov  r3,dpl
+      0002CD C0 03            [24]  508 	push	ar3
+      0002CF 12 02 84         [24]  509 	lcall	_tx_char
+      0002D2 D0 03            [24]  510 	pop	ar3
+      0002D4 D0 04            [24]  511 	pop	ar4
+      0002D6 D0 05            [24]  512 	pop	ar5
+      0002D8 D0 06            [24]  513 	pop	ar6
+      0002DA D0 07            [24]  514 	pop	ar7
                                     515 ;	src/libs/uart.c:47: if((ch == '\r') || (ch == '\n') || (ch=='\0')) //read till enter key is pressed
-      00027A BB 0D 02         [24]  516 	cjne	r3,#0x0d,00135$
-      00027D 80 08            [24]  517 	sjmp	00105$
-      00027F                        518 00135$:
-      00027F BB 0A 02         [24]  519 	cjne	r3,#0x0a,00136$
-      000282 80 03            [24]  520 	sjmp	00105$
-      000284                        521 00136$:
-      000284 EB               [12]  522 	mov	a,r3
-      000285 70 14            [24]  523 	jnz	00106$
-      000287                        524 00105$:
+      0002DC BB 0D 02         [24]  516 	cjne	r3,#0x0d,00135$
+      0002DF 80 08            [24]  517 	sjmp	00105$
+      0002E1                        518 00135$:
+      0002E1 BB 0A 02         [24]  519 	cjne	r3,#0x0a,00136$
+      0002E4 80 03            [24]  520 	sjmp	00105$
+      0002E6                        521 00136$:
+      0002E6 EB               [12]  522 	mov	a,r3
+      0002E7 70 14            [24]  523 	jnz	00106$
+      0002E9                        524 00105$:
                                     525 ;	src/libs/uart.c:49: data[len]=0;           //and break the loop
-      000287 EC               [12]  526 	mov	a,r4
-      000288 2D               [12]  527 	add	a,r5
-      000289 F8               [12]  528 	mov	r0,a
-      00028A E4               [12]  529 	clr	a
-      00028B 3E               [12]  530 	addc	a,r6
-      00028C F9               [12]  531 	mov	r1,a
-      00028D 8F 02            [24]  532 	mov	ar2,r7
-      00028F 88 82            [24]  533 	mov	dpl,r0
-      000291 89 83            [24]  534 	mov	dph,r1
-      000293 8A F0            [24]  535 	mov	b,r2
-      000295 E4               [12]  536 	clr	a
-      000296 12 04 AA         [24]  537 	lcall	__gptrput
+      0002E9 EC               [12]  526 	mov	a,r4
+      0002EA 2D               [12]  527 	add	a,r5
+      0002EB F8               [12]  528 	mov	r0,a
+      0002EC E4               [12]  529 	clr	a
+      0002ED 3E               [12]  530 	addc	a,r6
+      0002EE F9               [12]  531 	mov	r1,a
+      0002EF 8F 02            [24]  532 	mov	ar2,r7
+      0002F1 88 82            [24]  533 	mov	dpl,r0
+      0002F3 89 83            [24]  534 	mov	dph,r1
+      0002F5 8A F0            [24]  535 	mov	b,r2
+      0002F7 E4               [12]  536 	clr	a
+      0002F8 12 05 0C         [24]  537 	lcall	__gptrput
                                     538 ;	src/libs/uart.c:50: break;                  
-      000299 80 1E            [24]  539 	sjmp	00112$
-      00029B                        540 00106$:
+      0002FB 80 1E            [24]  539 	sjmp	00112$
+      0002FD                        540 00106$:
                                     541 ;	src/libs/uart.c:52: else if((ch=='\b') && (len!=0))
-      00029B BB 08 06         [24]  542 	cjne	r3,#0x08,00102$
-      00029E EC               [12]  543 	mov	a,r4
-      00029F 60 03            [24]  544 	jz	00102$
+      0002FD BB 08 06         [24]  542 	cjne	r3,#0x08,00102$
+      000300 EC               [12]  543 	mov	a,r4
+      000301 60 03            [24]  544 	jz	00102$
                                     545 ;	src/libs/uart.c:54: len--;    //If backspace is pressed then decrement the index to remove the old char
-      0002A1 1C               [12]  546 	dec	r4
-      0002A2 80 BA            [24]  547 	sjmp	00111$
-      0002A4                        548 00102$:
+      000303 1C               [12]  546 	dec	r4
+      000304 80 BA            [24]  547 	sjmp	00111$
+      000306                        548 00102$:
                                     549 ;	src/libs/uart.c:58: data[len]=ch; //copy the char into string and increment the index
-      0002A4 EC               [12]  550 	mov	a,r4
-      0002A5 2D               [12]  551 	add	a,r5
-      0002A6 F8               [12]  552 	mov	r0,a
-      0002A7 E4               [12]  553 	clr	a
-      0002A8 3E               [12]  554 	addc	a,r6
-      0002A9 F9               [12]  555 	mov	r1,a
-      0002AA 8F 02            [24]  556 	mov	ar2,r7
-      0002AC 88 82            [24]  557 	mov	dpl,r0
-      0002AE 89 83            [24]  558 	mov	dph,r1
-      0002B0 8A F0            [24]  559 	mov	b,r2
-      0002B2 EB               [12]  560 	mov	a,r3
-      0002B3 12 04 AA         [24]  561 	lcall	__gptrput
+      000306 EC               [12]  550 	mov	a,r4
+      000307 2D               [12]  551 	add	a,r5
+      000308 F8               [12]  552 	mov	r0,a
+      000309 E4               [12]  553 	clr	a
+      00030A 3E               [12]  554 	addc	a,r6
+      00030B F9               [12]  555 	mov	r1,a
+      00030C 8F 02            [24]  556 	mov	ar2,r7
+      00030E 88 82            [24]  557 	mov	dpl,r0
+      000310 89 83            [24]  558 	mov	dph,r1
+      000312 8A F0            [24]  559 	mov	b,r2
+      000314 EB               [12]  560 	mov	a,r3
+      000315 12 05 0C         [24]  561 	lcall	__gptrput
                                     562 ;	src/libs/uart.c:59: len++;
-      0002B6 0C               [12]  563 	inc	r4
-      0002B7 80 A5            [24]  564 	sjmp	00111$
-      0002B9                        565 00112$:
+      000318 0C               [12]  563 	inc	r4
+      000319 80 A5            [24]  564 	sjmp	00111$
+      00031B                        565 00112$:
                                     566 ;	src/libs/uart.c:63: return len;
-      0002B9 8C 82            [24]  567 	mov	dpl,r4
+      00031B 8C 82            [24]  567 	mov	dpl,r4
                                     568 ;	src/libs/uart.c:64: }
-      0002BB 22               [24]  569 	ret
+      00031D 22               [24]  569 	ret
                                     570 	.area CSEG    (CODE)
                                     571 	.area CONST   (CODE)
                                     572 	.area XINIT   (CODE)

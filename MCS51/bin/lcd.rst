@@ -289,14 +289,14 @@
                                     289 ; internal ram data
                                     290 ;--------------------------------------------------------
                                     291 	.area DSEG    (DATA)
-      00000A                        292 _LCDPrintString_PARM_2:
-      00000A                        293 	.ds 3
-      00000D                        294 _LCDDisplayNumber_PARM_2:
-      00000D                        295 	.ds 2
-      00000F                        296 _LCDDisplayNumber_PARM_3:
-      00000F                        297 	.ds 1
-      000010                        298 _LCDDisplayNumber_buffer_65536_83:
-      000010                        299 	.ds 33
+      00001A                        292 _LCDPrintString_PARM_2:
+      00001A                        293 	.ds 3
+      00001D                        294 _LCDDisplayNumber_PARM_2:
+      00001D                        295 	.ds 2
+      00001F                        296 _LCDDisplayNumber_PARM_3:
+      00001F                        297 	.ds 1
+      000020                        298 _LCDDisplayNumber_buffer_65536_83:
+      000020                        299 	.ds 33
                                     300 ;--------------------------------------------------------
                                     301 ; overlayable items in internal ram 
                                     302 ;--------------------------------------------------------
@@ -362,7 +362,7 @@
                                     362 ;	-----------------------------------------
                                     363 ;	 function LCDInit
                                     364 ;	-----------------------------------------
-      0000B2                        365 _LCDInit:
+      000114                        365 _LCDInit:
                            000007   366 	ar7 = 0x07
                            000006   367 	ar6 = 0x06
                            000005   368 	ar5 = 0x05
@@ -372,18 +372,18 @@
                            000001   372 	ar1 = 0x01
                            000000   373 	ar0 = 0x00
                                     374 ;	src/libs/lcd.c:6: LCDCmdWrite(RETURN_HOME);
-      0000B2 75 82 02         [24]  375 	mov	dpl,#0x02
-      0000B5 12 00 CA         [24]  376 	lcall	_LCDCmdWrite
+      000114 75 82 02         [24]  375 	mov	dpl,#0x02
+      000117 12 01 2C         [24]  376 	lcall	_LCDCmdWrite
                                     377 ;	src/libs/lcd.c:7: LCDCmdWrite(CMD_LCD_FOUR_BIT_MODE);             // Set data bus in 4-bit mode
-      0000B8 75 82 28         [24]  378 	mov	dpl,#0x28
-      0000BB 12 00 CA         [24]  379 	lcall	_LCDCmdWrite
+      00011A 75 82 28         [24]  378 	mov	dpl,#0x28
+      00011D 12 01 2C         [24]  379 	lcall	_LCDCmdWrite
                                     380 ;	src/libs/lcd.c:8: LCDCmdWrite(DISPLAY_ON_CURSOR_BLINK_1);
-      0000BE 75 82 0E         [24]  381 	mov	dpl,#0x0e
-      0000C1 12 00 CA         [24]  382 	lcall	_LCDCmdWrite
+      000120 75 82 0E         [24]  381 	mov	dpl,#0x0e
+      000123 12 01 2C         [24]  382 	lcall	_LCDCmdWrite
                                     383 ;	src/libs/lcd.c:9: LCDCmdWrite(CLEAR_SCREEN);
-      0000C4 75 82 01         [24]  384 	mov	dpl,#0x01
+      000126 75 82 01         [24]  384 	mov	dpl,#0x01
                                     385 ;	src/libs/lcd.c:11: }
-      0000C7 02 00 CA         [24]  386 	ljmp	_LCDCmdWrite
+      000129 02 01 2C         [24]  386 	ljmp	_LCDCmdWrite
                                     387 ;------------------------------------------------------------
                                     388 ;Allocation info for local variables in function 'LCDCmdWrite'
                                     389 ;------------------------------------------------------------
@@ -393,62 +393,62 @@
                                     393 ;	-----------------------------------------
                                     394 ;	 function LCDCmdWrite
                                     395 ;	-----------------------------------------
-      0000CA                        396 _LCDCmdWrite:
-      0000CA AF 82            [24]  397 	mov	r7,dpl
+      00012C                        396 _LCDCmdWrite:
+      00012C AF 82            [24]  397 	mov	r7,dpl
                                     398 ;	src/libs/lcd.c:15: LCDDatabus = (cmd & 0xF0);
-      0000CC 74 F0            [12]  399 	mov	a,#0xf0
-      0000CE 5F               [12]  400 	anl	a,r7
-      0000CF F5 A0            [12]  401 	mov	_P2,a
+      00012E 74 F0            [12]  399 	mov	a,#0xf0
+      000130 5F               [12]  400 	anl	a,r7
+      000131 F5 A0            [12]  401 	mov	_P2,a
                                     402 ;	src/libs/lcd.c:17: RS = LOW;
                                     403 ;	assignBit
-      0000D1 C2 A0            [12]  404 	clr	_RS
+      000133 C2 A0            [12]  404 	clr	_RS
                                     405 ;	src/libs/lcd.c:18: RW = LOW;
                                     406 ;	assignBit
-      0000D3 C2 A1            [12]  407 	clr	_RW
+      000135 C2 A1            [12]  407 	clr	_RW
                                     408 ;	src/libs/lcd.c:19: EN = HIGH;
                                     409 ;	assignBit
-      0000D5 D2 A2            [12]  410 	setb	_EN
-                                    411 ;	src/libs/lcd.c:20: DELAY_us(1000);
-      0000D7 90 03 E8         [24]  412 	mov	dptr,#0x03e8
-      0000DA C0 07            [24]  413 	push	ar7
-      0000DC 12 00 84         [24]  414 	lcall	_DELAY_us
+      000137 D2 A2            [12]  410 	setb	_EN
+                                    411 ;	src/libs/lcd.c:20: DELAY_us(10);
+      000139 90 00 0A         [24]  412 	mov	dptr,#0x000a
+      00013C C0 07            [24]  413 	push	ar7
+      00013E 12 00 E6         [24]  414 	lcall	_DELAY_us
                                     415 ;	src/libs/lcd.c:21: EN = LOW;
                                     416 ;	assignBit
-      0000DF C2 A2            [12]  417 	clr	_EN
-                                    418 ;	src/libs/lcd.c:23: DELAY_us(10000);
-      0000E1 90 27 10         [24]  419 	mov	dptr,#0x2710
-      0000E4 12 00 84         [24]  420 	lcall	_DELAY_us
-      0000E7 D0 07            [24]  421 	pop	ar7
+      000141 C2 A2            [12]  417 	clr	_EN
+                                    418 ;	src/libs/lcd.c:23: DELAY_us(200);
+      000143 90 00 C8         [24]  419 	mov	dptr,#0x00c8
+      000146 12 00 E6         [24]  420 	lcall	_DELAY_us
+      000149 D0 07            [24]  421 	pop	ar7
                                     422 ;	src/libs/lcd.c:25: LCDDatabus = ((cmd<<4) & 0xF0);
-      0000E9 EF               [12]  423 	mov	a,r7
-      0000EA C4               [12]  424 	swap	a
-      0000EB 54 F0            [12]  425 	anl	a,#0xf0
-      0000ED FF               [12]  426 	mov	r7,a
-      0000EE 74 F0            [12]  427 	mov	a,#0xf0
-      0000F0 5F               [12]  428 	anl	a,r7
-      0000F1 F5 A0            [12]  429 	mov	_P2,a
+      00014B EF               [12]  423 	mov	a,r7
+      00014C C4               [12]  424 	swap	a
+      00014D 54 F0            [12]  425 	anl	a,#0xf0
+      00014F FF               [12]  426 	mov	r7,a
+      000150 74 F0            [12]  427 	mov	a,#0xf0
+      000152 5F               [12]  428 	anl	a,r7
+      000153 F5 A0            [12]  429 	mov	_P2,a
                                     430 ;	src/libs/lcd.c:26: RS = LOW;
                                     431 ;	assignBit
-      0000F3 C2 A0            [12]  432 	clr	_RS
+      000155 C2 A0            [12]  432 	clr	_RS
                                     433 ;	src/libs/lcd.c:27: RW = LOW;
                                     434 ;	assignBit
-      0000F5 C2 A1            [12]  435 	clr	_RW
+      000157 C2 A1            [12]  435 	clr	_RW
                                     436 ;	src/libs/lcd.c:28: EN = HIGH;
                                     437 ;	assignBit
-      0000F7 D2 A2            [12]  438 	setb	_EN
-                                    439 ;	src/libs/lcd.c:29: DELAY_us(1000);
-      0000F9 90 03 E8         [24]  440 	mov	dptr,#0x03e8
-      0000FC 12 00 84         [24]  441 	lcall	_DELAY_us
+      000159 D2 A2            [12]  438 	setb	_EN
+                                    439 ;	src/libs/lcd.c:29: DELAY_us(10);
+      00015B 90 00 0A         [24]  440 	mov	dptr,#0x000a
+      00015E 12 00 E6         [24]  441 	lcall	_DELAY_us
                                     442 ;	src/libs/lcd.c:30: EN = LOW;
                                     443 ;	assignBit
-      0000FF C2 A2            [12]  444 	clr	_EN
-                                    445 ;	src/libs/lcd.c:32: DELAY_us(10000);
-      000101 90 27 10         [24]  446 	mov	dptr,#0x2710
-      000104 12 00 84         [24]  447 	lcall	_DELAY_us
+      000161 C2 A2            [12]  444 	clr	_EN
+                                    445 ;	src/libs/lcd.c:32: DELAY_us(200);
+      000163 90 00 C8         [24]  446 	mov	dptr,#0x00c8
+      000166 12 00 E6         [24]  447 	lcall	_DELAY_us
                                     448 ;	src/libs/lcd.c:33: return 0;
-      000107 90 00 00         [24]  449 	mov	dptr,#0x0000
+      000169 90 00 00         [24]  449 	mov	dptr,#0x0000
                                     450 ;	src/libs/lcd.c:34: }
-      00010A 22               [24]  451 	ret
+      00016C 22               [24]  451 	ret
                                     452 ;------------------------------------------------------------
                                     453 ;Allocation info for local variables in function 'LCDDataWrite'
                                     454 ;------------------------------------------------------------
@@ -458,62 +458,62 @@
                                     458 ;	-----------------------------------------
                                     459 ;	 function LCDDataWrite
                                     460 ;	-----------------------------------------
-      00010B                        461 _LCDDataWrite:
-      00010B AF 82            [24]  462 	mov	r7,dpl
+      00016D                        461 _LCDDataWrite:
+      00016D AF 82            [24]  462 	mov	r7,dpl
                                     463 ;	src/libs/lcd.c:38: LCDDatabus = (data & 0xF0);
-      00010D 74 F0            [12]  464 	mov	a,#0xf0
-      00010F 5F               [12]  465 	anl	a,r7
-      000110 F5 A0            [12]  466 	mov	_P2,a
+      00016F 74 F0            [12]  464 	mov	a,#0xf0
+      000171 5F               [12]  465 	anl	a,r7
+      000172 F5 A0            [12]  466 	mov	_P2,a
                                     467 ;	src/libs/lcd.c:39: RS = HIGH;
                                     468 ;	assignBit
-      000112 D2 A0            [12]  469 	setb	_RS
+      000174 D2 A0            [12]  469 	setb	_RS
                                     470 ;	src/libs/lcd.c:40: RW = LOW;
                                     471 ;	assignBit
-      000114 C2 A1            [12]  472 	clr	_RW
+      000176 C2 A1            [12]  472 	clr	_RW
                                     473 ;	src/libs/lcd.c:41: EN = HIGH;
                                     474 ;	assignBit
-      000116 D2 A2            [12]  475 	setb	_EN
-                                    476 ;	src/libs/lcd.c:42: DELAY_us(1000);
-      000118 90 03 E8         [24]  477 	mov	dptr,#0x03e8
-      00011B C0 07            [24]  478 	push	ar7
-      00011D 12 00 84         [24]  479 	lcall	_DELAY_us
+      000178 D2 A2            [12]  475 	setb	_EN
+                                    476 ;	src/libs/lcd.c:42: DELAY_us(10);
+      00017A 90 00 0A         [24]  477 	mov	dptr,#0x000a
+      00017D C0 07            [24]  478 	push	ar7
+      00017F 12 00 E6         [24]  479 	lcall	_DELAY_us
                                     480 ;	src/libs/lcd.c:43: EN = LOW;
                                     481 ;	assignBit
-      000120 C2 A2            [12]  482 	clr	_EN
-                                    483 ;	src/libs/lcd.c:45: DELAY_us(10000);
-      000122 90 27 10         [24]  484 	mov	dptr,#0x2710
-      000125 12 00 84         [24]  485 	lcall	_DELAY_us
-      000128 D0 07            [24]  486 	pop	ar7
+      000182 C2 A2            [12]  482 	clr	_EN
+                                    483 ;	src/libs/lcd.c:45: DELAY_us(200);
+      000184 90 00 C8         [24]  484 	mov	dptr,#0x00c8
+      000187 12 00 E6         [24]  485 	lcall	_DELAY_us
+      00018A D0 07            [24]  486 	pop	ar7
                                     487 ;	src/libs/lcd.c:47: LCDDatabus = ((data<<4) & 0xF0);
-      00012A EF               [12]  488 	mov	a,r7
-      00012B C4               [12]  489 	swap	a
-      00012C 54 F0            [12]  490 	anl	a,#0xf0
-      00012E FF               [12]  491 	mov	r7,a
-      00012F 74 F0            [12]  492 	mov	a,#0xf0
-      000131 5F               [12]  493 	anl	a,r7
-      000132 F5 A0            [12]  494 	mov	_P2,a
+      00018C EF               [12]  488 	mov	a,r7
+      00018D C4               [12]  489 	swap	a
+      00018E 54 F0            [12]  490 	anl	a,#0xf0
+      000190 FF               [12]  491 	mov	r7,a
+      000191 74 F0            [12]  492 	mov	a,#0xf0
+      000193 5F               [12]  493 	anl	a,r7
+      000194 F5 A0            [12]  494 	mov	_P2,a
                                     495 ;	src/libs/lcd.c:48: RS = HIGH;
                                     496 ;	assignBit
-      000134 D2 A0            [12]  497 	setb	_RS
+      000196 D2 A0            [12]  497 	setb	_RS
                                     498 ;	src/libs/lcd.c:49: RW = LOW;
                                     499 ;	assignBit
-      000136 C2 A1            [12]  500 	clr	_RW
+      000198 C2 A1            [12]  500 	clr	_RW
                                     501 ;	src/libs/lcd.c:50: EN = HIGH;
                                     502 ;	assignBit
-      000138 D2 A2            [12]  503 	setb	_EN
-                                    504 ;	src/libs/lcd.c:51: DELAY_us(1000);
-      00013A 90 03 E8         [24]  505 	mov	dptr,#0x03e8
-      00013D 12 00 84         [24]  506 	lcall	_DELAY_us
+      00019A D2 A2            [12]  503 	setb	_EN
+                                    504 ;	src/libs/lcd.c:51: DELAY_us(10);
+      00019C 90 00 0A         [24]  505 	mov	dptr,#0x000a
+      00019F 12 00 E6         [24]  506 	lcall	_DELAY_us
                                     507 ;	src/libs/lcd.c:52: EN = LOW;
                                     508 ;	assignBit
-      000140 C2 A2            [12]  509 	clr	_EN
-                                    510 ;	src/libs/lcd.c:54: DELAY_us(10000);
-      000142 90 27 10         [24]  511 	mov	dptr,#0x2710
-      000145 12 00 84         [24]  512 	lcall	_DELAY_us
+      0001A2 C2 A2            [12]  509 	clr	_EN
+                                    510 ;	src/libs/lcd.c:54: DELAY_us(200);
+      0001A4 90 00 C8         [24]  511 	mov	dptr,#0x00c8
+      0001A7 12 00 E6         [24]  512 	lcall	_DELAY_us
                                     513 ;	src/libs/lcd.c:55: return 0;
-      000148 90 00 00         [24]  514 	mov	dptr,#0x0000
+      0001AA 90 00 00         [24]  514 	mov	dptr,#0x0000
                                     515 ;	src/libs/lcd.c:56: }
-      00014B 22               [24]  516 	ret
+      0001AD 22               [24]  516 	ret
                                     517 ;------------------------------------------------------------
                                     518 ;Allocation info for local variables in function 'LCDPrintString'
                                     519 ;------------------------------------------------------------
@@ -524,76 +524,76 @@
                                     524 ;	-----------------------------------------
                                     525 ;	 function LCDPrintString
                                     526 ;	-----------------------------------------
-      00014C                        527 _LCDPrintString:
+      0001AE                        527 _LCDPrintString:
                                     528 ;	src/libs/lcd.c:59: switch (line)
-      00014C E5 82            [12]  529 	mov	a,dpl
-      00014E FF               [12]  530 	mov	r7,a
-      00014F 24 FC            [12]  531 	add	a,#0xff - 0x03
-      000151 40 2C            [24]  532 	jc	00114$
-      000153 EF               [12]  533 	mov	a,r7
-      000154 2F               [12]  534 	add	a,r7
+      0001AE E5 82            [12]  529 	mov	a,dpl
+      0001B0 FF               [12]  530 	mov	r7,a
+      0001B1 24 FC            [12]  531 	add	a,#0xff - 0x03
+      0001B3 40 2C            [24]  532 	jc	00114$
+      0001B5 EF               [12]  533 	mov	a,r7
+      0001B6 2F               [12]  534 	add	a,r7
                                     535 ;	src/libs/lcd.c:61: case FIRST_LINE:
-      000155 90 01 59         [24]  536 	mov	dptr,#00126$
-      000158 73               [24]  537 	jmp	@a+dptr
-      000159                        538 00126$:
-      000159 80 06            [24]  539 	sjmp	00101$
-      00015B 80 0C            [24]  540 	sjmp	00102$
-      00015D 80 12            [24]  541 	sjmp	00103$
-      00015F 80 18            [24]  542 	sjmp	00104$
-      000161                        543 00101$:
+      0001B7 90 01 BB         [24]  536 	mov	dptr,#00126$
+      0001BA 73               [24]  537 	jmp	@a+dptr
+      0001BB                        538 00126$:
+      0001BB 80 06            [24]  539 	sjmp	00101$
+      0001BD 80 0C            [24]  540 	sjmp	00102$
+      0001BF 80 12            [24]  541 	sjmp	00103$
+      0001C1 80 18            [24]  542 	sjmp	00104$
+      0001C3                        543 00101$:
                                     544 ;	src/libs/lcd.c:62: LCDCmdWrite(CURSOR_TO_FIRST_LINE);
-      000161 75 82 80         [24]  545 	mov	dpl,#0x80
-      000164 12 00 CA         [24]  546 	lcall	_LCDCmdWrite
+      0001C3 75 82 80         [24]  545 	mov	dpl,#0x80
+      0001C6 12 01 2C         [24]  546 	lcall	_LCDCmdWrite
                                     547 ;	src/libs/lcd.c:63: break;
                                     548 ;	src/libs/lcd.c:64: case SECOND_LINE:
-      000167 80 16            [24]  549 	sjmp	00114$
-      000169                        550 00102$:
+      0001C9 80 16            [24]  549 	sjmp	00114$
+      0001CB                        550 00102$:
                                     551 ;	src/libs/lcd.c:65: LCDCmdWrite(CURSOR_TO_SECOND_LINE);
-      000169 75 82 C0         [24]  552 	mov	dpl,#0xc0
-      00016C 12 00 CA         [24]  553 	lcall	_LCDCmdWrite
+      0001CB 75 82 C0         [24]  552 	mov	dpl,#0xc0
+      0001CE 12 01 2C         [24]  553 	lcall	_LCDCmdWrite
                                     554 ;	src/libs/lcd.c:66: break;
                                     555 ;	src/libs/lcd.c:67: case THIRD_LINE:
-      00016F 80 0E            [24]  556 	sjmp	00114$
-      000171                        557 00103$:
+      0001D1 80 0E            [24]  556 	sjmp	00114$
+      0001D3                        557 00103$:
                                     558 ;	src/libs/lcd.c:68: LCDCmdWrite(CURSOR_TO_THIRD_LINE);
-      000171 75 82 90         [24]  559 	mov	dpl,#0x90
-      000174 12 00 CA         [24]  560 	lcall	_LCDCmdWrite
+      0001D3 75 82 90         [24]  559 	mov	dpl,#0x90
+      0001D6 12 01 2C         [24]  560 	lcall	_LCDCmdWrite
                                     561 ;	src/libs/lcd.c:69: break;
                                     562 ;	src/libs/lcd.c:70: case FORTH_LINE:
-      000177 80 06            [24]  563 	sjmp	00114$
-      000179                        564 00104$:
+      0001D9 80 06            [24]  563 	sjmp	00114$
+      0001DB                        564 00104$:
                                     565 ;	src/libs/lcd.c:71: LCDCmdWrite(CURSOR_TO_FORTH_LINE);
-      000179 75 82 D0         [24]  566 	mov	dpl,#0xd0
-      00017C 12 00 CA         [24]  567 	lcall	_LCDCmdWrite
+      0001DB 75 82 D0         [24]  566 	mov	dpl,#0xd0
+      0001DE 12 01 2C         [24]  567 	lcall	_LCDCmdWrite
                                     568 ;	src/libs/lcd.c:77: while(*string){
-      00017F                        569 00114$:
-      00017F AD 0A            [24]  570 	mov	r5,_LCDPrintString_PARM_2
-      000181 AE 0B            [24]  571 	mov	r6,(_LCDPrintString_PARM_2 + 1)
-      000183 AF 0C            [24]  572 	mov	r7,(_LCDPrintString_PARM_2 + 2)
-      000185                        573 00107$:
-      000185 8D 82            [24]  574 	mov	dpl,r5
-      000187 8E 83            [24]  575 	mov	dph,r6
-      000189 8F F0            [24]  576 	mov	b,r7
-      00018B 12 05 48         [24]  577 	lcall	__gptrget
-      00018E FC               [12]  578 	mov	r4,a
-      00018F 60 18            [24]  579 	jz	00110$
+      0001E1                        569 00114$:
+      0001E1 AD 1A            [24]  570 	mov	r5,_LCDPrintString_PARM_2
+      0001E3 AE 1B            [24]  571 	mov	r6,(_LCDPrintString_PARM_2 + 1)
+      0001E5 AF 1C            [24]  572 	mov	r7,(_LCDPrintString_PARM_2 + 2)
+      0001E7                        573 00107$:
+      0001E7 8D 82            [24]  574 	mov	dpl,r5
+      0001E9 8E 83            [24]  575 	mov	dph,r6
+      0001EB 8F F0            [24]  576 	mov	b,r7
+      0001ED 12 05 AA         [24]  577 	lcall	__gptrget
+      0001F0 FC               [12]  578 	mov	r4,a
+      0001F1 60 18            [24]  579 	jz	00110$
                                     580 ;	src/libs/lcd.c:78: LCDDataWrite(*string++);
-      000191 8C 82            [24]  581 	mov	dpl,r4
-      000193 0D               [12]  582 	inc	r5
-      000194 BD 00 01         [24]  583 	cjne	r5,#0x00,00128$
-      000197 0E               [12]  584 	inc	r6
-      000198                        585 00128$:
-      000198 C0 07            [24]  586 	push	ar7
-      00019A C0 06            [24]  587 	push	ar6
-      00019C C0 05            [24]  588 	push	ar5
-      00019E 12 01 0B         [24]  589 	lcall	_LCDDataWrite
-      0001A1 D0 05            [24]  590 	pop	ar5
-      0001A3 D0 06            [24]  591 	pop	ar6
-      0001A5 D0 07            [24]  592 	pop	ar7
-      0001A7 80 DC            [24]  593 	sjmp	00107$
-      0001A9                        594 00110$:
+      0001F3 8C 82            [24]  581 	mov	dpl,r4
+      0001F5 0D               [12]  582 	inc	r5
+      0001F6 BD 00 01         [24]  583 	cjne	r5,#0x00,00128$
+      0001F9 0E               [12]  584 	inc	r6
+      0001FA                        585 00128$:
+      0001FA C0 07            [24]  586 	push	ar7
+      0001FC C0 06            [24]  587 	push	ar6
+      0001FE C0 05            [24]  588 	push	ar5
+      000200 12 01 6D         [24]  589 	lcall	_LCDDataWrite
+      000203 D0 05            [24]  590 	pop	ar5
+      000205 D0 06            [24]  591 	pop	ar6
+      000207 D0 07            [24]  592 	pop	ar7
+      000209 80 DC            [24]  593 	sjmp	00107$
+      00020B                        594 00110$:
                                     595 ;	src/libs/lcd.c:80: }
-      0001A9 22               [24]  596 	ret
+      00020B 22               [24]  596 	ret
                                     597 ;------------------------------------------------------------
                                     598 ;Allocation info for local variables in function 'LCDDisplayNumber'
                                     599 ;------------------------------------------------------------
@@ -606,26 +606,26 @@
                                     606 ;	-----------------------------------------
                                     607 ;	 function LCDDisplayNumber
                                     608 ;	-----------------------------------------
-      0001AA                        609 _LCDDisplayNumber:
-      0001AA AF 82            [24]  610 	mov	r7,dpl
+      00020C                        609 _LCDDisplayNumber:
+      00020C AF 82            [24]  610 	mov	r7,dpl
                                     611 ;	src/libs/lcd.c:85: itoa(number,buffer,radix);
-      0001AC 75 31 10         [24]  612 	mov	_itoa_PARM_2,#_LCDDisplayNumber_buffer_65536_83
-      0001AF 75 32 00         [24]  613 	mov	(_itoa_PARM_2 + 1),#0x00
-      0001B2 75 33 40         [24]  614 	mov	(_itoa_PARM_2 + 2),#0x40
-      0001B5 85 0F 34         [24]  615 	mov	_itoa_PARM_3,_LCDDisplayNumber_PARM_3
-      0001B8 75 35 00         [24]  616 	mov	(_itoa_PARM_3 + 1),#0x00
-      0001BB 85 0D 82         [24]  617 	mov	dpl,_LCDDisplayNumber_PARM_2
-      0001BE 85 0E 83         [24]  618 	mov	dph,(_LCDDisplayNumber_PARM_2 + 1)
-      0001C1 C0 07            [24]  619 	push	ar7
-      0001C3 12 03 52         [24]  620 	lcall	_itoa
-      0001C6 D0 07            [24]  621 	pop	ar7
+      00020E 75 41 20         [24]  612 	mov	_itoa_PARM_2,#_LCDDisplayNumber_buffer_65536_83
+      000211 75 42 00         [24]  613 	mov	(_itoa_PARM_2 + 1),#0x00
+      000214 75 43 40         [24]  614 	mov	(_itoa_PARM_2 + 2),#0x40
+      000217 85 1F 44         [24]  615 	mov	_itoa_PARM_3,_LCDDisplayNumber_PARM_3
+      00021A 75 45 00         [24]  616 	mov	(_itoa_PARM_3 + 1),#0x00
+      00021D 85 1D 82         [24]  617 	mov	dpl,_LCDDisplayNumber_PARM_2
+      000220 85 1E 83         [24]  618 	mov	dph,(_LCDDisplayNumber_PARM_2 + 1)
+      000223 C0 07            [24]  619 	push	ar7
+      000225 12 03 B4         [24]  620 	lcall	_itoa
+      000228 D0 07            [24]  621 	pop	ar7
                                     622 ;	src/libs/lcd.c:86: LCDPrintString(line, buffer);
-      0001C8 75 0A 10         [24]  623 	mov	_LCDPrintString_PARM_2,#_LCDDisplayNumber_buffer_65536_83
-      0001CB 75 0B 00         [24]  624 	mov	(_LCDPrintString_PARM_2 + 1),#0x00
-      0001CE 75 0C 40         [24]  625 	mov	(_LCDPrintString_PARM_2 + 2),#0x40
-      0001D1 8F 82            [24]  626 	mov	dpl,r7
+      00022A 75 1A 20         [24]  623 	mov	_LCDPrintString_PARM_2,#_LCDDisplayNumber_buffer_65536_83
+      00022D 75 1B 00         [24]  624 	mov	(_LCDPrintString_PARM_2 + 1),#0x00
+      000230 75 1C 40         [24]  625 	mov	(_LCDPrintString_PARM_2 + 2),#0x40
+      000233 8F 82            [24]  626 	mov	dpl,r7
                                     627 ;	src/libs/lcd.c:87: }
-      0001D3 02 01 4C         [24]  628 	ljmp	_LCDPrintString
+      000235 02 01 AE         [24]  628 	ljmp	_LCDPrintString
                                     629 	.area CSEG    (CODE)
                                     630 	.area CONST   (CODE)
                                     631 	.area XINIT   (CODE)

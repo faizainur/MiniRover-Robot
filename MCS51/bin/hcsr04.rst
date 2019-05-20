@@ -352,7 +352,7 @@
                                     352 ;	-----------------------------------------
                                     353 ;	 function sendTriggerPulse
                                     354 ;	-----------------------------------------
-      0002BC                        355 _sendTriggerPulse:
+      00031E                        355 _sendTriggerPulse:
                            000007   356 	ar7 = 0x07
                            000006   357 	ar6 = 0x06
                            000005   358 	ar5 = 0x05
@@ -363,15 +363,15 @@
                            000000   363 	ar0 = 0x00
                                     364 ;	src/libs/hcsr04.c:4: triggerPin = 1;
                                     365 ;	assignBit
-      0002BC D2 B6            [12]  366 	setb	_triggerPin
+      00031E D2 B6            [12]  366 	setb	_triggerPin
                                     367 ;	src/libs/hcsr04.c:5: DELAY_us(10);
-      0002BE 90 00 0A         [24]  368 	mov	dptr,#0x000a
-      0002C1 12 00 84         [24]  369 	lcall	_DELAY_us
+      000320 90 00 0A         [24]  368 	mov	dptr,#0x000a
+      000323 12 00 E6         [24]  369 	lcall	_DELAY_us
                                     370 ;	src/libs/hcsr04.c:6: triggerPin = 0;
                                     371 ;	assignBit
-      0002C4 C2 B6            [12]  372 	clr	_triggerPin
+      000326 C2 B6            [12]  372 	clr	_triggerPin
                                     373 ;	src/libs/hcsr04.c:7: }
-      0002C6 22               [24]  374 	ret
+      000328 22               [24]  374 	ret
                                     375 ;------------------------------------------------------------
                                     376 ;Allocation info for local variables in function 'measureDistance'
                                     377 ;------------------------------------------------------------
@@ -382,25 +382,25 @@
                                     382 ;	-----------------------------------------
                                     383 ;	 function measureDistance
                                     384 ;	-----------------------------------------
-      0002C7                        385 _measureDistance:
+      000329                        385 _measureDistance:
                                     386 ;	src/libs/hcsr04.c:11: while(!echoPin1);
-      0002C7                        387 00101$:
-      0002C7 30 B2 FD         [24]  388 	jnb	_echoPin1,00101$
+      000329                        387 00101$:
+      000329 30 B2 FD         [24]  388 	jnb	_echoPin1,00101$
                                     389 ;	src/libs/hcsr04.c:12: TR0;
-      0002CA A2 8C            [12]  390 	mov	c,_TR0
+      00032C A2 8C            [12]  390 	mov	c,_TR0
                                     391 ;	src/libs/hcsr04.c:13: while(echoPin1 && !TF0);
-      0002CC                        392 00105$:
-      0002CC 30 B2 03         [24]  393 	jnb	_echoPin1,00107$
-      0002CF 30 8D FA         [24]  394 	jnb	_TF0,00105$
-      0002D2                        395 00107$:
+      00032E                        392 00105$:
+      00032E 30 B2 03         [24]  393 	jnb	_echoPin1,00107$
+      000331 30 8D FA         [24]  394 	jnb	_TF0,00105$
+      000334                        395 00107$:
                                     396 ;	src/libs/hcsr04.c:14: TR0;
-      0002D2 A2 8C            [12]  397 	mov	c,_TR0
+      000334 A2 8C            [12]  397 	mov	c,_TR0
                                     398 ;	src/libs/hcsr04.c:17: data = (TL0|(TH0<<8));
-      0002D4 E5 8C            [12]  399 	mov	a,_TH0
-      0002D6 E5 8A            [12]  400 	mov	a,_TL0
+      000336 E5 8C            [12]  399 	mov	a,_TH0
+      000338 E5 8A            [12]  400 	mov	a,_TL0
                                     401 ;	src/libs/hcsr04.c:18: data = (data * value)/2.0;
                                     402 ;	src/libs/hcsr04.c:21: }
-      0002D8 22               [24]  403 	ret
+      00033A 22               [24]  403 	ret
                                     404 	.area CSEG    (CODE)
                                     405 	.area CONST   (CODE)
                                     406 	.area XINIT   (CODE)

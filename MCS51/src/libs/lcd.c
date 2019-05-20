@@ -17,19 +17,19 @@ int LCDCmdWrite(char cmd){
             RS = LOW;
             RW = LOW;
             EN = HIGH;
-            DELAY_us(1000);
+            DELAY_us(10);
             EN = LOW;
     
-    DELAY_us(10000);
+    DELAY_us(200);
 
     LCDDatabus = ((cmd<<4) & 0xF0);
             RS = LOW;
             RW = LOW;
             EN = HIGH;
-            DELAY_us(1000);
+            DELAY_us(10);
             EN = LOW;
     
-    DELAY_us(10000);
+    DELAY_us(200);
     return 0;
 }
 
@@ -39,19 +39,19 @@ int LCDDataWrite(char data){
             RS = HIGH;
             RW = LOW;
             EN = HIGH;
-            DELAY_us(1000);
+            DELAY_us(10);
             EN = LOW;
     
-    DELAY_us(10000);
+    DELAY_us(200);
 
     LCDDatabus = ((data<<4) & 0xF0);
             RS = HIGH;
             RW = LOW;
             EN = HIGH;
-            DELAY_us(1000);
+            DELAY_us(10);
             EN = LOW;
 
-    DELAY_us(10000);
+    DELAY_us(200);
     return 0;
 }
 

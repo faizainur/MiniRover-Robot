@@ -9,8 +9,12 @@
 ; Public variables in this module
 ;--------------------------------------------------------
 	.globl _main
-	.globl _rx_char
+	.globl _rx_string
 	.globl _serial_begin
+	.globl _LCDPrintString
+	.globl _LCDInit
+	.globl _LCDCmdWrite
+	.globl _DELAY_ms
 	.globl _echoPin4
 	.globl _echoPin3
 	.globl _echoPin2
@@ -143,6 +147,8 @@
 	.globl _SP
 	.globl _P0
 	.globl _initPortPin
+	.globl _welcomeScreen
+	.globl _toggleLed
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -295,6 +301,8 @@ _echoPin4	=	0x00b5
 	.area DSEG    (DATA)
 _main_result_distance_65536_103:
 	.ds 2
+_main_buff_65537_104:
+	.ds 16
 ;--------------------------------------------------------
 ; overlayable items in internal ram 
 ;--------------------------------------------------------
@@ -381,7 +389,7 @@ __sdcc_program_startup:
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
 ;result_distance           Allocated with name '_main_result_distance_65536_103'
-;buff                      Allocated to registers r7 
+;buff                      Allocated with name '_main_buff_65537_104'
 ;------------------------------------------------------------
 ;	src/main.c:13: int main(){
 ;	-----------------------------------------
@@ -398,44 +406,127 @@ _main:
 	ar0 = 0x00
 ;	src/main.c:17: initPortPin();
 	lcall	_initPortPin
-;	src/main.c:27: serial_begin(9600);
+;	src/main.c:19: serial_begin(9600);
 	mov	dptr,#0x2580
 	clr	a
 	mov	b,a
 	lcall	_serial_begin
-;	src/main.c:30: while(1){
+;	src/main.c:22: LCDInit();
+	lcall	_LCDInit
+;	src/main.c:23: LCDCmdWrite(CURSOR_TO_FIRST_LINE);
+	mov	dpl,#0x80
+	lcall	_LCDCmdWrite
+;	src/main.c:25: welcomeScreen();
+	lcall	_welcomeScreen
+;	src/main.c:26: DELAY_ms(1000);
+	mov	dptr,#0x03e8
+	lcall	_DELAY_ms
+;	src/main.c:27: LCDCmdWrite(CLEAR_SCREEN);
+	mov	dpl,#0x01
+	lcall	_LCDCmdWrite
+;	src/main.c:28: LCDPrintString(FIRST_LINE, "Received : ");
+	mov	_LCDPrintString_PARM_2,#___str_0
+	mov	(_LCDPrintString_PARM_2 + 1),#(___str_0 >> 8)
+	mov	(_LCDPrintString_PARM_2 + 2),#0x80
+	mov	dpl,#0x00
+	lcall	_LCDPrintString
+;	src/main.c:31: while(1){
 00105$:
-;	src/main.c:35: buff = rx_char();
-	lcall	_rx_char
-	mov	r7,dpl
-;	src/main.c:36: if (buff == 0x30){
-	cjne	r7,#0x30,00102$
-;	src/main.c:37: P0_0 = 0;
-;	assignBit
-	clr	_P0_0
-	sjmp	00105$
-00102$:
+;	src/main.c:36: rx_string(buff);
+	mov	dptr,#_main_buff_65537_104
+	mov	b,#0x40
+	lcall	_rx_string
+;	src/main.c:37: if (buff != NULL){
+	mov	a,#_main_buff_65537_104
+	jz	00102$
+;	src/main.c:38: LCDPrintString(SECOND_LINE, buff);
+	mov	_LCDPrintString_PARM_2,#_main_buff_65537_104
+	mov	(_LCDPrintString_PARM_2 + 1),#0x00
+	mov	(_LCDPrintString_PARM_2 + 2),#0x40
+	mov	dpl,#0x01
+	lcall	_LCDPrintString
 ;	src/main.c:39: P0_0 = 1;
 ;	assignBit
 	setb	_P0_0
-;	src/main.c:43: }
+	sjmp	00105$
+00102$:
+;	src/main.c:41: P0_0 = 0;
+;	assignBit
+	clr	_P0_0
+;	src/main.c:45: }
 	sjmp	00105$
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'initPortPin'
 ;------------------------------------------------------------
-;	src/main.c:45: void initPortPin(){
+;	src/main.c:47: void initPortPin(){
 ;	-----------------------------------------
 ;	 function initPortPin
 ;	-----------------------------------------
 _initPortPin:
-;	src/main.c:46: P0_0 = LOW;
+;	src/main.c:48: P0_0 = LOW;
 ;	assignBit
 	clr	_P0_0
-;	src/main.c:47: P2 = 0x00;
+;	src/main.c:49: P2 = 0x00;
 	mov	_P2,#0x00
-;	src/main.c:48: }
+;	src/main.c:50: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'welcomeScreen'
+;------------------------------------------------------------
+;	src/main.c:52: void welcomeScreen(){
+;	-----------------------------------------
+;	 function welcomeScreen
+;	-----------------------------------------
+_welcomeScreen:
+;	src/main.c:53: LCDPrintString(FIRST_LINE, "Faiz Ainur Rofiq");
+	mov	_LCDPrintString_PARM_2,#___str_1
+	mov	(_LCDPrintString_PARM_2 + 1),#(___str_1 >> 8)
+	mov	(_LCDPrintString_PARM_2 + 2),#0x80
+	mov	dpl,#0x00
+	lcall	_LCDPrintString
+;	src/main.c:54: LCDPrintString(SECOND_LINE, "Jurnal IT");
+	mov	_LCDPrintString_PARM_2,#___str_2
+	mov	(_LCDPrintString_PARM_2 + 1),#(___str_2 >> 8)
+	mov	(_LCDPrintString_PARM_2 + 2),#0x80
+	mov	dpl,#0x01
+;	src/main.c:55: }
+	ljmp	_LCDPrintString
+;------------------------------------------------------------
+;Allocation info for local variables in function 'toggleLed'
+;------------------------------------------------------------
+;	src/main.c:57: void toggleLed(){
+;	-----------------------------------------
+;	 function toggleLed
+;	-----------------------------------------
+_toggleLed:
+;	src/main.c:58: if (!P0_0){
+	jb	_P0_0,00102$
+;	src/main.c:59: P0_0 = 1;
+;	assignBit
+	setb	_P0_0
+	ret
+00102$:
+;	src/main.c:61: P0_0 = 0;
+;	assignBit
+	clr	_P0_0
+;	src/main.c:63: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
+	.area CONST   (CODE)
+___str_0:
+	.ascii "Received : "
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_1:
+	.ascii "Faiz Ainur Rofiq"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_2:
+	.ascii "Jurnal IT"
+	.db 0x00
+	.area CSEG    (CODE)
 	.area XINIT   (CODE)
 	.area CABS    (ABS,CODE)

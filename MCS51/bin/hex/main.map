@@ -11,7 +11,6 @@ C:   00000000  l_BIT_BANK
 C:   00000000  l_BSEG                          
 C:   00000000  l_BSEG_BYTES                    
 C:   00000000  l_CABS                          
-C:   00000000  l_CONST                         
 C:   00000000  l_GSINIT                        
 C:   00000000  l_GSINIT1                       
 C:   00000000  l_GSINIT5                       
@@ -57,6 +56,7 @@ C:   00000010  s_REG_BANK_2
 C:   00000013  s_GSINIT3                       
 C:   00000018  s_BIT_BANK                      
 C:   00000018  s_REG_BANK_3                    
+C:   00000020  s_BSEG_BYTES                    
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
@@ -66,23 +66,23 @@ CABS                                00000000    00000000 =           0. bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00000020  s_BSEG_BYTES                    
 C:   00000020  s__CODE                         
 C:   00000022  l_GSINIT3                       
+C:   00000027  l_CONST                         
 C:   0000002A  l_GSINIT4                       
 C:   00000035  s_GSINIT4                       
-C:   0000003A  s_OSEG                          
-C:   00000045  s_SSEG                          
+C:   0000004A  s_OSEG                          
+C:   00000055  s_SSEG                          
 C:   0000005F  s_GSFINAL                       
 C:   0000005F  s_GSINIT                        
 C:   0000005F  s_GSINIT5                       
 C:   00000062  s_CSEG                          
 C:   00000080  l_DSEG                          
-C:   000000BB  l_SSEG                          
+C:   000000AB  l_SSEG                          
 C:   00000100  l_IRAM                          
-C:   00000574  l_CSEG                          
-C:   000005D6  s_CONST                         
-C:   000005D6  s_XINIT                         
+C:   000005D6  l_CSEG                          
+C:   00000638  s_CONST                         
+C:   0000065F  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -266,39 +266,39 @@ DSEG                                00000000    00000080 =         128. bytes (R
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     0000000A  _LCDPrintString_PARM_2             lcd
-     0000000D  _LCDDisplayNumber_PARM_2           lcd
-     0000000F  _LCDDisplayNumber_PARM_3           lcd
-     00000031  _itoa_PARM_2                       stdutils
-     00000034  _itoa_PARM_3                       stdutils
+     0000001A  _LCDPrintString_PARM_2             lcd
+     0000001D  _LCDDisplayNumber_PARM_2           lcd
+     0000001F  _LCDDisplayNumber_PARM_3           lcd
+     00000041  _itoa_PARM_2                       stdutils
+     00000044  _itoa_PARM_3                       stdutils
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-OSEG                                0000003A    0000000B =          11. bytes (REL,OVR)
+OSEG                                0000004A    0000000B =          11. bytes (REL,OVR)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     0000003A  __divsint_PARM_2                   _divuint
-     0000003A  __divuint_PARM_2                   _divuint
-     0000003A  __gptrput_PARM_2                   _gptrput
-     0000003A  __modsint_PARM_2                   _moduint
-     0000003A  __moduint_PARM_2                   _moduint
-     0000003A  _reverse_PARM_2                    stdutils
-     0000003C  _reverse_PARM_3                    stdutils
+     0000004A  __divsint_PARM_2                   _divuint
+     0000004A  __divuint_PARM_2                   _divuint
+     0000004A  __gptrput_PARM_2                   _gptrput
+     0000004A  __modsint_PARM_2                   _moduint
+     0000004A  __moduint_PARM_2                   _moduint
+     0000004A  _reverse_PARM_2                    stdutils
+     0000004C  _reverse_PARM_3                    stdutils
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-SSEG                                00000045    000000BB =         187. bytes (REL,OVR)
+SSEG                                00000055    000000AB =         171. bytes (REL,OVR)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00000045  __start__stack                     main
+     00000055  __start__stack                     main
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 10.
 Hexadecimal  [32-Bits]
@@ -368,38 +368,49 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00000062    00000574 =        1396. bytes (REL,CON,CODE)
+CSEG                                00000062    000005D6 =        1494. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   00000062  _main                              main
-C:   0000007E  _initPortPin                       main
-C:   00000084  _DELAY_us                          delay
-C:   00000094  _DELAY_ms                          delay
-C:   000000B2  _LCDInit                           lcd
-C:   000000CA  _LCDCmdWrite                       lcd
-C:   0000010B  _LCDDataWrite                      lcd
-C:   0000014C  _LCDPrintString                    lcd
-C:   000001AA  _LCDDisplayNumber                  lcd
-C:   000001D6  _serial_begin                      uart
-C:   00000219  _rx_char                           uart
-C:   00000222  _tx_char                           uart
-C:   0000022B  _tx_string                         uart
-C:   00000256  _rx_string                         uart
-C:   000002BC  _sendTriggerPulse                  hcsr04
-C:   000002C7  _measureDistance                   hcsr04
-C:   000002D9  _reverse                           stdutils
-C:   00000352  _itoa                              stdutils
-C:   000004AA  __gptrput                          _gptrput
-C:   000004C5  _abs                               abs
-C:   000004D2  __moduint                          _moduint
-C:   0000051F  __divuint                          _divuint
-C:   00000548  __gptrget                          _gptrget
-C:   00000564  __modsint                          _modsint
-C:   0000059A  __divsint                          _divsint
-C:   000005D2  __sdcc_external_startup            _startup
+C:   000000B9  _initPortPin                       main
+C:   000000BF  _welcomeScreen                     main
+C:   000000DD  _toggleLed                         main
+C:   000000E6  _DELAY_us                          delay
+C:   000000F6  _DELAY_ms                          delay
+C:   00000114  _LCDInit                           lcd
+C:   0000012C  _LCDCmdWrite                       lcd
+C:   0000016D  _LCDDataWrite                      lcd
+C:   000001AE  _LCDPrintString                    lcd
+C:   0000020C  _LCDDisplayNumber                  lcd
+C:   00000238  _serial_begin                      uart
+C:   0000027B  _rx_char                           uart
+C:   00000284  _tx_char                           uart
+C:   0000028D  _tx_string                         uart
+C:   000002B8  _rx_string                         uart
+C:   0000031E  _sendTriggerPulse                  hcsr04
+C:   00000329  _measureDistance                   hcsr04
+C:   0000033B  _reverse                           stdutils
+C:   000003B4  _itoa                              stdutils
+C:   0000050C  __gptrput                          _gptrput
+C:   00000527  _abs                               abs
+C:   00000534  __moduint                          _moduint
+C:   00000581  __divuint                          _divuint
+C:   000005AA  __gptrget                          _gptrget
+C:   000005C6  __modsint                          _modsint
+C:   000005FC  __divsint                          _divsint
+C:   00000634  __sdcc_external_startup            _startup
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 17.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+CONST                               00000638    00000027 =          39. bytes (REL,CON,CODE)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00 + NoICE + sdld,  page 18.
 
 Files Linked                              [ module(s) ]
 
@@ -440,7 +451,7 @@ Libraries Linked                          [ object file ]
 /usr/local/bin/../share/sdcc/lib/small/libsdcc.lib
                                           [ _startup.rel ]
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 18.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
 
 User Base Address Definitions
 

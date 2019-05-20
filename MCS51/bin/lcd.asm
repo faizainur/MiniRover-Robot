@@ -408,15 +408,15 @@ _LCDCmdWrite:
 ;	src/libs/lcd.c:19: EN = HIGH;
 ;	assignBit
 	setb	_EN
-;	src/libs/lcd.c:20: DELAY_us(1000);
-	mov	dptr,#0x03e8
+;	src/libs/lcd.c:20: DELAY_us(10);
+	mov	dptr,#0x000a
 	push	ar7
 	lcall	_DELAY_us
 ;	src/libs/lcd.c:21: EN = LOW;
 ;	assignBit
 	clr	_EN
-;	src/libs/lcd.c:23: DELAY_us(10000);
-	mov	dptr,#0x2710
+;	src/libs/lcd.c:23: DELAY_us(200);
+	mov	dptr,#0x00c8
 	lcall	_DELAY_us
 	pop	ar7
 ;	src/libs/lcd.c:25: LCDDatabus = ((cmd<<4) & 0xF0);
@@ -436,14 +436,14 @@ _LCDCmdWrite:
 ;	src/libs/lcd.c:28: EN = HIGH;
 ;	assignBit
 	setb	_EN
-;	src/libs/lcd.c:29: DELAY_us(1000);
-	mov	dptr,#0x03e8
+;	src/libs/lcd.c:29: DELAY_us(10);
+	mov	dptr,#0x000a
 	lcall	_DELAY_us
 ;	src/libs/lcd.c:30: EN = LOW;
 ;	assignBit
 	clr	_EN
-;	src/libs/lcd.c:32: DELAY_us(10000);
-	mov	dptr,#0x2710
+;	src/libs/lcd.c:32: DELAY_us(200);
+	mov	dptr,#0x00c8
 	lcall	_DELAY_us
 ;	src/libs/lcd.c:33: return 0;
 	mov	dptr,#0x0000
@@ -473,15 +473,15 @@ _LCDDataWrite:
 ;	src/libs/lcd.c:41: EN = HIGH;
 ;	assignBit
 	setb	_EN
-;	src/libs/lcd.c:42: DELAY_us(1000);
-	mov	dptr,#0x03e8
+;	src/libs/lcd.c:42: DELAY_us(10);
+	mov	dptr,#0x000a
 	push	ar7
 	lcall	_DELAY_us
 ;	src/libs/lcd.c:43: EN = LOW;
 ;	assignBit
 	clr	_EN
-;	src/libs/lcd.c:45: DELAY_us(10000);
-	mov	dptr,#0x2710
+;	src/libs/lcd.c:45: DELAY_us(200);
+	mov	dptr,#0x00c8
 	lcall	_DELAY_us
 	pop	ar7
 ;	src/libs/lcd.c:47: LCDDatabus = ((data<<4) & 0xF0);
@@ -501,14 +501,14 @@ _LCDDataWrite:
 ;	src/libs/lcd.c:50: EN = HIGH;
 ;	assignBit
 	setb	_EN
-;	src/libs/lcd.c:51: DELAY_us(1000);
-	mov	dptr,#0x03e8
+;	src/libs/lcd.c:51: DELAY_us(10);
+	mov	dptr,#0x000a
 	lcall	_DELAY_us
 ;	src/libs/lcd.c:52: EN = LOW;
 ;	assignBit
 	clr	_EN
-;	src/libs/lcd.c:54: DELAY_us(10000);
-	mov	dptr,#0x2710
+;	src/libs/lcd.c:54: DELAY_us(200);
+	mov	dptr,#0x00c8
 	lcall	_DELAY_us
 ;	src/libs/lcd.c:55: return 0;
 	mov	dptr,#0x0000
